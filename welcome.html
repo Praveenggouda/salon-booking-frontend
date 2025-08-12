@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Booking Confirmation</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #f4f6f8, #e9eff5);
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      color: #333;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+      border-radius: 12px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-animation {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 20px;
+    }
+
+    .checkmark {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: block;
+      stroke-width: 2;
+      stroke: #4BB543;
+      stroke-miterlimit: 10;
+      margin: 0 auto;
+      box-shadow: inset 0px 0px 0px #4BB543;
+      animation: fill .4s ease-in-out .4s forwards, scale .3s ease-in-out .9s both;
+    }
+
+    .checkmark__check {
+      transform-origin: 50% 50%;
+      stroke-dasharray: 48;
+      stroke-dashoffset: 48;
+      animation: stroke 0.5s ease-in-out 0.8s forwards;
+    }
+
+    @keyframes stroke {
+      100% { stroke-dashoffset: 0; }
+    }
+
+    @keyframes scale {
+      0%, 100% { transform: none; }
+      50% { transform: scale(1.1); }
+    }
+
+    @keyframes fill {
+      100% { box-shadow: inset 0px 0px 0px 30px #4BB543; }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h2 {
+      font-size: 2rem;
+      color: #1f2937;
+      margin: 15px 0 5px;
+    }
+
+    .home-icon {
+      text-decoration: none;
+      color: #374151;
+      transition: color 0.3s ease, transform 0.2s ease;
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 1.2rem;
+    }
+
+    .home-icon:hover {
+      color: #007bff;
+      transform: scale(1.15);
+    }
+
+    .details {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      line-height: 1.8;
+      font-size: 1rem;
+    }
+
+    .details p {
+      margin: 10px 0;
+    }
+
+    .details strong {
+      color: #111827;
+    }
+
+    button {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 12px 22px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+      body {
+        max-width: 100% !important;
+        margin: 0 !important;
+        padding: 10px !important;
+        border-radius: 0;
+        box-shadow: none;
+      }
+
+      .header {
+        padding-top: 20px;
+      }
+
+      .home-icon {
+        top: 15px;
+        right: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="index.html" class="home-icon" title="Home">
+    <i class="fas fa-home"></i>
+  </a>
+
+  <div class="success-animation">
+    <svg class="checkmark" viewBox="0 0 52 52">
+      <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+      <path class="checkmark__check" fill="none" d="M14 27l7 7 16-16"/>
+    </svg>
+  </div>
+
+  <div class="header">
+    <h2>Booking Successful!</h2>
+    <p style="color: #6b7280;">Your appointment has been confirmed.</p>
+  </div>
+
+  <div class="details" id="bookingDetails">
+    <p><strong>Salon Name:</strong> <span id="salonName"></span></p>
+    <p><strong>Staff:</strong> <span id="staffName"></span></p>
+    <p><strong>Date:</strong> <span id="bookingDate"></span></p>
+    <p><strong>Time:</strong> <span id="bookingTime"></span></p>
+    <p><strong>User Name:</strong> <span id="userName"></span></p>
+    <p><strong>User Email:</strong> <span id="userEmail"></span></p>
+  </div>
+
+  <button onclick="downloadPDF()">Download Receipt (PDF)</button>
+
+  <script>
+    const booking = JSON.parse(localStorage.getItem('lastBooking'));
+    if (!booking) {
+      alert('No booking found!');
+      window.location.href = 'index.html';
+    }
+
+    document.getElementById('salonName').textContent = booking.salon_name;
+    document.getElementById('staffName').textContent = booking.staff;
+    document.getElementById('bookingDate').textContent = booking.booking_date;
+    document.getElementById('bookingTime').textContent = booking.slot_time;
+    document.getElementById('userName').textContent = booking.user_name;
+    document.getElementById('userEmail').textContent = booking.user_email;
+
+    function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text("Salon Booking Receipt", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Salon Name: ${booking.salon_name}`, 20, 40);
+      doc.text(`Staff: ${booking.staff}`, 20, 50);
+      doc.text(`Date: ${booking.booking_date}`, 20, 60);
+      doc.text(`Time: ${booking.slot_time}`, 20, 70);
+      doc.text(`User Name: ${booking.user_name}`, 20, 80);
+      doc.text(`User Email: ${booking.user_email}`, 20, 90);
+      doc.save("Booking_Receipt.pdf");
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salon Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background-color: white;
+      box-shadow: 0 0 12px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      overflow: hidden;
+      padding: 2rem;
+    }
+    .salon-header {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    .salon-header img {
+      width: 200px;
+      height: 200px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .salon-header h2 {
+      margin: 0;
+      font-size: 28px;
+      color: #333;
+    }
+    .info-section {
+      margin-bottom: 20px;
+    }
+    .info-section h3 {
+      margin-bottom: 8px;
+      color: #444;
+      font-size: 20px;
+    }
+    .info-section p, .info-section ul {
+      margin: 0 0 10px;
+      color: #555;
+    }
+    .info-section ul {
+      padding-left: 20px;
+    }
+    .gallery {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    .gallery img {
+      width: 160px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+    .book-btn {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    .book-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="salonDetailsContainer">
+    <!-- Salon details will be loaded here -->
+  </div>
+
+  <script>
+    async function loadSalonDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const salonId = urlParams.get("salonId");
+
+      if (!salonId) {
+        document.getElementById("salonDetailsContainer").innerHTML = "<p>Invalid salon ID</p>";
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/salon-details?salonId=${salonId}`);
+        const salon = await response.json();
+
+        const container = document.getElementById("salonDetailsContainer");
+
+        container.innerHTML = `
+          <div class="salon-header">
+            <img src="/uploads/${salon.photoURL}" alt="${salon.salonName}">
+            <div>
+              <h2>${salon.salonName}</h2>
+              <p><strong>Location:</strong> ${salon.location}</p>
+              <p><strong>Price Range:</strong> ₹${salon.priceRange}</p>
+              <p><strong>Rating:</strong> ${salon.rating} ⭐</p>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Description</h3>
+            <p>${salon.description}</p>
+          </div>
+
+          <div class="info-section">
+            <h3>Gallery</h3>
+            <div class="gallery">
+              ${salon.photos.map(photo => `<img src="/uploads/${photo}" alt="Salon Photo">`).join("")}
+            </div>
+          </div>
+
+          <div class="info-section">
+            <h3>Services</h3>
+            <ul>${salon.services.map(service => `<li>${service}</li>`).join("")}</ul>
+          </div>
+
+          <div class="info-section">
+            <h3>Staff</h3>
+            <ul>${salon.staffs.map(staff => `<li>${staff}</li>`).join("")}</ul>
+          </div>
+
+          <button class="book-btn" onclick="alert('Booking process will come here')">Book Now</button>
+        `;
+      } catch (err) {
+        console.error(err);
+        document.getElementById("salonDetailsContainer").innerHTML = "<p>Something went wrong loading salon details.</p>";
+      }
+    }
+
+    loadSalonDetails();
+  </script>
+</body>
+</html>

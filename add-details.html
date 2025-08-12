@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Salon Owner - Add Full Details</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: #f7f8fc;
+      margin: 0;
+      padding: 40px;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .step {
+      padding: 10px 16px;
+      border-radius: 20px;
+      background-color: #e0e7ff;
+      color: #4f46e5;
+      font-weight: 600;
+    }
+
+    .step.active {
+      background-color: #4f46e5;
+      color: white;
+    }
+
+    form {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 700px;
+      width: 100%;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    form h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      font-weight: 600;
+    }
+
+    input, textarea, select {
+      padding: 12px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 60px;
+    }
+
+    input[type="file"] {
+      border: none;
+    }
+
+    .half-width {
+      width: 48%;
+    }
+
+    .flex-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 4%;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: #4a54e1;
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #353cc1;
+    }
+
+    #message {
+      text-align: center;
+      font-weight: 600;
+    }
+
+    #message.success { color: green; }
+    #message.error { color: red; }
+
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4BB543;
+      color: white;
+      padding: 14px 22px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      z-index: 1000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #loaderOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .loader {
+      border: 6px solid #f3f3f3;
+      border-top: 6px solid #4f46e5;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .amenities-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 10px 0;
+    }
+
+    .amenities-group label {
+      background-color: #eef2ff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 500;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .amenities-group label:hover {
+      background-color: #c7d2fe;
+    }
+
+    .amenities-group input[type="checkbox"] {
+      accent-color: #4f46e5;
+      transform: scale(1.1);
+    }
+.staff-entry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.staff-entry input[type="text"], .staff-entry input[type="file"] {
+  flex: 1 1 45%;
+}
+.staff-entry button {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.5);
+}
+.modal-content {
+  background-color: #fff;
+  margin: 8% auto;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+.close {
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.day-hours {
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 0;
+  gap: 10px;
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- Step Progress -->
+  <div class="step-indicator">
+    <div class="step active">Step 1: Basic Info</div>
+    <div class="step active">Step 2: Add Full Details</div>
+    <div class="step">Step 3: Ready!</div>
+  </div>
+
+  <!-- Form -->
+  <form id="detailsForm" enctype="multipart/form-data">
+    <h2>Add Full Salon Details</h2>
+
+    <label>Salon Name</label>
+    <input type="text" name="salonName" placeholder="Salon Name" required />
+
+<label>Full Location / Address</label>
+    <textarea name="fullLocation" placeholder="Complete address" required></textarea>
+
+<label>Pincode</label>
+<input type="text" id="pincode" name="pincode" placeholder="Enter 6-digit PIN" maxlength="6" required />
+
+<select name="city" id="city" required>
+  <option value="">Select City</option>
+</select>
+
+<select name="state" id="state" required>
+  <option value="">Select State</option>
+</select>
+
+
+    <label>Salon Description</label>
+    <textarea name="description" placeholder="Describe your salon (ambiance, specialties, etc.)" required></textarea>
+
+    <label>Upload 5 Photos of Salon</label>
+    <input type="file" name="photos" accept="image/*" multiple required />
+
+<label>Services Offered</label>
+<div>
+  <label>Add Service & Price</label>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+    <input type="text" id="serviceName" placeholder="Service Name (e.g. Haircut)" />
+    <input type="number" id="servicePrice" placeholder="Price (e.g. 300)" />
+    <button type="button" onclick="addService()">Add</button>
+  </div>
+</div>
+
+<!-- Services will show here -->
+<ul id="serviceList" style="list-style: none; padding-left: 0;"></ul>
+
+<!-- Hidden input to store service data for backend -->
+<input type="hidden" name="services" id="servicesInput" />
+
+<div>
+  <label>Add Staff</label>
+  <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 10px;">
+    <input type="text" id="staffName" placeholder="Staff Name" />
+    <button type="button" onclick="addStaff()">Add</button>
+  </div>
+  <ul id="staffList"></ul>
+  <input type="hidden" id="staffsInput" name="staffs" />
+</div>
+
+
+<!-- Staff list display -->
+<ul id="staffList" style="list-style: none; padding-left: 0;"></ul>
+
+<!-- Hidden input for backend (optional JSON/string) -->
+<input type="hidden" name="staffs" id="staffsInput" />
+
+
+
+    <div class="flex-row">
+      <div class="half-width">
+        <label>Contact Phone</label>
+        <input type="tel" name="phone" placeholder="+1234567890" required />
+      </div>
+      <div class="half-width">
+        <label>Contact Email</label>
+        <input type="email" name="email" placeholder="email@salon.com" required />
+      </div>
+    </div>
+
+
+
+<!-- Set Hours Button -->
+<label>Operating Hours</label>
+<button type="button" onclick="openPopup()">Set Operating Hours</button>
+
+<!-- Display selected summary -->
+<div id="hoursSummary" style="margin-top: 10px; font-weight: 500; color: #444;"></div>
+
+<!-- Hidden input to submit with form -->
+<input type="hidden" name="hours" id="operatingHoursInput">
+      <!-- Repeat for all days -->
+    <div id="hoursPopup" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h3>Select Operating Hours</h3>
+    <div id="hoursContainer">
+      <!-- Loop for each day -->
+      <div class="day-hours">
+        <label>Monday:</label>
+        <input type="time" class="open-time" data-day="Mon">
+        to <input type="time" class="close-time" data-day="Mon">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Mon"> Closed</label>
+      </div>
+      <div class="day-hours">
+        <label>Tuesday:</label>
+        <input type="time" class="open-time" data-day="Tue">
+        to <input type="time" class="close-time" data-day="Tue">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Tue"> Closed</label>
+      </div>
+      <div class="day-hours">
+        <label>Wednesday:</label>
+        <input type="time" class="open-time" data-day="Wed">
+        to <input type="time" class="close-time" data-day="Wed">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Wed"> Closed</label>
+      </div>
+      <div class="day-hours">
+        <label>Thursday:</label>
+        <input type="time" class="open-time" data-day="Thu">
+        to <input type="time" class="close-time" data-day="Thu">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Thu"> Closed</label>
+      </div>
+      <div class="day-hours">
+        <label>Friday:</label>
+        <input type="time" class="open-time" data-day="Fri">
+        to <input type="time" class="close-time" data-day="Fri">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Fri"> Closed</label>
+      </div>
+      <div class="day-hours">
+        <label>Saturday:</label>
+        <input type="time" class="open-time" data-day="Sat">
+        to <input type="time" class="close-time" data-day="Sat">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Sat"> Closed</label>
+      </div>
+      <div class="day-hours">
+        <label>Sunday:</label>
+        <input type="time" class="open-time" data-day="Sun">
+        to <input type="time" class="close-time" data-day="Sun">
+        <label><input type="checkbox" class="closed-checkbox" data-day="Sun"> Closed</label>
+      </div>
+    </div>
+    <br />
+    <button type="button" onclick="submitHours()">Done</button>
+  </div>
+</div>
+
+
+    
+
+    <label>Social Media Links (optional)</label>
+    <input type="url" name="instagram" placeholder="Instagram URL" />
+
+    <button type="submit">Save Details</button>
+    <div id="message"></div>
+  </form>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="successToast">Salon details saved successfully!</div>
+
+  <!-- Loader Overlay -->
+  <div id="loaderOverlay">
+    <div class="loader"></div>
+  </div>
+
+ <script>
+window.onload = () => {
+  // DOM Elements
+  const form = document.getElementById('detailsForm');
+  const message = document.getElementById('message');
+  const loader = document.getElementById('loaderOverlay');
+  const toast = document.getElementById('successToast');
+  
+  // Get salonId from URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const salonId = urlParams.get('salonId');
+
+  if (!salonId) {
+    message.textContent = "Salon ID missing in URL. Please provide ?salonId=123 in URL.";
+    message.className = "error";
+    return;
+  }
+
+  // Initialize services and staff arrays
+  const services = [];
+  const staffMembers = [];
+
+  // 🟢 Form Submission Handler
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    message.textContent = '';
+    message.className = '';
+
+    // Validate required fields before submission
+    if (!validateForm()) {
+      return;
+    }
+
+    // Create FormData object
+    const formData = new FormData(form);
+    
+    // Add essential fields
+    formData.set('salonId', salonId);
+    
+    // Set services and staff (from hidden inputs)
+    formData.set('services', document.getElementById('servicesInput').value);
+    formData.set('staffs', document.getElementById('staffsInput').value);
+    
+    // Set location fields (ensure no duplicates)
+    formData.set('pincode', document.getElementById("pincode").value.trim());
+    formData.set('city', document.getElementById("city").value.trim());
+    formData.set('state', document.getElementById("state").value.trim());
+    
+    // Set description
+    formData.set('description', document.querySelector('[name="description"]').value);
+    
+    // Set amenities (empty if not implemented)
+    formData.set('amenities', '');
+
+    loader.style.display = 'flex';
+
+    try {
+      const res = await fetch('/api/add-salon-details', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      loader.style.display = 'none';
+
+      if (res.ok && data.success) {
+        handleSuccess(data);
+      } else {
+        handleError(data);
+      }
+    } catch (err) {
+      handleNetworkError(err);
+    }
+  });
+
+  // Form validation function
+  function validateForm() {
+    const requiredFields = [
+      'salonName', 'fullLocation', 'pincode', 
+      'city', 'state', 'description', 'phone', 'email'
+    ];
+    
+    for (const field of requiredFields) {
+      const value = form.elements[field]?.value.trim();
+      if (!value) {
+        message.textContent = `Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field`;
+        message.className = 'error';
+        return false;
+      }
+    }
+    
+    // Validate services
+    if (services.length === 0) {
+      message.textContent = 'Please add at least one service';
+      message.className = 'error';
+      return false;
+    }
+    
+    // Validate staff
+    if (staffMembers.length === 0) {
+      message.textContent = 'Please add at least one staff member';
+      message.className = 'error';
+      return false;
+    }
+    
+    // Validate photos
+    const photosInput = form.elements['photos'];
+    if (!photosInput.files || photosInput.files.length === 0) {
+      message.textContent = 'Please upload at least one photo';
+      message.className = 'error';
+      return false;
+    }
+    
+    return true;
+  }
+
+  // Success handler
+  function handleSuccess(data) {
+    showToast("Salon details added successfully!");
+    sessionStorage.setItem('newSalonData', JSON.stringify({
+      salonName: form.elements['salonName'].value,
+      fullLocation: form.elements['fullLocation'].value,
+      services: form.elements['services'].value,
+      staffs: form.elements['staffs'].value,
+      phone: form.elements['phone'].value,
+      email: form.elements['email'].value,
+    }));
+    sessionStorage.setItem('fromAddDetails', 'true');
+    setTimeout(() => window.location.href = 'admin-panel.html', 1800);
+  }
+
+  // Error handler
+  function handleError(data) {
+    if (data.message.includes('ER_WRONG_VALUE_COUNT_ON_ROW')) {
+      message.textContent = 'Data format error. Please check all fields.';
+    } else {
+      message.textContent = data.message || 'Something went wrong.';
+    }
+    message.className = 'error';
+  }
+
+  // Network error handler
+  function handleNetworkError(err) {
+    console.error(err);
+    loader.style.display = 'none';
+    message.textContent = 'Server error. Try again later.';
+    message.className = 'error';
+  }
+
+  // Toast notification
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 3000);
+  }
+
+  // 📍 Auto-fill City & State from Pincode
+  document.getElementById("pincode").addEventListener("blur", async function() {
+    const pincode = this.value.trim();
+    const cityField = document.getElementById("city");
+    const stateField = document.getElementById("state");
+
+    if (pincode.length === 6 && /^\d+$/.test(pincode)) {
+      try {
+        const res = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+        const data = await res.json();
+
+        if (data[0].Status === "Success") {
+          const postOffice = data[0].PostOffice[0];
+          cityField.innerHTML = `<option value="${postOffice.District}" selected>${postOffice.District}</option>`;
+          stateField.innerHTML = `<option value="${postOffice.State}" selected>${postOffice.State}</option>`;
+        } else {
+          cityField.innerHTML = `<option value="">Invalid PIN</option>`;
+          stateField.innerHTML = `<option value="">Invalid PIN</option>`;
+        }
+      } catch (err) {
+        console.error("Error fetching pincode info", err);
+      }
+    }
+  });
+
+  // 💇‍♂️ Services Management
+  window.addService = () => {
+    const name = document.getElementById("serviceName").value.trim();
+    const price = document.getElementById("servicePrice").value.trim();
+
+    if (name && price) {
+      services.push(`${name}:${price}`);
+      updateServiceList();
+      document.getElementById("serviceName").value = '';
+      document.getElementById("servicePrice").value = '';
+    } else {
+      message.textContent = "Please enter both service name and price";
+      message.className = "error";
+    }
+  };
+
+  window.deleteService = (index) => {
+    services.splice(index, 1);
+    updateServiceList();
+  };
+
+  function updateServiceList() {
+    const list = document.getElementById("serviceList");
+    list.innerHTML = "";
+    services.forEach((service, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `${service}
+        <button type="button" class="delete-btn" onclick="deleteService(${index})">❌</button>`;
+      list.appendChild(li);
+    });
+    document.getElementById("servicesInput").value = services.join(",");
+  }
+
+  // 👨‍🔧 Staff Management
+  window.addStaff = () => {
+    const name = document.getElementById("staffName").value.trim();
+    if (!name) {
+      message.textContent = "Please enter staff name";
+      message.className = "error";
+      return;
+    }
+
+    staffMembers.push(name);
+    updateStaffList();
+    document.getElementById("staffName").value = '';
+  };
+
+  window.deleteStaff = (index) => {
+    staffMembers.splice(index, 1);
+    updateStaffList();
+  };
+
+  function updateStaffList() {
+    const list = document.getElementById("staffList");
+    list.innerHTML = "";
+    staffMembers.forEach((name, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `
+        <div class="staff-item">
+          <span>${name}</span>
+          <button type="button" class="delete-btn" onclick="deleteStaff(${index})">❌</button>
+        </div>`;
+      list.appendChild(li);
+    });
+    document.getElementById("staffsInput").value = staffMembers.join(',');
+  }
+
+  // 🕒 Operating Hours Management
+  window.openPopup = () => {
+    document.getElementById("hoursPopup").style.display = "block";
+  };
+
+  window.closePopup = () => {
+    document.getElementById("hoursPopup").style.display = "none";
+  };
+
+  // Enable/disable time inputs when closed checkbox is checked
+  document.querySelectorAll('.closed-checkbox').forEach(checkbox => {
+    checkbox.addEventListener('change', function() {
+      const day = this.getAttribute('data-day');
+      const openInput = document.querySelector(`.open-time[data-day="${day}"]`);
+      const closeInput = document.querySelector(`.close-time[data-day="${day}"]`);
+      
+      openInput.disabled = this.checked;
+      closeInput.disabled = this.checked;
+      
+      if (this.checked) {
+        openInput.value = "";
+        closeInput.value = "";
+      }
+    });
+  });
+
+  window.submitHours = () => {
+    const summaryList = [];
+    const openTimes = document.querySelectorAll(".open-time");
+    const closeTimes = document.querySelectorAll(".close-time");
+    const closedBoxes = document.querySelectorAll(".closed-checkbox");
+
+    for (let i = 0; i < openTimes.length; i++) {
+      const day = openTimes[i].getAttribute("data-day");
+      const isClosed = closedBoxes[i].checked;
+
+      if (isClosed) {
+        summaryList.push(`${day}: Closed`);
+      } else {
+        const open = openTimes[i].value;
+        const close = closeTimes[i].value;
+        if (open && close) {
+          summaryList.push(`${day}: ${open}–${close}`);
+        }
+      }
+    }
+
+    const summary = summaryList.join("; ");
+    document.getElementById("hoursSummary").textContent = summary;
+    document.getElementById("operatingHoursInput").value = summary;
+    closePopup();
+  };
+};
+</script>
+
+
+
+</body>
+</html>

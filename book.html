@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Book Your Salon Appointment</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 30px;
+      color: #fff;
+    }
+
+    .container {
+      display: flex;
+      gap: 30px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .staff-panel {
+      background: white;
+      color: #333;
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+      min-width: 200px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .staff-panel i {
+      font-size: 40px;
+      margin-bottom: 10px;
+    }
+
+    .staff-panel p {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .booking-panel {
+      background: linear-gradient(145deg, #1e3c72, #2a5298);
+      padding: 35px;
+      border-radius: 20px;
+      color: white;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .booking-panel h2 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .booking-panel input[type="date"] {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+
+    #timeSlots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    #timeSlots button.slot-button {
+      padding: 10px 15px;
+      margin: 8px;
+      background: #f1f1f1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #timeSlots button.selected {
+      background-color: #28a745;
+      color: white;
+      font-weight: bold;
+    }
+
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .action-buttons button {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      background: white;
+      color: #2a5298;
+    }
+
+    #msg {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: bold;
+      min-height: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left: Staff Panel -->
+    <div class="staff-panel">
+      <i class="fa-solid fa-user"></i>
+      <p id="staffName">Loading...</p>
+    </div>
+
+    <!-- Right: Booking Panel -->
+    <div class="booking-panel">
+      <h2 id="salonNameDisplay">Loading Salon...</h2>
+      <form id="bookingForm">
+        <label for="date">Pick a Date:</label>
+        <input type="date" id="date" required />
+
+        <div id="timeSlots">
+          <!-- Time slots will be loaded here -->
+        </div>
+
+        <div class="action-buttons">
+          <button type="button" onclick="history.back()">Back</button>
+          <button type="submit">Continue</button>
+        </div>
+        <div id="msg"></div>
+      </form>
+    </div>
+  </div>
+
+
+
+<script>
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (!user) {
+    alert('Please login first.');
+    window.location.href = 'login.html';
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const salonId = urlParams.get('salonId');
+  const staffParam = urlParams.get('staff');
+  const salonName = urlParams.get('salonName');
+
+  // Set initial salon name from URL
+  const salonNameDisplay = document.getElementById('salonNameDisplay');
+  salonNameDisplay.textContent = decodeURIComponent(salonName) || "Loading salon...";
+
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+  document.getElementById('staffName').textContent = staffParam;
+
+  const timeSlotsEl = document.getElementById('timeSlots');
+  let selectedSlot = '';
+
+  // Only fetch salon details if name wasn't in URL
+  if (!salonName) {
+    fetch(`http://localhost:3000/api/salon-details/${salonId}`)
+      .then(res => res.json())
+      .then(data => {
+        salonNameDisplay.textContent = data.salonName || "Salon not found";
+      })
+      .catch(() => {
+        salonNameDisplay.textContent = 'Error loading salon';
+      });
+  }
+
+  // Rest of your existing code (generateTimeSlots, bookingForm, etc.)
+  async function generateTimeSlots() {
+    timeSlotsEl.innerHTML = 'Loading...';
+    selectedSlot = '';
+
+    try {
+      const res = await fetch('http://localhost:3000/api/available-slots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          salon_id: salonId,
+          booking_date: dateInput.value,
+          staff: staffParam
+        }),
+      });
+
+      const data = await res.json();
+      timeSlotsEl.innerHTML = '';
+
+      if (!data.availableSlots || data.availableSlots.length === 0) {
+        timeSlotsEl.innerHTML = '<p style="color:red;">No slots available</p>';
+        return;
+      }
+
+      const now = new Date();
+      const selectedDate = new Date(dateInput.value);
+      const isToday = now.toDateString() === selectedDate.toDateString();
+
+      let futureSlots = data.availableSlots;
+
+      if (isToday) {
+        const currentMinutes = now.getHours() * 60 + now.getMinutes();
+        futureSlots = data.availableSlots.filter(slot => {
+          const [hour, min] = slot.split(':').map(Number);
+          const slotMinutes = hour * 60 + min;
+          return slotMinutes > currentMinutes;
+        });
+      }
+
+      if (futureSlots.length === 0) {
+        timeSlotsEl.innerHTML = '<p style="color:red;">No future slots available</p>';
+        return;
+      }
+
+      futureSlots.forEach(slot => {
+        const formatted = convertToAmPm(slot);
+        const btn = document.createElement('button');
+        btn.type = "button";
+        btn.textContent = formatted;
+        btn.classList.add('slot-button');
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#timeSlots button').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          selectedSlot = slot;
+        });
+        timeSlotsEl.appendChild(btn);
+      });
+
+    } catch (err) {
+      console.error(err);
+      timeSlotsEl.innerHTML = '<p style="color:red;">Error loading slots</p>';
+    }
+  }
+
+  dateInput.addEventListener('change', generateTimeSlots);
+
+  document.getElementById('bookingForm').addEventListener('submit', async e => {
+    e.preventDefault();
+
+    const msgEl = document.getElementById('msg');
+    const booking_date = dateInput.value;
+    const slot_time = selectedSlot;
+
+    if (!booking_date || !slot_time) {
+      msgEl.style.color = 'yellow';
+      msgEl.textContent = 'Please select a date and time slot.';
+      return;
+    }
+
+    msgEl.style.color = 'white';
+    msgEl.textContent = 'Creating Razorpay order...';
+
+    try {
+      const razorOrderRes = await fetch('http://localhost:3000/api/create-order', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: 100 })
+      });
+
+      const { order } = await razorOrderRes.json();
+
+      const options = {
+        key: "rzp_test_R29Ppjp3FeAogH",
+        amount: order.amount,
+        currency: order.currency,
+        name: "EasySalonBooking",
+        description: "Salon Appointment",
+        order_id: order.id,
+        handler: async function(response) {
+          const verifyRes = await fetch('http://localhost:3000/api/verify-payment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              razorpay_payment_id: response.razorpay_payment_id,
+              razorpay_order_id: response.razorpay_order_id,
+              razorpay_signature: response.razorpay_signature
+            }),
+          });
+
+          const verifyData = await verifyRes.json();
+
+          if (verifyData.success) {
+            const bookingData = {
+              salon_id: salonId,
+              salon_name: salonNameDisplay.textContent,
+              staff: staffParam,
+              booking_date,
+              slot_time,
+              user_email: user.email,
+              user_name: user.name,
+              payment_id: response.razorpay_payment_id
+            };
+
+            const bookingRes = await fetch('http://localhost:3000/api/book-salon', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(bookingData),
+            });
+
+            const result = await bookingRes.json();
+
+            if (bookingRes.ok) {
+              msgEl.style.color = 'lightgreen';
+              msgEl.textContent = 'Booking & payment successful!';
+              setTimeout(() => {
+                localStorage.setItem('lastBooking', JSON.stringify(bookingData));
+                window.location.href = 'welcome.html';
+              }, 2000);
+            } else {
+              msgEl.style.color = 'orange';
+              msgEl.textContent = result.error || 'Booking failed.';
+            }
+          } else {
+            msgEl.style.color = 'red';
+            msgEl.textContent = 'Payment verification failed.';
+          }
+        },
+        prefill: {
+          name: user.name,
+          email: user.email
+        },
+        theme: { color: "#3399cc" }
+      };
+
+      const rzp = new Razorpay(options);
+      rzp.open();
+
+    } catch (error) {
+      console.error(error);
+      msgEl.style.color = 'red';
+      msgEl.textContent = 'Payment failed. Try again.';
+    }
+  });
+
+  function convertToAmPm(time24) {
+    let [hour, minute] = time24.split(':').map(Number);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    hour = hour % 12 || 12;
+    return `${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+  }
+</script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+</body>
+</html>

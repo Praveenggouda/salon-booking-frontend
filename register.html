@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | EasySalonBooking</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+ <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+  * {
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background: linear-gradient(to right, #f5faff, #e0f0ff);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .register-box {
+    background-color: #ffffff;
+    padding: 32px 24px;
+    border-radius: 16px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 420px;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .logo {
+    text-align: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: #3b82f6;
+  }
+
+  .logo i {
+    font-size: 24px;
+    margin-right: 6px;
+  }
+
+  h2 {
+    text-align: center;
+    color: #1e293b;
+    margin-bottom: 20px;
+    font-size: 22px;
+  }
+
+  .input-group {
+    margin-bottom: 16px;
+  }
+
+  .input-group input,
+  .input-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+    color: #1f2937;
+    transition: 0.3s;
+  }
+
+  .input-group input:focus,
+  .input-group select:focus {
+    border-color: #3b82f6;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+  }
+
+  #otpBox {
+    display: none;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #4f46e5, #3b82f6);
+    color: white;
+    font-size: 16px;
+    font-weight: 500;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s;
+    margin-top: 10px;
+  }
+
+  button:hover {
+    background: linear-gradient(to right, #4338ca, #2563eb);
+    transform: translateY(-2px);
+  }
+
+  .back-link {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 14px;
+  }
+
+  .back-link a {
+    color: #3b82f6;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link a:hover {
+    text-decoration: underline;
+  }
+
+  /* Toast Style */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background-color: #333;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    z-index: 999;
+  }
+
+  .toast.show {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast.success {
+    background-color: #22c55e;
+  }
+
+  .toast.error {
+    background-color: #ef4444;
+  }
+
+  @media (max-width: 480px) {
+    .register-box {
+      padding: 28px 16px;
+      border-radius: 0;
+      box-shadow: none;
+    }
+  }
+</style>
+
+</head>
+<body>
+  <div class="register-box">
+    <div class="logo">
+      <i class="fas fa-scissors"></i> EasySalonBooking
+    </div>
+    <h2>Register</h2>
+
+    <form id="registerForm">
+      <div class="input-group">
+        <input type="text" id="name" placeholder="Full Name" required />
+      </div>
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Email" required />
+      </div>
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Password" required />
+      </div>
+      <div class="input-group">
+        <input type="text" id="phone" placeholder="Phone" required />
+      </div>
+      <div class="input-group">
+        <select id="gender" required>
+          <option value="">Select Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="input-group" id="otpBox">
+        <input type="text" id="otp" placeholder="Enter OTP" />
+      </div>
+
+      <button type="submit">Register</button>
+      <div class="back-link">
+        Already have an account? <a href="login.html">Login here</a>
+      </div>
+    </form>
+  </div>
+
+  <!-- Toast Message -->
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const otpBox = document.getElementById('otpBox');
+    const toast = document.getElementById('toast');
+    let userData = {};
+
+    const showToast = (message, isSuccess = true) => {
+      toast.textContent = message;
+      toast.className = `toast show ${isSuccess ? 'success' : 'error'}`;
+      setTimeout(() => {
+        toast.className = 'toast';
+      }, 3000);
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const gender = document.getElementById('gender').value;
+      const otp = document.getElementById('otp').value.trim();
+
+      if (otpBox.style.display === 'block') {
+        try {
+          const res = await fetch('http://localhost:3000/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...userData, otp })
+          });
+          const data = await res.json();
+          showToast(data.message, data.success);
+
+          if (data.success) {
+            setTimeout(() => {
+              window.location.href = 'login.html';
+            }, 1500);
+          }
+        } catch {
+          showToast('Network error', false);
+        }
+        return;
+      }
+
+      userData = { name, email, password, phone, gender };
+
+      try {
+        const res = await fetch('http://localhost:3000/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(userData)
+        });
+        const data = await res.json();
+        showToast(data.message, data.success);
+
+        if (data.success) {
+          otpBox.style.display = 'block';
+        }
+      } catch {
+        showToast('Network error', false);
+      }
+    });
+  </script>
+</body>
+</html>

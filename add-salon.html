@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Salon - Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #fff);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 750px;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      color: #2d3748;
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #374151;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      background: #f9fafb;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #2563eb;
+      background-color: #fff;
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    button {
+      display: inline-block;
+      width: 100%;
+      padding: 14px;
+      background-color: #2563eb;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #1e40af;
+    }
+
+    #formMessage {
+      text-align: center;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+.step {
+  padding: 10px 18px;
+  border-radius: 30px;
+  background: #e0e7ff;
+  color: #4f46e5;
+  font-weight: 600;
+  transition: background 0.3s;
+}
+.step.active {
+  background: #4f46e5;
+  color: #fff;
+}
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 25px;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+<div class="step-indicator">
+  <div class="step active">Step 1: Basic Info</div>
+  <div class="step">Step 2: Add Full Details</div>
+  <div class="step">Step 3: Ready!</div>
+</div>
+    <h2>Add Your Salon</h2>
+    <form id="addSalonForm" enctype="multipart/form-data">
+
+      <div class="form-group">
+        <label>Owner Email</label>
+        <input type="email" name="ownerEmail" id="ownerEmail" readonly required />
+      </div>
+
+      <div class="form-group">
+        <label>Salon Name</label>
+        <input type="text" name="salonName" placeholder="e.g. Classic Cuts" required />
+      </div>
+
+      <div class="form-group">
+        <label>City</label>
+        <select name="location" required>
+          <option value="">-- Select City --</option>
+          <option value="Haliyal">Haliyal</option>
+          <option value="Alnavar">Alnavar</option>
+          <option value="Bangalore">Bangalore</option>
+          <option value="Dharwad">Dharwad</option>
+          <option value="Hubli">Hubli</option>
+          <option value="Delhi">Delhi</option>
+          <option value="Goa">Goa</option>
+          <option value="Mumbai">Mumbai</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+  <label>Price Range</label>
+  <select name="priceRange" required>
+    <option value="">-- Select Price Range --</option>
+    <option value="100-200">₹100 - ₹200</option>
+    <option value="200-300">₹200 - ₹300</option>
+    <option value="300-400">₹300 - ₹400</option>
+    <option value="400-500">₹400 - ₹500</option>
+    <option value="500-1000">₹500 - ₹1000</option>
+    <option value="1000+">₹1000 and above</option>
+  </select>
+</div>
+
+<div class="form-group">
+  <label>Rating</label>
+  <select name="rating" required>
+    <option value="">-- Select Rating --</option>
+    <option value="1">🌟</option>
+    <option value="2">🌟🌟</option>
+    <option value="3">🌟🌟🌟</option>
+    <option value="4">🌟🌟🌟🌟</option>
+    <option value="5">🌟🌟🌟🌟🌟</option>
+  </select>
+</div>
+
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea name="description" placeholder="Describe your salon..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Main Photo</label>
+        <input type="file" name="photo" accept="image/*" required />
+      </div>
+
+      <button type="submit">Next</button>
+      <div id="formMessage"></div>
+    </form>
+  </div>
+
+  <script>
+    // Auto-fill owner email from localStorage
+    const adminEmail = localStorage.getItem("adminEmail");
+    if (!adminEmail) {
+      alert("Please login first.");
+      window.location.href = "admin-login.html";
+    } else {
+      document.getElementById("ownerEmail").value = adminEmail;
+    }
+
+    const form = document.getElementById("addSalonForm");
+    const message = document.getElementById("formMessage");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      message.style.color = "#333";
+      message.textContent = "Submitting...";
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch("/admin/add-salon", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+
+ if (res.ok) {
+  message.style.color = "green";
+  message.textContent = data.message || "Salon added successfully! Redirecting...";
+
+  if (data.salonId) {
+    setTimeout(() => {
+      window.location.href = `add-details.html?salonId=${data.salonId}`;
+    }, 1500);
+  } else {
+    message.textContent = "Salon added but no salon ID returned.";
+  }
+} else {
+  message.style.color = "red";
+  message.textContent = data.message || "Failed to add salon.";
+}
+
+      } catch (err) {
+        console.error(err);
+        message.style.color = "red";
+        message.textContent = "Server error. Please try again.";
+      }
+    });
+  </script>
+
+</body>
+</html>

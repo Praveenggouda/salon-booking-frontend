@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Owner Bookings</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
+    }
+    th {
+      background: #f5f5f5;
+    }
+  </style>
+</head>
+<body>
+  <h1>Salon Owner Bookings</h1>
+  <table id="bookingsTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>User Email</th>
+        <th>User Name</th>
+        <th>Salon Name</th>
+        <th>Staff</th>
+        <th>Date</th>
+        <th>Time</th>
+        <th>Slot</th>
+        <th>Status</th>
+        <th>Created At</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    const ownerEmail = localStorage.getItem("ownerEmail"); // store email during login
+
+    async function loadBookings() {
+      if (!ownerEmail) {
+        alert("Owner email not found. Please login.");
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/owner-bookings?email=${encodeURIComponent(ownerEmail)}`);
+        const bookings = await res.json();
+
+        const tbody = document.querySelector("#bookingsTable tbody");
+        tbody.innerHTML = "";
+
+        bookings.forEach((b) => {
+          const row = `
+            <tr>
+              <td>${b.id}</td>
+              <td>${b.user_email}</td>
+              <td>${b.user_name}</td>
+              <td>${b.salon_name}</td>
+              <td>${b.staff}</td>
+              <td>${b.booking_date}</td>
+              <td>${b.booking_time}</td>
+              <td>${b.slot_time}</td>
+              <td>${b.status}</td>
+              <td>${b.created_at}</td>
+            </tr>`;
+          tbody.innerHTML += row;
+        });
+      } catch (err) {
+        console.error("Failed to load bookings:", err);
+      }
+    }
+
+    loadBookings();
+  </script>
+</body>
+</html>

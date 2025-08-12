@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f8fa;
+      padding: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+.back-btn {
+      position: relative;
+      top: 20px;
+      left: 20px;
+      padding: 10px 16px;
+      font-size: 16px;
+      background-color: #2c3e50;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 999;
+    }
+
+    .back-btn:hover {
+      background-color: #1a252f;
+    }
+    .box {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h2 {
+      color: #333;
+      margin-bottom: 15px;
+    }
+    p {
+      font-size: 16px;
+      margin: 8px 0;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+ <button onclick="goBack()" class="back-btn">
+  <i class="fas fa-arrow-left"></i> Back
+</button>
+  <div class="box">
+    <h2>🎉 Welcome to Your Salon Booking!</h2>
+    <p id="userName"></p>
+    <p id="salonName"></p>
+    <p id="bookingDate"></p>
+    <p id="bookingTime"></p>
+    <button onclick="downloadPDF()">Download PDF</button>
+  </div>
+
+  <script>
+function goBack() {
+    window.location.href = "index.html"; // replace with your actual page link
+  } 
+    const params = new URLSearchParams(window.location.search);
+    const name = params.get('name') || "Guest";
+    const salon = params.get('salon') || "Not selected";
+    const date = params.get('date') || "-";
+    const time = params.get('time') || "-";
+
+    document.getElementById('userName').innerText = "Name: " + name;
+    document.getElementById('salonName').innerText = "Salon: " + salon;
+    document.getElementById('bookingDate').innerText = "Date: " + date;
+    document.getElementById('bookingTime').innerText = "Time: " + time;
+
+    async function downloadPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+
+      doc.setFontSize(16);
+      doc.text("Salon Booking Confirmation", 20, 20);
+      doc.setFontSize(12);
+      doc.text(`Name: ${name}`, 20, 40);
+      doc.text(`Salon: ${salon}`, 20, 50);
+      doc.text(`Date: ${date}`, 20, 60);
+      doc.text(`Time: ${time}`, 20, 70);
+
+      doc.save("Booking_Details.pdf");
+    }
+  </script>
+</body>
+</html>

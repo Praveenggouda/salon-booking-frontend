@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Bookings</title>
+
+<!-- Font Awesome CDN -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<style>
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f0f2f5;
+    padding: 30px;
+    max-width: 700px;
+    margin: auto;
+  }
+  .header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .home-icon {
+    cursor: pointer;
+    font-size: 28px;
+    margin-right: 12px;
+    color: #007bff;
+  }
+  .home-icon:hover {
+    color: #0056b3;
+  }
+  h2 {
+    flex-grow: 1;
+    text-align: center;
+    margin: 0;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  }
+  th, td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  th {
+    background: #007bff;
+    color: white;
+  }
+  tr:hover {
+    background-color: #f1faff;
+  }
+  .btn {
+    padding: 6px 12px;
+    margin-right: 6px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .cancel-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  .cancel-btn:hover {
+    background-color: #b02a37;
+  }
+  .pdf-btn {
+    background-color: #28a745;
+    color: white;
+  }
+  .pdf-btn:hover {
+    background-color: #1e7e34;
+  }
+  .no-bookings {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 18px;
+    color: #555;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <i class="fa-solid fa-house home-icon" title="Go Home" id="homeIcon"></i>
+  <h2>My Bookings</h2>
+</div>
+
+<table id="bookingsTable" style="display:none;">
+  <thead>
+    <tr>
+      <th>Salon Name</th>
+      <th>Booking Date</th>
+      <th>Slot Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
+
+<p class="no-bookings" style="display:none;">No bookings found.</p>
+
+<script>
+  const homeIcon = document.getElementById('homeIcon');
+  const bookingsTable = document.getElementById('bookingsTable');
+  const tbody = bookingsTable.querySelector('tbody');
+  const noBookingMsg = document.querySelector('.no-bookings');
+
+  homeIcon.addEventListener('click', () => {
+    tbody.innerHTML = '';
+    bookingsTable.style.display = 'none';
+    noBookingMsg.style.display = 'none';
+
+    window.location.href = 'index.html';
+  });
+
+  async function fetchBookings(email) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/mybookings?email=${encodeURIComponent(email)}`);
+      if (!response.ok) throw new Error('Failed to fetch bookings');
+      return await response.json();
+    } catch (error) {
+      console.error(error);
+      alert('Could not load bookings. Please try again later.');
+      return [];
+    }
+  }
+
+  async function cancelBooking(bookingId) {
+    if (!confirm("Are you sure you want to cancel this booking?")) return;
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/cancelBooking/${bookingId}`, {
+        method: 'DELETE',
+      });
+      const result = await response.json();
+      if (response.ok) {
+        alert('Booking cancelled successfully.');
+        loadBookings();
+      } else {
+        alert('Cancellation failed: ' + (result.error || 'Unknown error'));
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to cancel booking. Try again later.');
+    }
+  }
+
+  function downloadPDF(booking) {
+    const content = `
+      <h1>Booking Details</h1>
+      <p><strong>Salon Name:</strong> ${booking.salon_name || 'Sample Salon'}</p>
+      <p><strong>Date:</strong> ${booking.booking_date}</p>
+      <p><strong>Time Slot:</strong> ${booking.slot_time}</p>
+    `;
+
+    const printWindow = window.open('', '', 'height=400,width=600');
+    printWindow.document.write('<html><head><title>Booking PDF</title></head><body>');
+    printWindow.document.write(content);
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.focus();
+    printWindow.print();
+    printWindow.close();
+  }
+
+  async function loadBookings() {
+    const email = localStorage.getItem('userEmail');
+    if (!email) {
+      alert('No user logged in. Please book a slot first.');
+      window.location.href = 'booking.html';
+      return;
+    }
+
+    const bookings = await fetchBookings(email);
+
+    if (bookings.length === 0) {
+      bookingsTable.style.display = 'none';
+      noBookingMsg.style.display = 'block';
+      return;
+    }
+
+    tbody.innerHTML = '';
+
+    bookings.forEach(bk => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${bk.salon_name || 'Sample Salon'}</td>
+        <td>${bk.booking_date}</td>
+        <td>${bk.slot_time}</td>
+        <td>
+          <button class="btn cancel-btn">Cancel</button>
+          <button class="btn pdf-btn">Download PDF</button>
+        </td>
+      `;
+
+      tr.querySelector('.cancel-btn').addEventListener('click', () => cancelBooking(bk.id));
+      tr.querySelector('.pdf-btn').addEventListener('click', () => downloadPDF(bk));
+
+      tbody.appendChild(tr);
+    });
+
+    noBookingMsg.style.display = 'none';
+    bookingsTable.style.display = 'table';
+  }
+
+  loadBookings();
+</script>
+
+</body>
+</html>

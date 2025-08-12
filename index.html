@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Easy Salon Booking</title>
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+<!-- Poppins Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<style>
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f8f9fa;
+  padding: 10px 10px;
+}
+
+.hero-section {
+  background: linear-gradient(to right, #f5faff, #e0f0ff);
+}
+
+/* Navbar */
+/* Navbar */
+.navbar {
+  background-color: #fff;
+}
+
+.navbar .nav-link {
+  color: #333;
+  font-weight: 500;
+}
+
+.navbar .nav-link:hover {
+  color: #1463b7;
+}
+.navbar-brand i {
+  color: #1463b7;
+  font-size: 1.5rem;
+}
+
+.navbar-brand {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #0b396a;
+}
+
+.navbar-nav .nav-link {
+  font-weight: 500;
+  color: #113590 !important;
+  transition: color 0.3s ease;
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+
+.navbar-nav .nav-link:hover {
+  color: #ffc107 !important;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.btn-outline-light {
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-weight: 500;
+}
+
+.btn-outline-light:hover {
+  background: #fff;
+  color: #000;
+}
+
+#profileMenu .dropdown-menu {
+margin-right: 10px;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  margin-top: 12px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  border: none;
+  min-width: 200px;
+  overflow: hidden;
+}
+
+#profileMenu:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  margin-top: 0;
+}
+
+.dropdown-menu .dropdown-item {
+  font-weight: 500;
+  padding: 10px 20px;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f1f1f1;
+  color: #000;
+}
+
+.dropdown-divider {
+  margin: 0;
+  border-color: #ddd;
+}
+.logo-marquee-wrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.logo-marquee {
+  display: flex;
+  gap: 40px;
+  animation: scrollLogos 20s linear infinite;
+  width: max-content;
+}
+
+.logo-marquee img {
+  height: 40px;
+  object-fit: contain;
+  filter: grayscale(100%);
+  transition: filter 0.3s ease;
+}
+
+.logo-marquee img:hover {
+  filter: none;
+}
+
+@keyframes scrollLogos {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+#city-section {
+  background-color: #fff;
+  padding: 60px 20px;
+}
+
+#city-section h3 {
+  font-size: 2rem;
+  color: #343a40;
+  margin-bottom: 30px;
+}
+
+#city-search {
+  display: block;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 30px auto;
+  padding: 12px 20px;
+  border: 1px solid #ced4da;
+  border-radius: 30px;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+#city-search:focus {
+  border-color: #007bff;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
+}
+
+#city-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  padding-top: 10px;
+}
+
+.city-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #f1f3f5;
+  color: #343a40;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.city-btn:hover {
+  background-color: #007bff;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 123, 255, 0.15);
+}
+
+#no-results {
+  text-align: center;
+  color: #dc3545;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.footer {
+  background: #1e293b;
+  color: #f3f4f6;
+  padding: 40px 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.footer h3,
+.footer h4 {
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.footer p,
+.footer a {
+  color: #d1d5db;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.footer a {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer a:hover {
+  color: #3b82f6;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+  color: #d1d5db;
+  font-weight: 400;
+}
+
+.footer-section ul li a:hover {
+  color: #60a5fa;
+}
+
+.footer-socials a {
+  margin-right: 12px;
+  font-size: 18px;
+  color: #d1d5db;
+  transition: color 0.3s;
+}
+
+.footer-socials a:hover {
+  color: #60a5fa;
+}
+
+.footer-bottom {
+  text-align: center;
+  margin-top: 30px;
+  padding-top: 12px;
+  border-top: 1px solid #334155;
+  font-size: 14px;
+}
+
+.footer-bottom a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+
+.footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-socials a {
+    margin: 0 8px;
+  }
+}
+/* Stats Section Styling */
+#stats {
+   background-color:white;
+  background-size: 20px 20px;
+  padding: 60px 0;
+  text-align: center;
+  position: relative;
+}
+
+#stats h2 {
+  font-size: 2.5rem;
+  color: #007bff;
+  font-weight: bold;
+  margin-bottom: 40px;
+}
+
+.stat-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 30px;
+  padding: 0 20px;
+}
+
+.stat-card {
+  background-color: #f8f9fa;
+  border-radius: 16px;
+  padding: 30px 40px;
+
+  min-width: 280px;
+  flex: 1 1 250px;
+  max-width: 320px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.stat-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 20px;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #343a40;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .stat-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.main-wrapper {
+  max-width: 1600px;
+  margin: 0 auto;
+ 
+}
+
+</style>
+ <div class="main-wrapper">
+  <!-- Navbar -->
+ <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+  <a class="navbar-brand d-flex align-items-center text-primary fw-bold fs-4" href="index.html" style="gap: 8px;">
+    <i class="fas fa-cut"></i>
+    <span>EasySalonBooking</span>
+  </a>
+
+
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+<section class="quick-actions text-center bg-light py-4">
+  <div class="btn-group flex-wrap gap-3" role="group" aria-label="Quick Actions">
+    <button type="button" class="btn btn-outline-primary px-4 py-2">
+      <i class="fas fa-calendar-plus me-1"></i> Book Appointment
+    </button>
+    <a class="btn btn-outline-primary px-4 py-2" href="admin-panel.html" id="adminLink">
+      <i class="fas fa-user-shield me-1"></i>Become a Partner
+    </a>
+    <button type="button" class="btn btn-outline-primary px-4 py-2">
+      <i class="fas fa-tags me-1"></i> Offers
+    </button>
+    <button type="button" class="btn btn-outline-primary px-4 py-2">
+      <i class="fas fa-headset me-1"></i> Support
+    </button>
+  </div>
+</section>
+  
+<div class="collapse navbar-collapse" id="navbarMenu">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+        <a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="about.html"><i class="fas fa-info-circle me-1"></i>About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a>
+      </li>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a id="myBookings" class="nav-link text-white" href="" style="display: none;"></a>
+        </li>
+      
+       
+        <li class="nav-item d-lg-block d-none">
+          <a id="loginLink" class="btn btn-light text-dark me-3" href="login.html">Login</a>
+        </li>
+        <li class="nav-item d-lg-block d-none">
+          <a id="registerLink" class="btn btn-light text-dark me-3" href="register.html">Sign Up</a>
+        </li>
+        <li class="nav-item dropdown" id="profileMenu" style="display: none;">
+  <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+    <i class="fas fa-user-circle me-1"></i> <span id="userName"></span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><a class="dropdown-item" href="mybookings.html"><i class="fas fa-calendar-check me-2"></i>My Bookings</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><button class="dropdown-item" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li>
+  </ul>
+</li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <h1 class="fw-bold display-4 text-primary">Book Your Next Salon Visit Online</h1>
+          <p class="lead">Instant appointments with verified salons in your city.</p>
+          <a href="#city-section" class="btn btn-primary btn-lg me-2">Book Now</a>
+          <a href="contact.html" class="btn btn-outline-primary btn-lg">Know More</a>
+        </div>
+        <div class="col-md-6 text-center">
+          <img src="images/saalom illu.png" class="img-fluid" alt="Salon Illustration" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trusted Brands Section -->
+<section class="trusted-by bg-white py-4 overflow-hidden">
+  <div class="container text-center">
+    <p class="text-muted mb-3">Trusted by India's top salons</p>
+
+    <div class="logo-marquee-wrapper">
+      <div class="logo-marquee">
+        <img src="images/logo 1.webp" height="40" />
+        <img src="images/logo 2.avif" height="40" />
+        <img src="images/logo 3.avif" height="40" />
+        <img src="images/logo 4.jpg" height="40" />
+        <img src="images/logo 1.webp" height="40" />
+        <img src="images/logo 2.avif" height="40" />
+        <img src="images/logo 3.avif" height="40" />
+        <img src="images/logo 4.jpg" height="40" />
+        <!-- duplicate again for smooth loop -->
+        <img src="images/logo 1.webp" height="40" />
+        <img src="images/logo 2.avif" height="40" />
+        <img src="images/logo 3.avif" height="40" />
+        <img src="images/logo 4.jpg" height="40" />
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Quick Actions -->
+<section class="quick-actions text-center bg-light py-4">
+  <div class="btn-group flex-wrap gap-3" role="group" aria-label="Quick Actions">
+    <button type="button" class="btn btn-outline-primary px-4 py-2">
+      <i class="fas fa-calendar-plus me-1"></i> Book Appointment
+    </button>
+    <a class="btn btn-outline-primary px-4 py-2" href="admin-panel.html" id="adminLink">
+      <i class="fas fa-user-shield me-1"></i>Become a Partner
+    </a>
+    <button type="button" class="btn btn-outline-primary px-4 py-2">
+      <i class="fas fa-tags me-1"></i> Offers
+    </button>
+    <button type="button" class="btn btn-outline-primary px-4 py-2">
+      <i class="fas fa-headset me-1"></i> Support
+    </button>
+  </div>
+</section>
+
+
+  <!-- City Cards Section -->
+  <section id="city-section" class="py-5 bg-white">
+    <div class="container">
+      <h3 class="text-center fw-bold mb-4">Popular Cities</h3>
+      <div class="row g-4">
+        <!-- Repeat cards for each city -->
+      <input type="text" id="city-search" placeholder="Search cities..." aria-label="Search cities" data-aos="fade-up"/>
+    <div id="city-list">
+      <a href="salons.html?city=Haliyal" class="city-btn" data-aos="zoom-in">Haliyal</a>
+      <a href="salons.html?city=Dharwad" class="city-btn" data-aos="zoom-in" data-aos-delay="100">Dharwad</a>
+      <a href="salons.html?city=Hubli" class="city-btn" data-aos="zoom-in" data-aos-delay="200">Hubli</a>
+      <a href="salons.html?city=Bangalore" class="city-btn" data-aos="zoom-in" data-aos-delay="300">Bangalore</a>
+      <a href="salons.html?city=Alnavar" class="city-btn" data-aos="zoom-in" data-aos-delay="400">Alnavar</a>
+      <a href="salons.html?city=Karwar" class="city-btn" data-aos="zoom-in" data-aos-delay="500">Karwar</a>
+      <a href="salons.html?city=Goa" class="city-btn" data-aos="zoom-in" data-aos-delay="600">Goa</a>
+      <a href="salons.html?city=Udupi" class="city-btn" data-aos="zoom-in" data-aos-delay="700">Udupi</a>
+      <a href="salons.html?city=Hampi" class="city-btn" data-aos="zoom-in" data-aos-delay="800">Hampi</a>
+      <a href="salons.html?city=Gokarna" class="city-btn" data-aos="zoom-in" data-aos-delay="900">Gokarna</a>
+    </div>
+    <p id="no-results" style="display:none; color:#2c3e50; font-weight:600; margin-top:1rem;">
+      No cities found matching your search.
+    </p>
+  </div>
+        <!-- Add more cards as needed -->
+      </div>
+    </div>
+  </section>
+ <!-- Stats Section -->
+  <div id="stats">
+    <h2 data-aos="fade-up">Dashboard Statistics</h2>
+    <div class="stat-container">
+      <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-icon"><i class="fa-solid fa-users"></i></div>
+        <div><p class="stat-label">Total Users</p><p class="stat-number" id="totalUsers">Loading...</p></div>
+      </div>
+      <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-icon"><i class="fa-solid fa-shop"></i></div>
+        <div><p class="stat-label">Total Salons</p><p class="stat-number" id="totalSalons">Loading...</p></div>
+      </div>
+      <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-icon"><i class="fa-solid fa-calendar-check"></i></div>
+        <div><p class="stat-label">Total Bookings</p><p class="stat-number" id="totalBookings">Loading...</p></div>
+      </div>
+    </div>
+  </div>
+
+
+<footer class="footer" data-aos="fade-up">
+  <div class="footer-container">
+    <!-- About -->
+    <div class="footer-section about">
+      <h3><i class="fas fa-cut"></i> EasySalonBooking</h3>
+      <p>Book your favorite salons instantly with live slot availability, verified staff, and smart search.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="footer-section links">
+      <h4><i class="fas fa-link"></i> Quick Links</h4>
+      <ul>
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="about.html"><i class="fas fa-info-circle"></i> About Us</a></li>
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="mybooking.html"><i class="fas fa-calendar-check"></i> My Bookings</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact Info -->
+    <div class="footer-section contact">
+      <h4><i class="fas fa-phone-alt"></i> Contact Us</h4>
+      <p><i class="fas fa-envelope"></i> support@easysalonbooking.com</p>
+      <p><i class="fas fa-phone"></i> +91 8431878531</p>
+      <p><i class="fas fa-map-marker-alt"></i> Haliyal, Karnataka, India</p>
+    </div>
+
+    <!-- Social Media -->
+    <div class="footer-section social">
+      <h4><i class="fas fa-share-alt"></i> Follow Us</h4>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/impraveengouda/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.linkedin.com/in/praveen-gouda-20a359263/" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 EasySalonBooking. Built with ❤️ by <a href="https://www.instagram.com/impraveengouda/" target="_blank">Praveen Gouda</a>.</p>
+  </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</div>
+</body>
+</html>
+
+  <!-- Scripts -->
+  <script>
+    async function fetchStats() {
+      try {
+        const response = await fetch('http://localhost:3000/api/stats');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        document.getElementById('totalUsers').textContent = data.totalUsers;
+        document.getElementById('totalSalons').textContent = data.totalSalons;
+        document.getElementById('totalBookings').textContent = data.totalBookings;
+      } catch (error) {
+        console.error('Fetch error:', error);
+        document.getElementById('totalUsers').textContent = 'Error';
+        document.getElementById('totalSalons').textContent = 'Error';
+        document.getElementById('totalBookings').textContent = 'Error';
+      }
+    }
+    fetchStats();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+  <script>AOS.init({ duration: 800, once: true });</script>
+  <script src="app.js"></script>
+</body>
+</html>

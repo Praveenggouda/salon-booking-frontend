@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin - All Bookings</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <style>
+    :root {
+      --sidebar-bg: #0f172a;
+      --sidebar-text: #cbd5e1;
+      --hover-bg: #1e293b;
+      --bg: #f1f5f9;
+      --text: #1f2937;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      overflow-x: hidden;
+    }
+
+
+   .sidebar {
+  width: 250px;
+  background: #0f172a;
+  color: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 20px;
+  position: fixed;
+  height: 100%;
+  transition: left 0.3s ease;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+
+.sidebar .top {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar .navbar-brand {
+  font-size: 20px;
+  margin-bottom: 25px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.sidebar .profile {
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 12px;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.sidebar .profile i {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.sidebar a {
+  padding: 10px 15px;
+  display: block;
+  color: #cbd5e1;
+  text-decoration: none;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.sidebar a.active,
+.sidebar a:focus {
+  background-color: #1e293b;
+  color: #fff;
+}
+
+.logout-section {
+  margin-top: auto;
+}
+
+    .main {
+      margin-left: 250px;
+      padding: 40px 30px;
+      flex-grow: 1;
+      width: 100%;
+    }
+
+    .main h2 {
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+
+    .table {
+      background-color: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    .table th, .table td {
+      vertical-align: middle !important;
+    }
+
+    .table-striped > tbody > tr:nth-of-type(odd) {
+      background-color: #f8f9fc;
+    }
+
+    .badge {
+      font-size: 0.9rem;
+      padding: 0.4em 0.6em;
+      border-radius: 6px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 22px;
+      background: none;
+      border: none;
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -250px;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .mobile-toggle {
+        display: inline-block;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="sidebar" id="sidebarMenu">
+  <div class="top">
+    <a class="navbar-brand" href="#">
+      <i class="fas fa-cut"></i> EasySalonBooking
+    </a>
+    <div class="profile">
+      <i class="fas fa-user-circle"></i>
+      <div id="adminProfileName">Admin Name</div>
+    </div>
+    <a href="admin-panel.html">Dashboard</a>
+    <a href="add-salon.html">Add Salon</a>
+    <a href="#" class="active" id="adminBookingsLink">Admin Bookings</a>
+  </div>
+  <div class="logout-section">
+    <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+  </div>
+</nav>
+
+
+  <main class="main">
+    <button class="mobile-toggle mb-3" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+    <h2>📋 Admin - All Salon Bookings</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>User Email</th>
+            <th>User Name</th>
+            <th>Salon Name</th>
+            <th>Staff</th>
+            <th>Date</th>
+            <th>Slot Time</th>
+            <th>Status</th>
+            <th>Booked At</th>
+          </tr>
+        </thead>
+        <tbody id="bookingData">
+          <tr><td colspan="9" class="text-center">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<script>
+  const adminEmail = localStorage.getItem("adminEmail");
+  const adminName = localStorage.getItem("adminName");
+  const bookingsLink = document.getElementById("adminBookingsLink");
+
+  if (!adminEmail) {
+    document.getElementById("bookingData").innerHTML =
+      `<tr><td colspan="9" class="text-danger text-center">Admin email missing</td></tr>`;
+  } else {
+    document.getElementById("adminProfileName").textContent = adminName || "Admin";
+    bookingsLink.href = `admin-bookings.html?email=${encodeURIComponent(adminEmail)}`;
+
+    const params = new URLSearchParams(window.location.search);
+    const ownerEmail = params.get("email");
+
+    fetch(`http://localhost:3000/admin-bookings?email=${encodeURIComponent(ownerEmail)}`)
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.getElementById("bookingData");
+        if (data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="9" class="text-center">No bookings found</td></tr>`;
+          return;
+        }
+
+        tbody.innerHTML = "";
+        data.forEach((b, i) => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${b.user_email || "N/A"}</td>
+              <td>${b.user_name || "N/A"}</td>
+              <td>${b.salon_name || "N/A"}</td>
+              <td>${b.staff || "N/A"}</td>
+              <td>${b.booking_date}</td>
+              <td>${b.slot_time}</td>
+              <td><span class="badge bg-success">${b.status}</span></td>
+              <td>${new Date(b.created_at).toLocaleString()}</td>
+            </tr>
+          `;
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching bookings:", err);
+        document.getElementById("bookingData").innerHTML =
+          `<tr><td colspan="9" class="text-danger text-center">Error loading bookings</td></tr>`;
+      });
+  }
+
+  function logout() {
+    localStorage.removeItem('adminEmail');
+    localStorage.removeItem('adminName');
+    window.location.href = 'admin-login.html';
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebarMenu').classList.toggle('show');
+  }
+</script>
+
+</body>
+</html>

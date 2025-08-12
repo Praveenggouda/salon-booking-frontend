@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Panel</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --sidebar-bg: #0f172a;
+      --sidebar-text: #cbd5e1;
+      --bg: #f8f9fc;
+      --text: #1f2937;
+      --white: #ffffff;
+      --accent: #6366f1;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--bg);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: var(--sidebar-bg);
+      color: var(--sidebar-text);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 30px 20px;
+      position: fixed;
+      height: 100%;
+      transition: left 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar .top {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar .navbar-brand {
+      font-size: 20px;
+      margin-bottom: 25px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .sidebar .profile {
+      background-color: #1e293b;
+      border-radius: 10px;
+      padding: 12px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .sidebar .profile i {
+      font-size: 32px;
+      margin-bottom: 6px;
+    }
+
+    .sidebar a {
+      padding: 10px 15px;
+      display: block;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar a.active, .sidebar a:focus {
+      background-color: #1e293b;
+      color: #fff;
+    }
+
+    .main {
+      margin-left: 250px;
+      padding: 40px;
+      flex-grow: 1;
+      width: 100%;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .admin-info {
+      font-size: 15px;
+      background: #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+
+    .content {
+      background: var(--white);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    }
+
+    .stat-card {
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .mobile-toggle {
+      display: none;
+      font-size: 22px;
+      background: none;
+      border: none;
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -250px;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 20px;
+      }
+
+      .mobile-toggle {
+        display: inline-block;
+      }
+    }
+
+    .logout-section {
+      margin-top: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <nav class="sidebar" id="sidebarMenu">
+    <div class="top">
+      <a class="navbar-brand" href="#">
+        <i class="fas fa-cut"></i> EasySalonBooking
+      </a>
+      <div class="profile">
+        <i class="fas fa-user-circle"></i>
+        <div id="adminProfileName">Admin Name</div>
+      </div>
+      <a href="#" class="active">Dashboard</a>
+      <a href="add-salon.html">Add Salon</a>
+      <a href="#" id="adminBookingsLink">Admin Bookings</a>
+    </div>
+    <div class="logout-section">
+      <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+    </div>
+  </nav>
+
+  <main class="main">
+    <div class="header">
+      <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+      <h2>Welcome Admin</h2>
+      <div class="admin-info" id="adminInfo">Loading...</div>
+    </div>
+
+    <div class="content mb-4">
+      <h4 class="mb-3">Dashboard Overview</h4>
+      <p class="text-muted">Use the sidebar to manage salons and view your booking details.</p>
+    </div>
+
+    <div class="content mb-4" id="adminSalonBox" style="display:none;">
+      <h4 class="mb-3">Your Added Salon Details</h4>
+      <div class="border rounded p-3" id="adminSalonDetails">
+        <!-- Salon details will appear here -->
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-4">
+        <div class="stat-card bg-primary">
+          <h5>Total Users Booked</h5>
+          <h2 id="adminStatUsers">--</h2>
+        </div>
+      </div>
+      <div class="col-md-6 mb-4">
+        <div class="stat-card bg-success">
+          <h5>Total Bookings</h5>
+          <h2 id="adminStatBookings">--</h2>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  const adminName = localStorage.getItem('adminName');
+  const adminEmail = localStorage.getItem('adminEmail');
+
+  if (!adminName || !adminEmail) {
+    window.location.href = 'admin-login.html';
+  } else {
+    document.getElementById('adminInfo').textContent = `${adminName} (${adminEmail})`;
+    document.getElementById('adminProfileName').textContent = adminName;
+    document.getElementById('adminBookingsLink').href = `admin-bookings.html?email=${encodeURIComponent(adminEmail)}`;
+  }
+
+  function logout() {
+    localStorage.removeItem('adminName');
+    localStorage.removeItem('adminEmail');
+    window.location.href = 'admin-login.html';
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebarMenu').classList.toggle('show');
+  }
+
+  // Fetch admin stats (users & bookings)
+  fetch(`/api/admin-stats?email=${encodeURIComponent(adminEmail)}`)
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('adminStatUsers').textContent = data.totalUsers ?? 0;
+      document.getElementById('adminStatBookings').textContent = data.totalBookings ?? 0;
+    })
+    .catch(err => console.error('Failed to fetch stats', err));
+
+  // Fetch salon details by admin email
+  fetch(`/api/admin-salon?email=${encodeURIComponent(adminEmail)}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data.salon) {
+        const salon = data.salon;
+
+        document.getElementById('adminSalonDetails').innerHTML = `
+          <h5 class="mb-2">${salon.salonName}</h5>
+          <p><strong>Location:</strong> ${salon.location}</p>
+          <p><strong>Price Range:</strong> ${salon.priceRange}</p>
+          <p><strong>Rating:</strong> ${salon.rating} ⭐</p>
+          <p><strong>Description:</strong> ${salon.description}</p>
+          <p><strong>Photo:</strong> ${salon.photo ? `<img src="/uploads/${salon.photo}" width="200" class="img-fluid rounded mt-2" />` : 'No Photo'}</p>
+        `;
+        document.getElementById('adminSalonBox').style.display = 'block';
+      }
+    })
+    .catch(err => console.error('Error loading salon details:', err));
+  function editSalon() {
+  window.location.href = `edit-salon.html?email=${encodeURIComponent(adminEmail)}`;
+}
+
+
+  function deleteSalon() {
+    if (!confirm("Are you sure you want to delete your salon? This cannot be undone.")) return;
+
+    fetch(`/api/delete-salon?email=${encodeURIComponent(adminEmail)}`, {
+      method: 'DELETE'
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.success) {
+        alert("Salon deleted successfully.");
+        location.reload(); // or redirect to add-salon.html
+      } else {
+        alert("Failed to delete salon.");
+      }
+    })
+    .catch(err => {
+      console.error("Delete failed", err);
+      alert("Something went wrong.");
+    });
+  }
+</script>
+
+
+</body>
+</html>

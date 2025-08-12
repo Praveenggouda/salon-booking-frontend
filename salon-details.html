@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Salon Details</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      background-color: #f4f6f8;
+      color: #1f2937;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      padding: 24px;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 24px;
+      color: #111827;
+    }
+
+    .top-section {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .image-gallery, .details-section {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .main-image-container img {
+      width: 100%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .main-image-container img:hover {
+      transform: scale(1.02);
+    }
+
+    .thumbnail-column {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      margin-top: 10px;
+    }
+
+    .thumbnail-column img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.3s;
+    }
+
+    .thumbnail-column img.active,
+    .thumbnail-column img:hover {
+      border-color: #3b82f6;
+    }
+
+    .details-section p {
+      margin: 8px 0;
+    }
+
+    .details-section strong {
+      display: inline-block;
+      width: 120px;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .details-section a {
+      color: #2563eb;
+      text-decoration: none;
+    }
+
+    .details-section a:hover {
+      text-decoration: underline;
+    }
+
+    .staff-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .staff-list label {
+      padding: 8px 14px;
+      background: #e0e7ff;
+      border: 1px solid #c7d2fe;
+      border-radius: 8px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    input[type="radio"] {
+      margin-right: 6px;
+      accent-color: #3b82f6;
+    }
+
+    .btn-book {
+      display: block;
+      width: 100%;
+      background: linear-gradient(to right, #3b82f6, #2563eb);
+      color: white;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-book:hover {
+      background: linear-gradient(to right, #2563eb, #1d4ed8);
+    }
+
+    .section-title {
+      font-weight: 600;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      color: #111827;
+    }
+
+    ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 60px;
+      transform: translateX(-50%);
+      background-color: #10b981;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s ease;
+      z-index: 10000;
+    }
+
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Modal */
+    #photoModal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+    }
+
+    #modalContent {
+      max-width: 90vw;
+      max-height: 90vh;
+      position: relative;
+    }
+
+    #modalImg {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.85);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 22px;
+      cursor: pointer;
+      color: #111;
+    }
+
+    #prevBtn { left: -50px; }
+    #nextBtn { right: -50px; }
+
+    #closeBtn {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      background: rgba(255,255,255,0.85);
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .top-section {
+        flex-direction: column;
+      }
+
+      .btn-book {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        border-radius: 0;
+        z-index: 10000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="salonName">Loading...</h1>
+    <div class="top-section">
+      <div class="image-gallery">
+        <div class="main-image-container">
+          <img id="mainPhoto" src="" alt="Main Salon Photo" />
+        </div>
+        <div class="thumbnail-column" id="thumbnailList"></div>
+      </div>
+      <div class="details-section">
+        <p><strong>Location:</strong> <span id="fullLocation"></span></p>
+        <p><strong>City:</strong> <span id="city"></span></p>
+        <p><strong>State:</strong> <span id="state"></span></p>
+        <p><strong>Pincode:</strong> <span id="pincode"></span></p>
+        <p><strong>Phone:</strong> <span id="phone"></span></p>
+        <p><strong>Email:</strong> <span id="email"></span></p>
+        <p><strong>Hours:</strong> <span id="hours"></span></p>
+        <p><strong>Instagram:</strong> <a id="instagram" target="_blank" href="#">View</a></p>
+
+        <div class="services-section">
+          <p class="section-title" id="servicesToggle" style="cursor:pointer;">
+            <i id="serviceIcon" class="fas fa-chevron-right" style="margin-right:8px;"></i>
+            Services
+          </p>
+          <div id="servicesFull" style="display:none;"></div>
+        </div>
+
+        <p class="section-title">Amenities</p>
+        <ul id="amenitiesList"></ul>
+
+        <p class="section-title">Choose Your Staff</p>
+        <div class="staff-list" id="staffs"></div>
+      </div>
+    </div>
+    <a href="#" class="btn-book" id="bookBtn">Book Appointment</a>
+  </div>
+
+  <!-- Modal -->
+  <div id="photoModal">
+    <div id="modalContent">
+      <button id="closeBtn">&times;</button>
+      <button class="modal-btn" id="prevBtn">&#8249;</button>
+      <img id="modalImg" src="" />
+      <button class="modal-btn" id="nextBtn">&#8250;</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">Booking Confirmed ✅</div>
+
+  <script>
+   // In the script section of your HTML, replace the entire fetch and data handling code with this:
+
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const salonId = urlParams.get('id') || 1;
+
+  fetch(`http://localhost:3000/api/salon-details/${salonId}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error('Salon not found');
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (!data.success) {
+        throw new Error(data.message || 'Failed to load salon details');
+      }
+
+      const salon = data.data;
+      
+      // Basic Info
+      document.getElementById("salonName").textContent = salon.salonName || "Unnamed Salon";
+      document.getElementById("fullLocation").textContent = salon.fullLocation || "Not specified";
+      document.getElementById("city").textContent = salon.city || "Not specified";
+      document.getElementById("state").textContent = salon.state || "Not specified";
+      document.getElementById("pincode").textContent = salon.pincode || "Not specified";
+      document.getElementById("phone").textContent = salon.phone || "Not available";
+      document.getElementById("email").textContent = salon.email || "Not available";
+      document.getElementById("hours").textContent = formatHours(salon.hours) || "Not available";
+      
+      // Instagram Link
+      const instagramLink = document.getElementById("instagram");
+      if (salon.instagram && salon.instagram.startsWith('http')) {
+        instagramLink.href = salon.instagram;
+        instagramLink.textContent = "Visit Instagram";
+      } else {
+        instagramLink.style.display = "none";
+      }
+
+      // Services
+      const servicesFull = document.getElementById("servicesFull");
+      if (salon.services) {
+        const servicesList = salon.services.split(',')
+          .map(service => {
+            const [name, price] = service.split(':');
+            return `<li>${name.trim()}: ₹${price || '0'}</li>`;
+          })
+          .join('');
+        servicesFull.innerHTML = servicesList;
+      } else {
+        servicesFull.innerHTML = "<li>No services listed</li>";
+      }
+
+      // Toggle Services
+      const toggle = document.getElementById("servicesToggle");
+      const icon = document.getElementById("serviceIcon");
+      toggle.onclick = () => {
+        const visible = servicesFull.style.display === "block";
+        servicesFull.style.display = visible ? "none" : "block";
+        icon.style.transform = visible ? "rotate(0deg)" : "rotate(90deg)";
+      };
+
+      // Amenities
+      const amenitiesList = document.getElementById("amenitiesList");
+      if (salon.amenities) {
+        amenitiesList.innerHTML = salon.amenities.split(',')
+          .map(a => `<li>${a.trim()}</li>`)
+          .join('');
+      } else {
+        amenitiesList.innerHTML = "<li>No amenities listed</li>";
+      }
+
+      // Staff
+      const staffDiv = document.getElementById("staffs");
+      if (salon.staffs) {
+        staffDiv.innerHTML = salon.staffs.split(',')
+          .map(staff => `
+            <label>
+              <input type="radio" name="staffs" value="${staff.trim()}"/>
+              ${staff.trim()}
+            </label>
+          `)
+          .join('');
+      } else {
+        staffDiv.innerHTML = "<p>No staff listed</p>";
+      }
+
+      // Photos
+      const mainPhoto = document.getElementById("mainPhoto");
+      const thumbnails = document.getElementById("thumbnailList");
+      let currentIndex = 0;
+      let photoArray = [];
+
+      if (salon.photos) {
+        // Handle both string (comma-separated) and array formats
+        photoArray = typeof salon.photos === 'string' 
+          ? salon.photos.split(',') 
+          : salon.photos;
+        
+        photoArray = photoArray.filter(photo => photo.trim() !== '');
+
+        if (photoArray.length > 0) {
+          // Set main photo
+          updateMainImage();
+
+          // Create thumbnails
+          photoArray.forEach((photo, i) => {
+            const img = document.createElement("img");
+            img.src = `http://localhost:3000/uploads/${photo.trim()}`;
+            img.alt = `Salon photo ${i + 1}`;
+            if (i === 0) img.classList.add("active");
+            img.addEventListener("click", () => {
+              currentIndex = i;
+              updateMainImage();
+              updateThumbnailHighlight();
+            });
+            thumbnails.appendChild(img);
+          });
+        } else {
+          mainPhoto.src = "https://via.placeholder.com/600x400?text=No+Photos";
+          thumbnails.innerHTML = "<p>No photos available</p>";
+        }
+      }
+
+      function updateMainImage() {
+        if (photoArray.length > 0) {
+          mainPhoto.src = `http://localhost:3000/uploads/${photoArray[currentIndex].trim()}`;
+          mainPhoto.onclick = () => {
+            document.getElementById("photoModal").style.display = "flex";
+            document.getElementById("modalImg").src = mainPhoto.src;
+          };
+        }
+      }
+
+      function updateThumbnailHighlight() {
+        thumbnails.querySelectorAll("img").forEach((img, idx) => {
+          img.classList.toggle("active", idx === currentIndex);
+        });
+      }
+
+      // Modal Navigation
+      document.getElementById("closeBtn").onclick = closeModal;
+      document.getElementById("prevBtn").onclick = showPrevPhoto;
+      document.getElementById("nextBtn").onclick = showNextPhoto;
+
+      function closeModal() {
+        document.getElementById("photoModal").style.display = "none";
+      }
+
+      function showPrevPhoto() {
+        currentIndex = (currentIndex - 1 + photoArray.length) % photoArray.length;
+        document.getElementById("modalImg").src = `http://localhost:3000/uploads/${photoArray[currentIndex].trim()}`;
+        updateThumbnailHighlight();
+      }
+
+      function showNextPhoto() {
+        currentIndex = (currentIndex + 1) % photoArray.length;
+        document.getElementById("modalImg").src = `http://localhost:3000/uploads/${photoArray[currentIndex].trim()}`;
+        updateThumbnailHighlight();
+      }
+
+      // Keyboard navigation for modal
+      document.addEventListener('keydown', function(e) {
+        if (document.getElementById("photoModal").style.display === "flex") {
+          if (e.key === "Escape") closeModal();
+          if (e.key === "ArrowLeft") showPrevPhoto();
+          if (e.key === "ArrowRight") showNextPhoto();
+        }
+      });
+
+      // Click outside modal to close
+      document.getElementById("photoModal").addEventListener("click", (e) => {
+        if (e.target.id === "photoModal") closeModal();
+      });
+
+      // Booking button
+     document.getElementById("bookBtn").addEventListener("click", (e) => {
+  e.preventDefault();
+  const selectedStaff = document.querySelector('input[name="staffs"]:checked');
+  if (!selectedStaff) {
+    showToast("Please select a staff member");
+    return;
+  }
+  
+  // Get the salon name from the displayed text
+  const salonName = document.getElementById("salonName").textContent;
+  
+  // Encode the salon name for URL safety
+  const encodedSalonName = encodeURIComponent(salonName);
+  
+  // Redirect with salonId, staff, AND salonName
+  window.location.href = `book.html?salonId=${salonId}&staff=${encodeURIComponent(selectedStaff.value)}&salonName=${encodedSalonName}`;
+});
+
+      function formatHours(hoursString) {
+        if (!hoursString) return null;
+        return hoursString.replace(/\?/g, '-'); // Replace question marks with dashes
+      }
+    })
+    .catch(err => {
+      console.error("Error loading salon details:", err);
+      document.querySelector(".container").innerHTML = `
+        <h2>Error Loading Salon</h2>
+        <p>${err.message}</p>
+        <a href="/" style="display: inline-block; margin-top: 20px; color: #3b82f6;">Return to Home</a>
+      `;
+    });
+
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+});
+  </script>
+</body>
+</html>

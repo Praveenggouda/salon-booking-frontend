@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .salon-card {
+      border: 1px solid #ccc;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
+    }
+    .salon-card h2 {
+      margin-top: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Your Salon Details</h1>
+  <div id="salon-container"></div>
+
+  <script>
+    async function loadSalon() {
+      try {
+        const response = await fetch('/admin-dashboard');
+        const data = await response.json();
+
+        const container = document.getElementById('salon-container');
+
+        if (!data.salon || data.salon.length === 0) {
+          container.innerHTML = '<p>You have not added any salon yet.</p>';
+          return;
+        }
+
+        const salon = data.salon[0];
+
+        container.innerHTML = `
+          <div class="salon-card">
+            <h2>${salon.name}</h2>
+            <p><strong>Location:</strong> ${salon.location}</p>
+            <p><strong>Services:</strong> ${salon.services}</p>
+            <p><strong>Staff:</strong> ${salon.staff}</p>
+            <p><strong>Photos:</strong></p>
+            <div>${salon.photos ? salon.photos.split(',').map(photo => `<img src="${photo}" alt="Salon Photo" width="100" style="margin-right:10px"/>`).join('') : 'No photos'}</div>
+          </div>
+        `;
+      } catch (error) {
+        console.error('Error loading salon:', error);
+      }
+    }
+
+    loadSalon();
+  </script>
+</body>
+</html>

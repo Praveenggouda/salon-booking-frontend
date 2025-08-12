@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Register</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --primary: #007bff;
+      --success: #28a745;
+      --error: #dc3545;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(120deg, #e0f7fa, #f0f2f5, #e3f2fd);
+      background-size: 400% 400%;
+      animation: gradientBG 20s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+.top-logo {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    font-size: 22px;
+    font-weight: 600;
+    color: rgb(39, 131, 201);
+    display: flex;
+    align-items: center;
+    z-index: 10;
+    text-decoration: none;
+    transition: transform 0.3s;
+  }
+
+  .top-logo i {
+    margin-right: 10px;
+    color: var(--primary);
+    font-size: 28px;
+    animation: pulse 2s infinite;
+  }
+
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(15px);
+      border-radius: 16px;
+      padding: 35px;
+      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+      color: #333;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h3 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: 700;
+      color: #007bff;
+    }
+
+    .form-control,
+    .input-group-text {
+      background-color: rgba(255, 255, 255, 0.6);
+      border: none;
+      color: #333;
+    }
+
+    .form-control:focus {
+      background-color: rgba(255, 255, 255, 0.85);
+      box-shadow: none;
+    }
+
+    .form-control::placeholder {
+      color: #777;
+    }
+
+    .input-group-text {
+      color: #007bff;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .alert {
+      margin-top: 10px;
+      font-size: 14px;
+    }
+
+    #otpBox {
+      display: none;
+    }
+
+    .text-center a {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: 600;
+    }
+
+    .text-center a:hover {
+      text-decoration: underline;
+    }
+
+    #timer {
+      font-size: 13px;
+      margin-top: 5px;
+      text-align: center;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+<div class="text-center mb-3">
+  <a class="top-logo text-decoration-none" href="#" style="font-size: 24px; font-weight: 600; color: #007bff;">
+    <i class="fas fa-cut me-2"></i><span>EasySalonBooking</span>
+  </a>
+</div>
+  <div class="card">
+    <h3>Admin Register</h3>
+    <form id="registerForm">
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa fa-user"></i></span>
+        <input type="text" id="name" class="form-control" placeholder="Enter your name" required />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+        <input type="email" id="email" class="form-control" placeholder="Enter email" required />
+      </div>
+      <div class="input-group mb-3">
+        <span class="input-group-text"><i class="fa fa-lock"></i></span>
+        <input type="password" id="password" class="form-control" placeholder="Enter password" required />
+      </div>
+
+      <div id="otpBox">
+        <div class="input-group mb-2">
+          <span class="input-group-text"><i class="fa fa-key"></i></span>
+          <input type="text" id="otp" class="form-control" placeholder="Enter OTP" />
+        </div>
+        <div id="timer"></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100 mt-2">Register</button>
+    </form>
+
+    <div id="message" class="alert d-none" role="alert"></div>
+
+    <div class="text-center mt-3">
+      Already have an account? <a href="admin-login.html">Login here</a>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const messageDiv = document.getElementById('message');
+    const otpBox = document.getElementById('otpBox');
+    const timerDiv = document.getElementById('timer');
+    let adminData = {};
+    let countdown;
+
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      showMessage('', 'info', true);
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const otp = document.getElementById('otp').value.trim();
+
+      if (otpBox.style.display === 'block') {
+        try {
+          const res = await fetch('/admin/verify-otp', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...adminData, otp })
+          });
+          const data = await res.json();
+          showMessage(data.message, data.success ? 'success' : 'danger');
+          if (data.success) {
+            clearInterval(countdown);
+            setTimeout(() => window.location.href = 'admin-login.html', 1500);
+          }
+        } catch {
+          showMessage('Network error', 'danger');
+        }
+        return;
+      }
+
+      adminData = { name, email, password };
+
+      try {
+        const res = await fetch('/admin/send-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(adminData)
+        });
+        const data = await res.json();
+        showMessage(data.message, data.success ? 'success' : 'danger');
+        if (data.success) {
+          otpBox.style.display = 'block';
+          startOTPTimer(300);
+        }
+      } catch {
+        showMessage('Network error', 'danger');
+      }
+    });
+
+    function startOTPTimer(seconds) {
+      clearInterval(countdown);
+      let timeLeft = seconds;
+      countdown = setInterval(() => {
+        const min = Math.floor(timeLeft / 60);
+        const sec = timeLeft % 60;
+        timerDiv.textContent = `OTP expires in: ${min}:${sec.toString().padStart(2, '0')}`;
+        timeLeft--;
+        if (timeLeft < 0) {
+          clearInterval(countdown);
+          timerDiv.textContent = 'OTP expired. Please refresh the page.';
+          document.querySelector('button').disabled = true;
+        }
+      }, 1000);
+    }
+
+    function showMessage(msg, type, hide = false) {
+      messageDiv.className = `alert alert-${type}`;
+      messageDiv.textContent = msg;
+      messageDiv.classList.remove('d-none');
+      if (hide) {
+        setTimeout(() => {
+          messageDiv.classList.add('d-none');
+        }, 3000);
+      }
+    }
+  </script>
+</body>
+</html>

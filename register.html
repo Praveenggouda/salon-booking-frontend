@@ -236,7 +236,7 @@
 
       if (otpBox.style.display === 'block') {
         try {
-          const res = await fetch('http://localhost:3000/verify-otp', {
+          const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...userData, otp })
@@ -258,7 +258,7 @@
       userData = { name, email, password, phone, gender };
 
       try {
-        const res = await fetch('http://localhost:3000/register', {
+        const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(userData)
@@ -276,3 +276,4 @@
   </script>
 </body>
 </html>
+

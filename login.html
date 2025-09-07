@@ -182,13 +182,14 @@
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password })
-    });
+const res = await fetch("https://salon-booking-backend-vsaz.onrender.com/login", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, password })
+});
+const data = await res.json();
+console.log(data);
 
-    const data = await res.json();
     const msgEl = document.getElementById('msg');
     msgEl.textContent = data.message;
     msgEl.style.color = data.success ? 'green' : 'red';
@@ -202,3 +203,4 @@
 
 </body>
 </html>
+

@@ -237,7 +237,7 @@
       const formData = new FormData(form);
 
       try {
-        const res = await fetch("/admin/add-salon", {
+        const res = await fetch("https://salon-booking-backend-vsaz.onrender.com/admin/add-salon", {
           method: "POST",
           body: formData,
         });

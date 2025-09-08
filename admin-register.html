@@ -195,7 +195,7 @@
 
       if (otpBox.style.display === 'block') {
         try {
-          const res = await fetch('/admin/verify-otp', {
+          const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/verify-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ ...adminData, otp })
@@ -215,7 +215,7 @@
       adminData = { name, email, password };
 
       try {
-        const res = await fetch('/admin/send-otp', {
+        const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/send-otp', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(adminData)

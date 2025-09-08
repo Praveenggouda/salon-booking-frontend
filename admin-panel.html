@@ -7,154 +7,166 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --sidebar-bg: #0f172a;
+    --sidebar-hover: #1e293b;
+    --sidebar-text: #cbd5e1;
+    --bg: #f1f5f9;
+    --text: #1f2937;
+    --white: #ffffff;
+    --accent: #6366f1;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  }
 
-  <style>
-    :root {
-      --sidebar-bg: #0f172a;
-      --sidebar-text: #cbd5e1;
-      --bg: #f8f9fc;
-      --text: #1f2937;
-      --white: #ffffff;
-      --accent: #6366f1;
-    }
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
 
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--bg);
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
+  .wrapper {
+    display: flex;
+    min-height: 100vh;
+  }
 
-    .wrapper {
-      display: flex;
-      min-height: 100vh;
-    }
+  .sidebar {
+    width: 250px;
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 30px 20px;
+    position: fixed;
+    height: 100%;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    box-shadow: var(--shadow);
+  }
 
+  .sidebar .navbar-brand {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #fff;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .sidebar .profile {
+    background-color: var(--sidebar-hover);
+    border-radius: 10px;
+    padding: 16px;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .sidebar .profile i {
+    font-size: 36px;
+    margin-bottom: 6px;
+  }
+
+  .sidebar a {
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background 0.3s;
+    font-weight: 500;
+  }
+
+  .sidebar a:hover,
+  .sidebar a.active {
+    background-color: var(--sidebar-hover);
+    color: #fff;
+  }
+
+  .main {
+    margin-left: 250px;
+    padding: 40px;
+    flex-grow: 1;
+    width: 100%;
+    background: var(--bg);
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+  }
+
+  .admin-info {
+    font-size: 15px;
+    background: #e2e8f0;
+    padding: 10px 18px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+  }
+
+  .content {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+  }
+
+  .stat-card {
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    color: #fff;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s;
+  }
+
+  .stat-card:hover {
+    transform: scale(1.02);
+  }
+
+  .mobile-toggle {
+    display: none;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: var(--text);
+  }
+
+  .logout-section {
+    margin-top: auto;
+    padding-top: 20px;
+    border-top: 1px solid #334155;
+  }
+
+  @media (max-width: 768px) {
     .sidebar {
-      width: 250px;
-      background: var(--sidebar-bg);
-      color: var(--sidebar-text);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      padding: 30px 20px;
-      position: fixed;
-      height: 100%;
-      transition: left 0.3s ease;
-      z-index: 1000;
+      left: -250px;
     }
 
-    .sidebar .top {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .sidebar .navbar-brand {
-      font-size: 20px;
-      margin-bottom: 25px;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: bold;
-      text-decoration: none;
-    }
-
-    .sidebar .profile {
-      background-color: #1e293b;
-      border-radius: 10px;
-      padding: 12px;
-      color: #fff;
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .sidebar .profile i {
-      font-size: 32px;
-      margin-bottom: 6px;
-    }
-
-    .sidebar a {
-      padding: 10px 15px;
-      display: block;
-      color: var(--sidebar-text);
-      text-decoration: none;
-      border-radius: 6px;
-      margin-bottom: 10px;
-    }
-
-    .sidebar a.active, .sidebar a:focus {
-      background-color: #1e293b;
-      color: #fff;
+    .sidebar.show {
+      left: 0;
     }
 
     .main {
-      margin-left: 250px;
-      padding: 40px;
-      flex-grow: 1;
-      width: 100%;
-    }
-
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-
-    .admin-info {
-      font-size: 15px;
-      background: #e2e8f0;
-      padding: 8px 16px;
-      border-radius: 20px;
-    }
-
-    .content {
-      background: var(--white);
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .stat-card {
-      padding: 25px;
-      border-radius: 12px;
-      text-align: center;
-      color: #fff;
+      margin-left: 0;
+      padding: 20px;
     }
 
     .mobile-toggle {
-      display: none;
-      font-size: 22px;
-      background: none;
-      border: none;
-      color: var(--text);
+      display: inline-block;
     }
+  }
+</style>
 
-    @media (max-width: 768px) {
-      .sidebar {
-        left: -250px;
-      }
-
-      .sidebar.show {
-        left: 0;
-      }
-
-      .main {
-        margin-left: 0;
-        padding: 20px;
-      }
-
-      .mobile-toggle {
-        display: inline-block;
-      }
-    }
-
-    .logout-section {
-      margin-top: auto;
-    }
-  </style>
 </head>
 <body>
 
@@ -237,7 +249,7 @@
   }
 
   // Fetch admin stats (users & bookings)
-  fetch(`/api/admin-stats?email=${encodeURIComponent(adminEmail)}`)
+  fetch(`https://salon-booking-backend-vsaz.onrender.com/api/admin-stats?email=${encodeURIComponent(adminEmail)}`)
     .then(res => res.json())
     .then(data => {
       document.getElementById('adminStatUsers').textContent = data.totalUsers ?? 0;
@@ -246,7 +258,7 @@
     .catch(err => console.error('Failed to fetch stats', err));
 
   // Fetch salon details by admin email
-  fetch(`/api/admin-salon?email=${encodeURIComponent(adminEmail)}`)
+  fetch(`https://salon-booking-backend-vsaz.onrender.com/api/admin-salon?email=${encodeURIComponent(adminEmail)}`)
     .then(res => res.json())
     .then(data => {
       if (data.salon) {
@@ -272,7 +284,7 @@
   function deleteSalon() {
     if (!confirm("Are you sure you want to delete your salon? This cannot be undone.")) return;
 
-    fetch(`/api/delete-salon?email=${encodeURIComponent(adminEmail)}`, {
+    fetch(`https://salon-booking-backend-vsaz.onrender.com/api/delete-salon?email=${encodeURIComponent(adminEmail)}`, {
       method: 'DELETE'
     })
     .then(res => res.json())

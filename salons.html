@@ -441,7 +441,7 @@ if (checkedStaff.length > 0) {
         return;
       }
 
-      fetch(`/salons/city/${encodeURIComponent(city)}`)
+      fetch(`https://salon-booking-backend-vsaz.onrender.com/salons/city/${encodeURIComponent(city)}`)
         .then(res => {
           if (!res.ok) throw new Error('Failed to fetch salons');
           return res.json();
@@ -465,3 +465,4 @@ if (checkedStaff.length > 0) {
   </script>
 </body>
 </html>
+

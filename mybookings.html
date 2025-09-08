@@ -99,7 +99,7 @@
     const msgEl = document.getElementById('msg');
 
     // Fetch bookings for logged-in user
-    fetch(`http://localhost:3000/api/my-bookings?userEmail=${encodeURIComponent(user.email)}`)
+    fetch(`https://salon-booking-backend-vsaz.onrender.com/api/my-bookings?userEmail=${encodeURIComponent(user.email)}`)
       .then(res => res.json())
       .then(data => {
         if (data.bookings && data.bookings.length > 0) {
@@ -125,7 +125,7 @@
 
               const bookingId = btn.getAttribute('data-id');
               try {
-                const res = await fetch(`http://localhost:3000/api/cancel-booking/${bookingId}`, {
+                const res = await fetch(`https://salon-booking-backend-vsaz.onrender.com/api/cancel-booking/${bookingId}`, {
                   method: 'DELETE',
                 });
                 const result = await res.json();

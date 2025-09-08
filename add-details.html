@@ -423,7 +423,7 @@ window.onload = () => {
   const services = [];
   const staffMembers = [];
 
-  // 🟢 Form Submission Handler
+  //  Form Submission Handler
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     message.textContent = '';
@@ -458,7 +458,7 @@ window.onload = () => {
     loader.style.display = 'flex';
 
     try {
-      const res = await fetch('/api/add-salon-details', {
+      const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/add-salon-details', {
         method: 'POST',
         body: formData
       });
@@ -615,7 +615,7 @@ window.onload = () => {
     document.getElementById("servicesInput").value = services.join(",");
   }
 
-  // 👨‍🔧 Staff Management
+  //  Staff Management
   window.addStaff = () => {
     const name = document.getElementById("staffName").value.trim();
     if (!name) {

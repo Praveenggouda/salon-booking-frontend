@@ -12,7 +12,7 @@
     }
 
     body {
-      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
         url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -20,60 +20,136 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 30px;
+      padding: 20px;
       color: #fff;
     }
 
     .container {
       display: flex;
-      gap: 30px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 40px;
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
+      flex-direction: column;
+      gap: 25px;
+      width: 100%;
+      max-width: 900px;
     }
 
-    .staff-panel {
-      background: white;
-      color: #333;
-      border-radius: 16px;
-      padding: 30px;
+    .header {
       text-align: center;
-      min-width: 200px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    }
-
-    .staff-panel i {
-      font-size: 40px;
       margin-bottom: 10px;
     }
 
+    .header h1 {
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      opacity: 0.9;
+      font-size: 1.1rem;
+    }
+
+    .content-wrapper {
+      display: flex;
+      gap: 25px;
+      flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+      .content-wrapper {
+        flex-direction: row;
+      }
+    }
+
+    .staff-panel {
+      background: linear-gradient(145deg, #ffffff, #f0f0f0);
+      color: #333;
+      border-radius: 16px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      flex: 1;
+    }
+
+    .staff-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #1e3c72, #2a5298);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+    }
+
+    .staff-avatar i {
+      font-size: 35px;
+      color: white;
+    }
+
+    .staff-panel h3 {
+      margin-bottom: 8px;
+      font-size: 1.4rem;
+    }
+
     .staff-panel p {
-      font-size: 1.2rem;
-      font-weight: bold;
+      color: #666;
+      font-size: 1rem;
     }
 
     .booking-panel {
       background: linear-gradient(145deg, #1e3c72, #2a5298);
-      padding: 35px;
+      padding: 30px;
       border-radius: 20px;
       color: white;
-      width: 100%;
-      max-width: 500px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      flex: 2;
     }
 
     .booking-panel h2 {
       text-align: center;
       margin-bottom: 25px;
+      font-size: 1.8rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .booking-panel h2:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 3px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
     }
 
     .booking-panel input[type="date"] {
       width: 100%;
-      padding: 14px;
+      padding: 14px 16px;
       border-radius: 12px;
-      border: none;
+      border: 2px solid rgba(255, 255, 255, 0.2);
       font-size: 1rem;
-      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      transition: all 0.3s ease;
+    }
+
+    .booking-panel input[type="date"]:focus {
+      outline: none;
+      border-color: rgba(255, 255, 255, 0.5);
+      background: rgba(255, 255, 255, 0.15);
     }
 
     #timeSlots {
@@ -84,285 +160,381 @@
     }
 
     #timeSlots button.slot-button {
-      padding: 10px 15px;
-      margin: 8px;
-      background: #f1f1f1;
-      border: none;
-      border-radius: 8px;
+      padding: 12px 16px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 2px solid transparent;
+      border-radius: 10px;
       cursor: pointer;
+      color: white;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      flex: 1;
+      min-width: 100px;
+    }
+
+    #timeSlots button.slot-button:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
     }
 
     #timeSlots button.selected {
       background-color: #28a745;
+      border-color: #1e7e34;
       color: white;
       font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .action-buttons {
       display: flex;
       justify-content: space-between;
-      gap: 20px;
+      gap: 15px;
+      margin-top: 10px;
     }
 
     .action-buttons button {
       flex: 1;
-      padding: 14px;
+      padding: 15px;
       border: none;
       border-radius: 10px;
       font-size: 1rem;
-      font-weight: bold;
+      font-weight: 600;
       cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .action-buttons button:first-child {
+      background: rgba(255, 255, 255, 0.2);
+      color: white;
+    }
+
+    .action-buttons button:first-child:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .action-buttons button:last-child {
       background: white;
       color: #2a5298;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .action-buttons button:last-child:hover {
+      background: #f8f9fa;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
     }
 
     #msg {
       text-align: center;
-      margin-top: 15px;
-      font-weight: bold;
-      min-height: 20px;
+      margin-top: 20px;
+      font-weight: 500;
+      min-height: 24px;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .success {
+      background: rgba(40, 167, 69, 0.2);
+      color: #d4edda;
+    }
+
+    .error {
+      background: rgba(220, 53, 69, 0.2);
+      color: #f8d7da;
+    }
+
+    .warning {
+      background: rgba(255, 193, 7, 0.2);
+      color: #fff3cd;
+    }
+
+    .info {
+      background: rgba(23, 162, 184, 0.2);
+      color: #d1ecf1;
+    }
+
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Calendar icon color */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      opacity: 0.7;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <!-- Left: Staff Panel -->
-    <div class="staff-panel">
-      <i class="fa-solid fa-user"></i>
-      <p id="staffName">Loading...</p>
+    <div class="header">
+      <h1>Book Your Appointment</h1>
+      <p>Select a date and time that works best for you</p>
     </div>
-
-    <!-- Right: Booking Panel -->
-    <div class="booking-panel">
-      <h2 id="salonNameDisplay">Loading Salon...</h2>
-      <form id="bookingForm">
-        <label for="date">Pick a Date:</label>
-        <input type="date" id="date" required />
-
-        <div id="timeSlots">
-          <!-- Time slots will be loaded here -->
+    
+    <div class="content-wrapper">
+      <!-- Left: Staff Panel -->
+      <div class="staff-panel">
+        <div class="staff-avatar">
+          <i class="fa-solid fa-user"></i>
         </div>
+        <h3>Your Stylist</h3>
+        <p id="staffName">Loading...</p>
+      </div>
 
-        <div class="action-buttons">
-          <button type="button" onclick="history.back()">Back</button>
-          <button type="submit">Continue</button>
-        </div>
-        <div id="msg"></div>
-      </form>
+      <!-- Right: Booking Panel -->
+      <div class="booking-panel">
+        <h2 id="salonNameDisplay">Loading Salon...</h2>
+        <form id="bookingForm">
+          <div class="form-group">
+            <label for="date">Select Date:</label>
+            <input type="date" id="date" required />
+          </div>
+
+          <div class="form-group">
+            <label>Available Time Slots:</label>
+            <div id="timeSlots">
+              <!-- Time slots will be loaded here -->
+            </div>
+          </div>
+
+          <div class="action-buttons">
+            <button type="button" onclick="history.back()">
+              <i class="fas fa-arrow-left"></i> Back
+            </button>
+            <button type="submit">
+              Continue <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+          <div id="msg"></div>
+        </form>
+      </div>
     </div>
   </div>
 
-
-
-<script>
-  const user = JSON.parse(localStorage.getItem('user'));
-  if (!user) {
-    alert('Please login first.');
-    window.location.href = 'login.html';
-  }
-
-  const urlParams = new URLSearchParams(window.location.search);
-  const salonId = urlParams.get('salonId');
-  const staffParam = urlParams.get('staff');
-  const salonName = urlParams.get('salonName');
-
-  // Set initial salon name from URL
-  const salonNameDisplay = document.getElementById('salonNameDisplay');
-  salonNameDisplay.textContent = decodeURIComponent(salonName) || "Loading salon...";
-
-  const dateInput = document.getElementById('date');
-  const today = new Date().toISOString().split('T')[0];
-  dateInput.min = today;
-  document.getElementById('staffName').textContent = staffParam;
-
-  const timeSlotsEl = document.getElementById('timeSlots');
-  let selectedSlot = '';
-
-  // Only fetch salon details if name wasn't in URL
-  if (!salonName) {
-    fetch(`http://localhost:3000/api/salon-details/${salonId}`)
-      .then(res => res.json())
-      .then(data => {
-        salonNameDisplay.textContent = data.salonName || "Salon not found";
-      })
-      .catch(() => {
-        salonNameDisplay.textContent = 'Error loading salon';
-      });
-  }
-
-  // Rest of your existing code (generateTimeSlots, bookingForm, etc.)
-  async function generateTimeSlots() {
-    timeSlotsEl.innerHTML = 'Loading...';
-    selectedSlot = '';
-
-    try {
-      const res = await fetch('http://localhost:3000/api/available-slots', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          salon_id: salonId,
-          booking_date: dateInput.value,
-          staff: staffParam
-        }),
-      });
-
-      const data = await res.json();
-      timeSlotsEl.innerHTML = '';
-
-      if (!data.availableSlots || data.availableSlots.length === 0) {
-        timeSlotsEl.innerHTML = '<p style="color:red;">No slots available</p>';
-        return;
-      }
-
-      const now = new Date();
-      const selectedDate = new Date(dateInput.value);
-      const isToday = now.toDateString() === selectedDate.toDateString();
-
-      let futureSlots = data.availableSlots;
-
-      if (isToday) {
-        const currentMinutes = now.getHours() * 60 + now.getMinutes();
-        futureSlots = data.availableSlots.filter(slot => {
-          const [hour, min] = slot.split(':').map(Number);
-          const slotMinutes = hour * 60 + min;
-          return slotMinutes > currentMinutes;
-        });
-      }
-
-      if (futureSlots.length === 0) {
-        timeSlotsEl.innerHTML = '<p style="color:red;">No future slots available</p>';
-        return;
-      }
-
-      futureSlots.forEach(slot => {
-        const formatted = convertToAmPm(slot);
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.textContent = formatted;
-        btn.classList.add('slot-button');
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('#timeSlots button').forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          selectedSlot = slot;
-        });
-        timeSlotsEl.appendChild(btn);
-      });
-
-    } catch (err) {
-      console.error(err);
-      timeSlotsEl.innerHTML = '<p style="color:red;">Error loading slots</p>';
-    }
-  }
-
-  dateInput.addEventListener('change', generateTimeSlots);
-
-  document.getElementById('bookingForm').addEventListener('submit', async e => {
-    e.preventDefault();
-
-    const msgEl = document.getElementById('msg');
-    const booking_date = dateInput.value;
-    const slot_time = selectedSlot;
-
-    if (!booking_date || !slot_time) {
-      msgEl.style.color = 'yellow';
-      msgEl.textContent = 'Please select a date and time slot.';
-      return;
+  <script>
+    // Your existing JavaScript code remains the same
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      alert('Please login first.');
+      window.location.href = 'login.html';
     }
 
-    msgEl.style.color = 'white';
-    msgEl.textContent = 'Creating Razorpay order...';
+    const urlParams = new URLSearchParams(window.location.search);
+    const salonId = urlParams.get('salonId');
+    const staffParam = urlParams.get('staff');
+    const salonName = urlParams.get('salonName');
 
-    try {
-      const razorOrderRes = await fetch('http://localhost:3000/api/create-order', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 100 })
-      });
+    // Set initial salon name from URL
+    const salonNameDisplay = document.getElementById('salonNameDisplay');
+    salonNameDisplay.textContent = decodeURIComponent(salonName) || "Loading salon...";
 
-      const { order } = await razorOrderRes.json();
+    const dateInput = document.getElementById('date');
+    const today = new Date().toISOString().split('T')[0];
+    dateInput.min = today;
+    document.getElementById('staffName').textContent = staffParam;
 
-      const options = {
-        key: "rzp_test_R29Ppjp3FeAogH",
-        amount: order.amount,
-        currency: order.currency,
-        name: "EasySalonBooking",
-        description: "Salon Appointment",
-        order_id: order.id,
-        handler: async function(response) {
-          const verifyRes = await fetch('http://localhost:3000/api/verify-payment', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_signature: response.razorpay_signature
-            }),
+    const timeSlotsEl = document.getElementById('timeSlots');
+    let selectedSlot = '';
+
+    // Only fetch salon details if name wasn't in URL
+    if (!salonName) {
+      fetch(`https://salon-booking-backend-vsaz.onrender.com/api/salon-details/${salonId}`)
+        .then(res => res.json())
+        .then(data => {
+          salonNameDisplay.textContent = data.salonName || "Salon not found";
+        })
+        .catch(() => {
+          salonNameDisplay.textContent = 'Error loading salon';
+        });
+    }
+
+    // Rest of your existing code (generateTimeSlots, bookingForm, etc.)
+    async function generateTimeSlots() {
+      timeSlotsEl.innerHTML = '<div class="loading"></div>';
+      selectedSlot = '';
+
+      try {
+        const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/available-slots', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            salon_id: salonId,
+            booking_date: dateInput.value,
+            staff: staffParam
+          }),
+        });
+
+        const data = await res.json();
+        timeSlotsEl.innerHTML = '';
+
+        if (!data.availableSlots || data.availableSlots.length === 0) {
+          timeSlotsEl.innerHTML = '<p style="color:#ffcccb; text-align:center; padding:10px;">No slots available for this date</p>';
+          return;
+        }
+
+        const now = new Date();
+        const selectedDate = new Date(dateInput.value);
+        const isToday = now.toDateString() === selectedDate.toDateString();
+
+        let futureSlots = data.availableSlots;
+
+        if (isToday) {
+          const currentMinutes = now.getHours() * 60 + now.getMinutes();
+          futureSlots = data.availableSlots.filter(slot => {
+            const [hour, min] = slot.split(':').map(Number);
+            const slotMinutes = hour * 60 + min;
+            return slotMinutes > currentMinutes;
           });
+        }
 
-          const verifyData = await verifyRes.json();
+        if (futureSlots.length === 0) {
+          timeSlotsEl.innerHTML = '<p style="color:#ffcccb; text-align:center; padding:10px;">No future slots available today</p>';
+          return;
+        }
 
-          if (verifyData.success) {
-            const bookingData = {
-              salon_id: salonId,
-              salon_name: salonNameDisplay.textContent,
-              staff: staffParam,
-              booking_date,
-              slot_time,
-              user_email: user.email,
-              user_name: user.name,
-              payment_id: response.razorpay_payment_id
-            };
+        futureSlots.forEach(slot => {
+          const formatted = convertToAmPm(slot);
+          const btn = document.createElement('button');
+          btn.type = "button";
+          btn.textContent = formatted;
+          btn.classList.add('slot-button');
+          btn.addEventListener('click', () => {
+            document.querySelectorAll('#timeSlots button').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedSlot = slot;
+          });
+          timeSlotsEl.appendChild(btn);
+        });
 
-            const bookingRes = await fetch('http://localhost:3000/api/book-salon', {
+      } catch (err) {
+        console.error(err);
+        timeSlotsEl.innerHTML = '<p style="color:#ffcccb; text-align:center; padding:10px;">Error loading time slots</p>';
+      }
+    }
+
+    dateInput.addEventListener('change', generateTimeSlots);
+
+    document.getElementById('bookingForm').addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const msgEl = document.getElementById('msg');
+      const booking_date = dateInput.value;
+      const slot_time = selectedSlot;
+
+      if (!booking_date || !slot_time) {
+        msgEl.className = 'warning';
+        msgEl.textContent = 'Please select both a date and time slot.';
+        return;
+      }
+
+      msgEl.className = 'info';
+      msgEl.innerHTML = '<div class="loading"></div> Creating Razorpay order...';
+
+      try {
+        const razorOrderRes = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/create-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: 100 })
+        });
+
+        const { order } = await razorOrderRes.json();
+
+        const options = {
+          key: "rzp_test_R29Ppjp3FeAogH",
+          amount: order.amount,
+          currency: order.currency,
+          name: "EasySalonBooking",
+          description: "Salon Appointment",
+          order_id: order.id,
+          handler: async function(response) {
+            msgEl.className = 'info';
+            msgEl.innerHTML = '<div class="loading"></div> Verifying payment...';
+            
+            const verifyRes = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/verify-payment', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(bookingData),
+              body: JSON.stringify({
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature
+              }),
             });
 
-            const result = await bookingRes.json();
+            const verifyData = await verifyRes.json();
 
-            if (bookingRes.ok) {
-              msgEl.style.color = 'lightgreen';
-              msgEl.textContent = 'Booking & payment successful!';
-              setTimeout(() => {
-                localStorage.setItem('lastBooking', JSON.stringify(bookingData));
-                window.location.href = 'welcome.html';
-              }, 2000);
+            if (verifyData.success) {
+              const bookingData = {
+                salon_id: salonId,
+                salon_name: salonNameDisplay.textContent,
+                staff: staffParam,
+                booking_date,
+                slot_time,
+                user_email: user.email,
+                user_name: user.name,
+                payment_id: response.razorpay_payment_id
+              };
+
+              const bookingRes = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/book-salon', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(bookingData),
+              });
+
+              const result = await bookingRes.json();
+
+              if (bookingRes.ok) {
+                msgEl.className = 'success';
+                msgEl.textContent = 'Booking & payment successful! Redirecting...';
+                setTimeout(() => {
+                  localStorage.setItem('lastBooking', JSON.stringify(bookingData));
+                  window.location.href = 'welcome.html';
+                }, 2000);
+              } else {
+                msgEl.className = 'error';
+                msgEl.textContent = result.error || 'Booking failed.';
+              }
             } else {
-              msgEl.style.color = 'orange';
-              msgEl.textContent = result.error || 'Booking failed.';
+              msgEl.className = 'error';
+              msgEl.textContent = 'Payment verification failed.';
             }
-          } else {
-            msgEl.style.color = 'red';
-            msgEl.textContent = 'Payment verification failed.';
-          }
-        },
-        prefill: {
-          name: user.name,
-          email: user.email
-        },
-        theme: { color: "#3399cc" }
-      };
+          },
+          prefill: {
+            name: user.name,
+            email: user.email
+          },
+          theme: { color: "#3399cc" }
+        };
 
-      const rzp = new Razorpay(options);
-      rzp.open();
+        const rzp = new Razorpay(options);
+        rzp.open();
 
-    } catch (error) {
-      console.error(error);
-      msgEl.style.color = 'red';
-      msgEl.textContent = 'Payment failed. Try again.';
+      } catch (error) {
+        console.error(error);
+        msgEl.className = 'error';
+        msgEl.textContent = 'Payment failed. Please try again.';
+      }
+    });
+
+    function convertToAmPm(time24) {
+      let [hour, minute] = time24.split(':').map(Number);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      hour = hour % 12 || 12;
+      return `${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
     }
-  });
-
-  function convertToAmPm(time24) {
-    let [hour, minute] = time24.split(':').map(Number);
-    const ampm = hour >= 12 ? 'PM' : 'AM';
-    hour = hour % 12 || 12;
-    return `${hour}:${minute.toString().padStart(2, '0')} ${ampm}`;
-  }
-</script>
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+  </script>
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
 </body>
 </html>

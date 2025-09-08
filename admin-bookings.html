@@ -217,7 +217,7 @@
     const params = new URLSearchParams(window.location.search);
     const ownerEmail = params.get("email");
 
-    fetch(`http://localhost:3000/admin-bookings?email=${encodeURIComponent(ownerEmail)}`)
+    fetch(`https://salon-booking-backend-vsaz.onrender.com/admin-bookings?email=${encodeURIComponent(ownerEmail)}`)
       .then(res => res.json())
       .then(data => {
         const tbody = document.getElementById("bookingData");

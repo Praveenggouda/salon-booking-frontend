@@ -224,7 +224,7 @@ cityLink.textContent = cityName;
 
  async function fetchStats() {
       try {
-        const response = await fetch('http://localhost:3000/api/stats');
+        const response = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/stats');
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         document.getElementById('totalUsers').textContent = data.totalUsers;

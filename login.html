@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login | EasySalonBooking</title>
+  <title>Login | Salon Elegance</title>
 
   <!-- Font & Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -19,141 +19,77 @@
   }
 
   body {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e4f1ff 100%);
+    background: #f9f6f2; /* Warm neutral background */
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     padding: 20px;
-    position: relative;
-    overflow-x: hidden;
-  }
-
-  /* Decorative elements */
-  body::before,
-  body::after {
-    content: '';
-    position: absolute;
-    border-radius: 50%;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
-    z-index: -1;
-  }
-
-  body::before {
-    width: 300px;
-    height: 300px;
-    top: -100px;
-    right: -100px;
-  }
-
-  body::after {
-    width: 200px;
-    height: 200px;
-    bottom: -50px;
-    left: -50px;
   }
 
   .login-container {
     width: 100%;
-    max-width: 450px;
-    perspective: 1000px;
+    max-width: 430px;
   }
 
   .login-box {
     background-color: #ffffff;
-    padding: 40px 35px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-    animation: fadeIn 0.8s ease-out;
-    position: relative;
-    z-index: 10;
-  }
-
-  .login-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-20px) scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+    padding: 35px 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8e2d9;
   }
 
   .logo {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
   }
 
   .logo-content {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
-    color: white;
-    padding: 12px 20px;
-    border-radius: 16px;
+    color: #8b5e3c; /* Earthy brown tone */
+    padding: 10px 15px;
+    border-radius: 10px;
     font-size: 22px;
-    font-weight: 700;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    font-weight: 600;
   }
 
   .logo i {
     margin-right: 10px;
     font-size: 24px;
+    color: #d4af87; /* Gold accent */
   }
 
   h2 {
     text-align: center;
     font-size: 24px;
-    color: #1e293b;
-    margin-bottom: 25px;
-    font-weight: 600;
-    position: relative;
-  }
-
-  h2::after {
-    content: '';
-    display: block;
-    width: 50px;
-    height: 3px;
-    background: linear-gradient(to right, #4f46e5, #3b82f6);
-    margin: 8px auto 0;
-    border-radius: 3px;
+    color: #5a4b41; /* Dark brown */
+    margin-bottom: 20px;
+    font-weight: 500;
   }
 
   .input-group {
     position: relative;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
 
   .input-group input {
     width: 100%;
-    padding: 16px 48px 16px 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
+    padding: 14px 45px 14px 14px;
+    border: 1px solid #d4d4d4;
+    border-radius: 8px;
     font-size: 15px;
-    color: #1f2937;
-    transition: all 0.3s ease;
-    background-color: #f8fafc;
+    color: #333;
+    background-color: #fcfcfc;
+    transition: border-color 0.3s;
   }
 
   .input-group input:focus {
-    border-color: #3b82f6;
+    border-color: #d4af87; /* Gold accent */
     outline: none;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
     background-color: #fff;
-  }
-
-  .input-group input:valid {
-    border-color: #10b981;
   }
 
   .input-group i {
@@ -161,23 +97,13 @@
     right: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #94a3b8;
-    transition: color 0.3s ease;
+    color: #a5a5a5;
     z-index: 2;
-  }
-
-  .input-group input:focus + i {
-    color: #3b82f6;
   }
 
   .password-toggle {
     cursor: pointer;
     right: 40px !important;
-    z-index: 20;
-  }
-
-  .password-toggle:hover {
-    color: #3b82f6;
   }
 
   .remember-forgot {
@@ -195,91 +121,62 @@
 
   .remember input {
     margin-right: 8px;
-    accent-color: #3b82f6;
+    accent-color: #8b5e3c; /* Earthy brown */
   }
 
   .forgot-password {
-    color: #3b82f6;
+    color: #8b5e3c;
     text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
+    transition: color 0.2s;
   }
 
   .forgot-password:hover {
-    color: #2563eb;
+    color: #6d4a32;
     text-decoration: underline;
   }
 
   button {
     width: 100%;
-    padding: 16px;
-    background: linear-gradient(to right, #4f46e5, #3b82f6);
+    padding: 14px;
+    background-color: #8b5e3c; /* Earthy brown */
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
-    position: relative;
-    overflow: hidden;
-    z-index: 20;
-  }
-
-  button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: 0.5s;
+    transition: background-color 0.3s;
   }
 
   button:hover {
-    background: linear-gradient(to right, #4338ca, #2563eb);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(79, 70, 229, 0.4);
-  }
-
-  button:hover::before {
-    left: 100%;
-  }
-
-  button:active {
-    transform: translateY(0);
+    background-color: #6d4a32; /* Darker brown */
   }
 
   #msg {
-    margin-top: 16px;
+    margin-top: 15px;
     text-align: center;
-    font-weight: 500;
-    padding: 12px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-    z-index: 5;
-    position: relative;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
   }
 
   .success {
-    background-color: #dcfce7;
-    color: #16a34a;
-    border: 1px solid #bbf7d0;
+    background-color: #f0f9eb;
+    color: #529b2e;
+    border: 1px solid #e1f3d8;
   }
 
   .error {
-    background-color: #fee2e2;
-    color: #dc2626;
-    border: 1px solid #fecaca;
+    background-color: #fef0f0;
+    color: #d93026;
+    border: 1px solid #fcd3d3;
   }
 
   .divider {
     display: flex;
     align-items: center;
-    margin: 24px 0;
-    color: #94a3b8;
+    margin: 20px 0;
+    color: #a5a5a5;
   }
 
   .divider::before,
@@ -287,160 +184,81 @@
     content: '';
     flex: 1;
     height: 1px;
-    background-color: #e2e8f0;
+    background-color: #e8e8e8;
   }
 
   .divider span {
     padding: 0 12px;
-    font-size: 14px;
+    font-size: 13px;
   }
 
   .social-login {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    margin-bottom: 24px;
+    gap: 15px;
+    margin-bottom: 20px;
   }
 
   .social-btn {
-    width: 50px;
-    height: 50px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 18px;
+    font-size: 17px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 5;
-    position: relative;
+    transition: opacity 0.3s;
   }
 
   .social-btn.google {
-    background: linear-gradient(135deg, #ea4335, #fbbc05);
+    background-color: #db4437;
   }
 
   .social-btn.facebook {
-    background: linear-gradient(135deg, #1877f2, #0d8af0);
+    background-color: #4267B2;
   }
 
   .social-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.9;
   }
 
   .back-link {
     text-align: center;
-    margin-top: 24px;
-    font-size: 15px;
-    color: #64748b;
-    z-index: 5;
-    position: relative;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
   }
 
   .back-link a {
-    color: #3b82f6;
+    color: #8b5e3c;
     text-decoration: none;
-    font-weight: 600;
-    transition: all 0.2s ease;
-    position: relative;
+    font-weight: 500;
   }
 
-  .back-link a::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: #3b82f6;
-    transition: width 0.3s ease;
-  }
-
-  .back-link a:hover::after {
-    width: 100%;
+  .back-link a:hover {
+    text-decoration: underline;
   }
 
   /* Responsive Design */
   @media (max-width: 576px) {
     .login-box {
-      padding: 30px 25px;
-      border-radius: 16px;
+      padding: 25px 20px;
     }
     
     .logo-content {
       font-size: 20px;
-      padding: 10px 16px;
     }
     
     h2 {
       font-size: 22px;
     }
     
-    .input-group input {
-      padding: 14px 44px 14px 14px;
-    }
-    
     .remember-forgot {
       flex-direction: column;
       align-items: flex-start;
-      gap: 12px;
-    }
-    
-    .social-login {
-      gap: 12px;
-    }
-    
-    .social-btn {
-      width: 45px;
-      height: 45px;
-    }
-  }
-
-  @media (max-width: 400px) {
-    body {
-      padding: 15px;
-    }
-    
-    .login-box {
-      padding: 25px 20px;
-    }
-    
-    .logo-content {
-      font-size: 18px;
-    }
-  }
-
-  /* Loading animation */
-  .button-loading {
-    position: relative;
-    color: transparent !important;
-  }
-
-  .button-loading::after {
-    content: "";
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    border: 3px solid transparent;
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: button-loading-spinner 1s ease infinite;
-  }
-
-  @keyframes button-loading-spinner {
-    from {
-      transform: rotate(0turn);
-    }
-    to {
-      transform: rotate(1turn);
+      gap: 10px;
     }
   }
 </style>
@@ -451,7 +269,7 @@
     <div class="login-box">
       <div class="logo">
         <div class="logo-content">
-          <i class="fas fa-scissors"></i> EasySalonBooking
+          <i class="fas fa-spa"></i> Salon Elegance
         </div>
       </div>
 
@@ -534,7 +352,8 @@
         const rememberMe = document.getElementById('remember').checked;
         
         // Show loading state
-        loginButton.classList.add('button-loading');
+        const originalText = loginButton.textContent;
+        loginButton.textContent = 'Logging in...';
         loginButton.disabled = true;
         
         try {
@@ -546,8 +365,8 @@
 
           const data = await res.json();
           
-          // Remove loading state
-          loginButton.classList.remove('button-loading');
+          // Restore button state
+          loginButton.textContent = originalText;
           loginButton.disabled = false;
           
           msgEl.textContent = data.message;
@@ -566,16 +385,13 @@
               email: data.email 
             }));
             
-            // Add success animation before redirect
-            document.querySelector('.login-box').style.animation = 'fadeIn 0.5s ease-out';
-            
             setTimeout(() => {
               window.location.href = 'index.html';
             }, 1000);
           }
         } catch (error) {
-          // Remove loading state
-          loginButton.classList.remove('button-loading');
+          // Restore button state
+          loginButton.textContent = originalText;
           loginButton.disabled = false;
           
           msgEl.textContent = 'Network error. Please try again.';

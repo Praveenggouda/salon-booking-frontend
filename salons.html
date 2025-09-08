@@ -2,467 +2,700 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Salons in City</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    transition: all 0.3s ease;
-  }
-
-  body {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(to right, #f0f4ff, #e8f0fe);
-    color: #1a237e;
-    padding: 40px 20px;
-    min-height: 100vh;
-  }
-
-  .top-logo {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    font-size: 22px;
-    font-weight: 600;
-    color: rgb(39, 131, 201);
-    display: flex;
-    align-items: center;
-    z-index: 10;
-    text-decoration: none;
-  
-  }
-
-  .top-logo i {
-    margin-right: 10px;
-    font-size: 28px;
-    animation: pulse 2s infinite;
-  }
-
-  .container {
-    display: flex;
-    max-width: 1400px;
-    margin: auto;
-    gap: 2rem;
-    animation: fadeIn 0.6s ease-in-out;
-    align-items: flex-start;
-  }
-
-  #filters {
-    width: 280px;
-    background: rgba(255, 255, 255, 0.85);
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    height: fit-content;
-    backdrop-filter: blur(6px);
-    position: sticky;
-    top: 40px;
-  }
-
-  #filters h2 {
-    font-size: 1.7rem;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
-    color: #0d47a1;
-    border-bottom: 2px solid #1e88e5;
-    padding-bottom: 5px;
-  }
-
-  #filters strong {
-    font-size: 1.1rem;
-    margin-top: 1.5rem;
-    display: block;
-    color: #0d47a1;
-  }
-
-  #filters label {
-    display: flex;
-    align-items: center;
-    margin: 6px 0;
-    font-size: 0.95rem;
-    gap: 6px;
-    cursor: pointer;
-  }
-
-  #filters input[type="checkbox"] {
-    transform: scale(1.2);
-    accent-color: #1e88e5;
-    cursor: pointer;
-  }
-
-  main {
-    background: #ffffff;
-    padding: 2rem;
-    border-radius: 16px;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
-    flex-grow: 1;
-    width: 100%;
-  }
-
-  h1 {
-    font-size: 2rem;
-    color: #0d47a1;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #1e88e5;
-    padding-bottom: 0.4rem;
-  }
-
-  #search-bar {
-    width: 100%;
-    max-width: 500px;
-    padding: 12px 18px;
-    font-size: 1rem;
-    border: 2px solid #b3cde0;
-    border-radius: 10px;
-    margin-bottom: 1.5rem;
-    background: #f9fbff;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
-  }
-
-  #search-bar:focus {
-    outline: none;
-    border-color: #1e88e5;
-    background: #e3f2fd;
-  }
-
-  ul.salon-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 1.5rem;
-    padding: 0;
-    list-style: none;
-  }
-
-  ul.salon-list li {
-    background: #ffffff;
-    padding: 1.25rem;
-    border: 1px solid #e0e0e0;
-    border-left: 6px solid #1e88e5;
-    border-radius: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  ul.salon-list li:hover {
-    transform: scale(1.02);
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
-  }
-
-  ul.salon-list li img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #ccc;
-  }
-
-  ul.salon-list li .details {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-
-  ul.salon-list li .details strong {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #0d47a1;
-  }
-
-  ul.salon-list li .details p {
-    font-size: 0.95rem;
-    color: #555;
-    margin: 0;
-  }
-
-  ul.salon-list li .btn {
-    display: inline-block;
-    padding: 10px 16px;
-    margin-top: 10px;
-    background: linear-gradient(to right, #42a5f5, #1e88e5);
-    color: white;
-    text-decoration: none;
-    font-weight: 600;
-    border-radius: 8px;
-    text-align: center;
-    letter-spacing: 0.5px;
-    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-    transition: all 0.25s ease;
-  }
-
-  ul.salon-list li .btn:hover {
-    background: linear-gradient(to right, #1e88e5, #1565c0);
-    transform: translateY(-2px);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 1024px) {
-    .container {
-      flex-direction: column;
-    }
-
-    #filters {
-      width: 100%;
-      position: relative;
-      top: unset;
-    }
-  }
-
-  @media (max-width: 500px) {
-    #search-bar {
-      width: 100%;
-      font-size: 0.95rem;
-    }
-
-    .top-logo {
-      font-size: 18px;
-    }
-
-    .top-logo i {
-      font-size: 22px;
-    }
-  }
-.details p {
-  font-size: 1.3rem;
-  color: #fbc02d; /* gold color */
-  letter-spacing: 2px;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #f1f3f6, #e3f2fd);
+  color: #222;
+  padding: 20px;
+  min-height: 100vh;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 1400px;
+  margin: auto;
+  gap: 1.5rem;
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0;
+}
+
+#search-bar {
+  flex: 1;
+  min-width: 200px;
+  max-width: 500px;
+  padding: 14px 18px;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 50px;
+  transition: border-color 0.3s, background 0.3s, box-shadow 0.3s;
+  background: #fff;
+}
+#search-bar:focus {
+  outline: none;
+  border-color: #1e88e5;
+  background: #e3f2fd;
+  box-shadow: 0 4px 12px rgba(30, 136, 229, 0.2);
+}
+
+.filter-toggle {
+  display: none;
+  background: #1e88e5;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 50px;
+  font-weight: 500;
+  cursor: pointer;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 10px rgba(30, 136, 229, 0.3);
+}
+.filter-toggle:hover {
+  background: #1565c0;
+}
+
+.content-wrapper {
+  display: flex;
+  gap: 2rem;
+}
+
+#filters {
+  width: 280px;
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+}
+
+#filters h2 {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+  color: #2c3e50;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e6e6e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.filter-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.filter-section strong {
+  font-size: 1rem;
+  display: block;
+  color: #2c3e50;
+  margin-bottom: 0.8rem;
+}
+
+.filter-section label {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 0.95rem;
+  cursor: pointer;
+  padding: 6px 0;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.filter-section label:hover {
+  background: #f5f9ff;
+}
+
+.filter-section input[type="checkbox"] {
+  margin-right: 0.8rem;
+  width: 18px;
+  height: 18px;
+  accent-color: #1e88e5;
+  cursor: pointer;
+}
+
+.filter-tags {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.filter-tags span {
+  padding: 6px 12px;
+  border-radius: 20px;
+  background-color: #dbeafe;
+  color: #1e3a8a;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.filter-tags span:hover {
+  background-color: #90caf9;
+}
+
+main {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+  flex-grow: 1;
+  width: 100%;
+}
+
+ul.salon-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  list-style: none;
+}
+
+ul.salon-list li {
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+ul.salon-list li:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+}
+
+.salon-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid #eee;
+}
+
+.salon-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ff6b6b;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+ul.salon-list li .details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+ul.salon-list li .details strong {
+  font-size: 1.2rem;
+  color: #1e3a8a;
+  margin-top: 0.5rem;
+}
+
+ul.salon-list li .details p {
+  font-size: 0.95rem;
+  color: #555;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #ffc107;
+  font-weight: 500;
+}
+
+ul.salon-list li .btn {
+  display: inline-block;
+  padding: 10px 16px;
+  margin-top: 5px;
+  background-color: #1e88e5;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 8px;
+  text-align: center;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+ul.salon-list li .btn:hover {
+  background-color: #1565c0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+}
+
+#salon-details {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  animation: slideUp 0.4s ease;
+}
+
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 2rem;
+  color: #666;
+}
+
+.no-results i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #ccc;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .container {
+    padding: 15px;
+  }
+  
+  ul.salon-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
+  
+  #filters {
+    width: 100%;
+    position: static;
+    display: none;
+  }
+  
+  #filters.active {
+    display: block;
+    animation: fadeIn 0.4s ease;
+  }
+  
+  .filter-toggle {
+    display: flex;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    padding: 15px 10px;
+  }
+  
+  .header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  #search-bar {
+    max-width: 100%;
+  }
+  
+  .header h1 {
+    font-size: 1.6rem;
+  }
+  
+  ul.salon-list {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  
+  main {
+    padding: 1.2rem;
+  }
+  
+  ul.salon-list li {
+    padding: 1rem;
+  }
+  
+  .salon-image {
+    height: 160px;
+  }
+}
+
+@media (max-width: 400px) {
+  .header h1 {
+    font-size: 1.4rem;
+  }
+  
+  #search-bar {
+    padding: 12px 16px;
+  }
+  
+  .filter-toggle {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Loading animation */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(30, 136, 229, 0.3);
+  border-radius: 50%;
+  border-top-color: #1e88e5;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Clear filters button */
+.clear-filters {
+  background: none;
+  border: none;
+  color: #1e88e5;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.clear-filters:hover {
+  background: #e3f2fd;
+}
 </style>
-
 </head>
-
 <body>
-<a class="top-logo" href="#">
-  <i class="fas fa-cut"></i>
-  <span>EasySalonBooking</span>
-</a>
+<div class="container">
+  <div class="header">
+    <h1>Salons in <span id="city-name"></span></h1>
+    <input type="text" id="search-bar" placeholder="Search salons by name..." />
+    <button class="filter-toggle" id="filter-toggle">
+      <i class="fas fa-filter"></i> Filters
+    </button>
+  </div>
 
-  <div class="container">
+  <div class="content-wrapper">
     <section id="filters">
-      <h2>Filters</h2>
-      <div>
+      <h2>
+        Filters 
+        <button class="clear-filters" id="clear-filters">Clear all</button>
+      </h2>
+      <div class="filter-section">
         <strong>Price Range (₹)</strong>
         <label><input type="checkbox" name="price" value="100" /> Up to 100</label>
-        <label><input type="checkbox" name="price" value="300" /> Up to 300</label>
-        <label><input type="checkbox" name="price" value="500" /> Up to 500</label>
+        <label><input type="checkbox" name="price" value="300" /> 200 to 300</label>
+        <label><input type="checkbox" name="price" value="500" /> 400 to 500</label>
       </div>
-      <div style="margin-top: 1rem;">
+      <div class="filter-section">
         <strong>Welcome Drink</strong>
         <label><input type="checkbox" name="welcomeDrink" value="yes" /> Available</label>
         <label><input type="checkbox" name="welcomeDrink" value="no" /> Not Available</label>
       </div>
-      <div style="margin-top: 1rem;">
+      <div class="filter-section">
         <strong>Extra Services</strong>
         <label><input type="checkbox" name="extra" value="spa" /> Spa</label>
         <label><input type="checkbox" name="extra" value="massage" /> Massage</label>
         <label><input type="checkbox" name="extra" value="facial" /> Facial</label>
       </div>
-<strong>Rating</strong>
-<label><input type="checkbox" name="rating" value="4"> 4★ & above</label>
-<label><input type="checkbox" name="rating" value="3"> 3★ & above</label>
-
-<strong>Open Now</strong>
-<label><input type="checkbox" name="openNow" value="true"> Only show salons that are open now</label>
-
-<strong>Facilities</strong>
-<label><input type="checkbox" name="facility" value="AC"> AC</label>
-<label><input type="checkbox" name="facility" value="WiFi"> Wi-Fi</label>
-<label><input type="checkbox" name="facility" value="Parking"> Parking</label>
-
-<strong>Staff Preference</strong>
-<label><input type="checkbox" name="staff" value="Male"> Male Staff</label>
-<label><input type="checkbox" name="staff" value="Female"> Female Staff</label>
     </section>
 
     <main>
-      <h1>Salons in <span id="city-name"></span></h1>
-      <input type="text" id="search-bar" placeholder="Search salons by name..." />
+      <div class="filter-tags" id="active-filters"></div>
+
       <ul class="salon-list" id="salon-list">
-        <li id="loading">Loading salons...</li>
+        <li>Loading salons...</li>
       </ul>
+
       <div id="salon-details" style="display:none;"></div>
     </main>
   </div>
+</div>
 
-  <script>
-    const city = new URLSearchParams(window.location.search).get('city');
-    document.getElementById('city-name').textContent = city || 'Unknown';
-
-    const salonListEl = document.getElementById('salon-list');
-    const searchBar = document.getElementById('search-bar');
-    const filters = document.getElementById('filters');
-function getStars(rating) {
-  const maxStars = 5;
-  let stars = '';
-  for (let i = 1; i <= maxStars; i++) {
-    stars += i <= rating 
-      ? '⭐'  // filled star
-      : '☆'; // empty star (optional, or skip to show only filled stars)
+<script>
+  function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
   }
-  return stars;
-}
 
+  const city = getQueryParam('city');
+  document.getElementById('city-name').textContent = city || 'Unknown';
 
-    let salons = [];
+  
+  const filtersSection = document.getElementById('filters');
+  const filterToggle = document.getElementById('filter-toggle');
+  const detailsEl = document.getElementById('salon-details');
+  const clearFiltersBtn = document.getElementById('clear-filters');
+   const salonListEl = document.getElementById('salon-list');
+  const searchBar = document.getElementById('search-bar');
+  const activeFiltersEl = document.getElementById('active-filters');
 
-    function renderSalons(filteredSalons) {
-      document.getElementById('loading')?.remove();
+  let salons = [];
+  let activeFilters = {
+    price: [],
+    welcomeDrink: [],
+    extra: []
+  };
 
-      if (filteredSalons.length === 0) {
-        salonListEl.innerHTML = '<li>No salons found.</li>';
-        return;
-      }
-
-      salonListEl.innerHTML = '';
-      let i = 0;
-
-      function renderNext() {
-        if (i >= filteredSalons.length) return;
-
-        const salon = filteredSalons[i];
-        const li = document.createElement('li');
-        li.innerHTML = `
-          <img src="/uploads/${salon.photo}" alt="${salon.salonName}" loading="lazy" />
-          <div class="details">
-            <strong>${salon.salonName}</strong>
-            <p>Location: ${salon.location}</p>
-            <p>Price Range: ₹${salon.priceRange}</p>
-           <p>${getStars(salon.rating)}</p>
-
-            <p>${salon.description}</p>
-          </div>
-          <a href="salon-details.html?id=${salon.id}" class="btn">View Details</a>
-        `;
-        salonListEl.appendChild(li);
-        i++;
-        requestAnimationFrame(renderNext);
-      }
-
-      renderNext();
+  function renderSalons(filteredSalons) {
+    if (filteredSalons.length === 0) {
+      salonListEl.innerHTML = `
+        <div class="no-results">
+          <i class="fas fa-search"></i>
+          <h3>No salons found</h3>
+          <p>Try adjusting your filters or search term</p>
+        </div>
+      `;
+      detailsEl.style.display = 'none';
+      return;
     }
+    
+    salonListEl.innerHTML = ''; 
+    filteredSalons.forEach((salon) => {
+      const li = document.createElement('li');
+      
+      // Create badge if salon has special offers
+      const badge = salon.discount ? `<span class="salon-badge">${salon.discount}% OFF</span>` : '';
+      
+      li.innerHTML = `
+        ${badge}
 
-    function applyFilters() {
-      let filtered = salons;
+      <img src="/uploads/${salon.photoURL}" alt="${salon.salonName}" class="salon-image" />
 
-      const query = searchBar.value.toLowerCase();
-      if (query) {
-        filtered = filtered.filter(salon =>
-          salon.salonName.toLowerCase().includes(query)
-        );
-      }
 
-      const checkedPrices = [...filters.querySelectorAll('input[name="price"]:checked')]
-        .map(input => Number(input.value));
-      if (checkedPrices.length > 0) {
-        filtered = filtered.filter(salon =>
-          checkedPrices.some(priceLimit => salon.priceRange <= priceLimit)
-        );
-      }
-// ⭐ Rating Filter
-const checkedRatings = [...filters.querySelectorAll('input[name="rating"]:checked')]
-  .map(input => Number(input.value));
-if (checkedRatings.length > 0) {
-  filtered = filtered.filter(salon =>
-    checkedRatings.some(ratingMin => salon.rating >= ratingMin)
-  );
-}
 
-// 🕒 Open Now Filter (dummy logic — you can enhance using actual hours)
-const isOpenNowChecked = filters.querySelector('input[name="openNow"]:checked');
-if (isOpenNowChecked) {
-  const currentHour = new Date().getHours();
-  filtered = filtered.filter(salon => {
-    const open = Number(salon.openHour || 9);
-    const close = Number(salon.closeHour || 20);
-    return currentHour >= open && currentHour <= close;
-  });
-}
-
-// 🧴 Facility Filter
-const checkedFacilities = [...filters.querySelectorAll('input[name="facility"]:checked')]
-  .map(input => input.value);
-if (checkedFacilities.length > 0) {
-  filtered = filtered.filter(salon =>
-    salon.facilities &&
-    checkedFacilities.every(fac => salon.facilities.toLowerCase().includes(fac.toLowerCase()))
-  );
-}
-
-// 👨‍💼 Staff Preference Filter
-const checkedStaff = [...filters.querySelectorAll('input[name="staff"]:checked')]
-  .map(input => input.value.toLowerCase());
-if (checkedStaff.length > 0) {
-  filtered = filtered.filter(salon =>
-    salon.staff &&
-    checkedStaff.some(pref => salon.staff.toLowerCase().includes(pref))
-  );
-}
-
-      const checkedWelcome = [...filters.querySelectorAll('input[name="welcomeDrink"]:checked')]
-        .map(input => input.value.toLowerCase());
-      if (checkedWelcome.length > 0) {
-        filtered = filtered.filter(salon =>
-          salon.welcomeDrink && checkedWelcome.includes(salon.welcomeDrink.toLowerCase())
-        );
-      }
-
-      const checkedExtras = [...filters.querySelectorAll('input[name="extra"]:checked')]
-        .map(input => input.value);
-      if (checkedExtras.length > 0) {
-        filtered = filtered.filter(salon =>
-          salon.extras && checkedExtras.every(extra => salon.extras.split(',').includes(extra))
-        );
-      }
-
-      renderSalons(filtered);
-    }
-
-    function fetchSalons() {
-      if (!city) {
-        salonListEl.innerHTML = '<li>Please select a city.</li>';
-        return;
-      }
-
-      fetch(`https://salon-booking-backend-vsaz.onrender.com/salons/city/${encodeURIComponent(city)}`)
-        .then(res => {
-          if (!res.ok) throw new Error('Failed to fetch salons');
-          return res.json();
-        })
-        .then(data => {
-          salons = data;
-          applyFilters();
-        })
-        .catch(() => {
-          salonListEl.innerHTML = '<li>Error loading salons. Please try again.</li>';
-        });
-    }
-
-    // Event Listeners
-    searchBar.addEventListener('input', applyFilters);
-    filters.querySelectorAll('input').forEach(input => {
-      input.addEventListener('change', applyFilters);
+        <div class="details">
+          <strong>${salon.salonName}</strong>
+          <p><i class="fas fa-map-marker-alt"></i> ${salon.location}</p>
+          <p><i class="fas fa-tag"></i> ₹${salon.priceRange}</p>
+          <p class="rating"><i class="fas fa-star"></i> ${salon.rating}</p>
+          <p><i class="fas fa-info-circle"></i> ${salon.description.substring(0, 80)}...</p>
+        </div>
+        <a href="salon-details.html?id=${salon.id}" class="btn">View Details</a>
+      `;
+      salonListEl.appendChild(li);
     });
+  }
 
-    fetchSalons();
-  </script>
+  function updateActiveFiltersDisplay() {
+    activeFiltersEl.innerHTML = '';
+    
+    let hasActiveFilters = false;
+    
+    // Price filters
+    activeFilters.price.forEach(value => {
+      hasActiveFilters = true;
+      const span = document.createElement('span');
+      span.innerHTML = `Price: Up to ₹${value} <i class="fas fa-times"></i>`;
+      span.dataset.type = 'price';
+      span.dataset.value = value;
+      activeFiltersEl.appendChild(span);
+    });
+    
+    // Welcome drink filters
+    activeFilters.welcomeDrink.forEach(value => {
+      hasActiveFilters = true;
+      const span = document.createElement('span');
+      const displayText = value === 'yes' ? 'Available' : 'Not Available';
+      span.innerHTML = `Welcome Drink: ${displayText} <i class="fas fa-times"></i>`;
+      span.dataset.type = 'welcomeDrink';
+      span.dataset.value = value;
+      activeFiltersEl.appendChild(span);
+    });
+    
+    // Extra services filters
+    activeFilters.extra.forEach(value => {
+      hasActiveFilters = true;
+      const span = document.createElement('span');
+      span.innerHTML = `Service: ${value.charAt(0).toUpperCase() + value.slice(1)} <i class="fas fa-times"></i>`;
+      span.dataset.type = 'extra';
+      span.dataset.value = value;
+      activeFiltersEl.appendChild(span);
+    });
+    
+    // Show/hide active filters area
+    if (hasActiveFilters) {
+      activeFiltersEl.style.display = 'flex';
+    } else {
+      activeFiltersEl.style.display = 'none';
+    }
+    
+    // Add event listeners to remove filters
+    activeFiltersEl.querySelectorAll('span').forEach(span => {
+      span.addEventListener('click', () => {
+        const { type, value } = span.dataset;
+        const checkbox = filtersSection.querySelector(`input[name="${type}"][value="${value}"]`);
+        if (checkbox) {
+          checkbox.checked = false;
+          applyFilters();
+        }
+      });
+    });
+  }
+
+  function applyFilters() {
+    // Update active filters object
+    activeFilters = {
+      price: [...filtersSection.querySelectorAll('input[name="price"]:checked')].map(input => Number(input.value)),
+      welcomeDrink: [...filtersSection.querySelectorAll('input[name="welcomeDrink"]:checked')].map(input => input.value),
+      extra: [...filtersSection.querySelectorAll('input[name="extra"]:checked')].map(input => input.value)
+    };
+    
+    updateActiveFiltersDisplay();
+    
+    let filtered = salons;
+
+    const query = searchBar.value.toLowerCase();
+    if (query) {
+      filtered = filtered.filter(salon => salon.salonName.toLowerCase().includes(query));
+    }
+
+    if (activeFilters.price.length > 0) {
+      filtered = filtered.filter(salon =>
+        activeFilters.price.some(priceLimit => salon.priceRange <= priceLimit)
+      );
+    }
+
+    if (activeFilters.welcomeDrink.length > 0) {
+      filtered = filtered.filter(salon =>
+        salon.welcomeDrink && activeFilters.welcomeDrink.includes(salon.welcomeDrink.toLowerCase())
+      );
+    }
+
+    if (activeFilters.extra.length > 0) {
+      filtered = filtered.filter(salon =>
+        salon.extras && activeFilters.extra.every(extra => salon.extras.includes(extra))
+      );
+    }
+
+    renderSalons(filtered);
+    detailsEl.style.display = 'none';
+  }
+
+  function fetchSalons() {
+    if (!city) {
+      salonListEl.innerHTML = '<li>Please select a city.</li>';
+      return;
+    }
+    
+    // Show loading state
+    salonListEl.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 2rem;">
+        <span class="loading"></span> Loading salons...
+      </div>
+    `;
+    
+    fetch(`https://salon-booking-backend-vsaz.onrender.com/salons/city/${encodeURIComponent(city)}`)
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch salons');
+        return res.json();
+      })
+      .then(data => {
+        salons = data;
+        applyFilters();
+      })
+      .catch(() => {
+        salonListEl.innerHTML = '<li>Error loading salons. Please try again.</li>';
+      });
+  }
+
+  // Event Listeners
+  searchBar.addEventListener('input', applyFilters);
+  filtersSection.querySelectorAll('input').forEach(input => {
+    input.addEventListener('change', applyFilters);
+  });
+  
+  filterToggle.addEventListener('click', () => {
+    filtersSection.classList.toggle('active');
+  });
+  
+  clearFiltersBtn.addEventListener('click', () => {
+    filtersSection.querySelectorAll('input').forEach(input => {
+      input.checked = false;
+    });
+    searchBar.value = '';
+    applyFilters();
+  });
+  
+  // Close filters when clicking outside on mobile
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 900 && 
+        filtersSection.classList.contains('active') &&
+        !filtersSection.contains(e.target) &&
+        e.target !== filterToggle) {
+      filtersSection.classList.remove('active');
+    }
+  });
+
+  fetchSalons();
+</script>
 </body>
 </html>
-

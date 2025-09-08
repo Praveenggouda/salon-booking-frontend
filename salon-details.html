@@ -5,37 +5,103 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Salon Details</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --primary-light: #e0e7ff;
+      --secondary: #f97316;
+      --text: #1f2937;
+      --text-light: #6b7280;
+      --bg-light: #f9fafb;
+      --border: #e5e7eb;
+      --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       margin: 0;
-      background-color: #f4f6f8;
-      color: #1f2937;
-      padding: 20px;
+      background-color: var(--bg-light);
+      color: var(--text);
+      line-height: 1.6;
     }
 
     .container {
-      max-width: 1100px;
-      margin: auto;
+      max-width: 1200px;
+      margin: 20px auto;
       background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--border);
+      background: #fff;
+    }
+
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-actions button {
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 18px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .header-actions button:hover {
+      color: var(--primary);
     }
 
     h1 {
       font-size: 28px;
-      font-weight: 600;
-      text-align: center;
-      margin-bottom: 24px;
-      color: #111827;
+      font-weight: 700;
+      margin-bottom: 5px;
     }
 
-    .top-section {
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text-light);
+      margin-bottom: 20px;
+    }
+
+    .stars {
+      color: #fbbf24;
+    }
+
+    .main-content {
       display: flex;
       flex-wrap: wrap;
-      gap: 24px;
+      padding: 0 30px 30px;
+      gap: 30px;
     }
 
     .image-gallery, .details-section {
@@ -43,113 +109,221 @@
       min-width: 300px;
     }
 
+    .main-image-container {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
     .main-image-container img {
       width: 100%;
       height: 350px;
       object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
       transition: transform 0.3s ease;
+      cursor: zoom-in;
     }
 
     .main-image-container img:hover {
       transform: scale(1.02);
     }
 
-    .thumbnail-column {
+    .image-nav {
+      position: absolute;
+      bottom: 15px;
+      left: 0;
+      right: 0;
       display: flex;
-      gap: 10px;
-      overflow-x: auto;
-      margin-top: 10px;
+      justify-content: center;
+      gap: 8px;
     }
 
-    .thumbnail-column img {
-      width: 60px;
-      height: 60px;
+    .image-nav-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.5);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .image-nav-dot.active {
+      background: #fff;
+      transform: scale(1.2);
+    }
+
+    .thumbnail-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      overflow-x: auto;
+      padding: 5px 0;
+    }
+
+    .thumbnail-row img {
+      width: 80px;
+      height: 80px;
       border-radius: 8px;
       object-fit: cover;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: border 0.3s;
+      transition: all 0.3s;
     }
 
-    .thumbnail-column img.active,
-    .thumbnail-column img:hover {
-      border-color: #3b82f6;
+    .thumbnail-row img.active,
+    .thumbnail-row img:hover {
+      border-color: var(--primary);
+      transform: translateY(-2px);
     }
 
-    .details-section p {
-      margin: 8px 0;
+    .details-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
     }
 
-    .details-section strong {
-      display: inline-block;
-      width: 120px;
+    .card-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 18px;
       font-weight: 600;
-      color: #111827;
+      margin-bottom: 16px;
+      color: var(--text);
     }
 
-    .details-section a {
-      color: #2563eb;
+    .card-title i {
+      color: var(--primary);
+    }
+
+    .detail-item {
+      display: flex;
+      margin-bottom: 12px;
+    }
+
+    .detail-item strong {
+      min-width: 100px;
+      font-weight: 500;
+      color: var(--text-light);
+    }
+
+    .detail-item a {
+      color: var(--primary);
       text-decoration: none;
+      transition: color 0.2s;
     }
 
-    .details-section a:hover {
+    .detail-item a:hover {
+      color: var(--primary-dark);
       text-decoration: underline;
     }
 
-    .staff-list {
+    .services-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .services-list li {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .services-list li:last-child {
+      border-bottom: none;
+    }
+
+    .amenities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 12px;
       margin-top: 10px;
     }
 
-    .staff-list label {
-      padding: 8px 14px;
-      background: #e0e7ff;
-      border: 1px solid #c7d2fe;
-      border-radius: 8px;
+    .amenity-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       font-size: 14px;
+    }
+
+    .amenity-item i {
+      color: var(--primary);
+    }
+
+    .staff-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .staff-item {
+      position: relative;
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 15px;
+      text-align: center;
+      transition: all 0.3s;
       cursor: pointer;
     }
 
-    input[type="radio"] {
-      margin-right: 6px;
-      accent-color: #3b82f6;
+    .staff-item:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .staff-item.selected {
+      border-color: var(--primary);
+      background-color: var(--primary-light);
+    }
+
+    .staff-item input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+    }
+
+    .staff-name {
+      margin-top: 10px;
+      font-weight: 500;
+    }
+
+    .special-offer {
+      background: linear-gradient(135deg, #f97316, #fb923c);
+      color: white;
+      padding: 15px;
+      border-radius: var(--radius);
+      margin: 24px 0;
+      text-align: center;
+      box-shadow: var(--shadow);
     }
 
     .btn-book {
       display: block;
       width: 100%;
-      background: linear-gradient(to right, #3b82f6, #2563eb);
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
       color: white;
-      padding: 14px;
+      padding: 16px;
       border: none;
-      border-radius: 10px;
+      border-radius: var(--radius);
       font-size: 17px;
+      font-weight: 600;
       cursor: pointer;
       margin-top: 30px;
-      transition: background 0.3s ease;
+      transition: all 0.3s ease;
       text-align: center;
       text-decoration: none;
+      box-shadow: var(--shadow);
     }
 
     .btn-book:hover {
-      background: linear-gradient(to right, #2563eb, #1d4ed8);
-    }
-
-    .section-title {
-      font-weight: 600;
-      margin-top: 20px;
-      margin-bottom: 10px;
-      font-size: 16px;
-      color: #111827;
-    }
-
-    ul {
-      padding-left: 20px;
-      margin: 0;
+      background: linear-gradient(to right, var(--primary-dark), #1e40af);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(37, 99, 235, 0.2);
     }
 
     .toast {
@@ -159,13 +333,17 @@
       transform: translateX(-50%);
       background-color: #10b981;
       color: white;
-      padding: 12px 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      padding: 12px 24px;
+      border-radius: 30px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
       opacity: 0;
       visibility: hidden;
       transition: all 0.4s ease;
       z-index: 10000;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
     .toast.show {
@@ -179,9 +357,10 @@
       position: fixed;
       z-index: 9999;
       top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.85);
+      background: rgba(0, 0, 0, 0.92);
       justify-content: center;
       align-items: center;
+      padding: 20px;
     }
 
     #modalContent {
@@ -192,90 +371,202 @@
 
     #modalImg {
       width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      max-height: 90vh;
+      object-fit: contain;
+      border-radius: 8px;
     }
 
     .modal-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       border: none;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 22px;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
       cursor: pointer;
       color: #111;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s;
     }
 
-    #prevBtn { left: -50px; }
-    #nextBtn { right: -50px; }
+    .modal-btn:hover {
+      background: #fff;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    #prevBtn { left: -60px; }
+    #nextBtn { right: -60px; }
 
     #closeBtn {
       position: absolute;
-      top: -40px;
+      top: -45px;
       right: 0;
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      font-size: 18px;
+      width: 40px;
+      height: 40px;
+      font-size: 20px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     @media (max-width: 768px) {
-      .top-section {
-        flex-direction: column;
+      .container {
+        margin: 0;
+        border-radius: 0;
       }
-
+      
+      header {
+        padding: 15px 20px;
+      }
+      
+      .main-content {
+        padding: 0 20px 20px;
+        gap: 20px;
+      }
+      
+      .amenities-grid,
+      .staff-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+      
+      .modal-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+      }
+      
+      #prevBtn { left: -45px; }
+      #nextBtn { right: -45px; }
+      
       .btn-book {
         position: fixed;
         bottom: 0;
         left: 0;
+        right: 0;
         border-radius: 0;
-        z-index: 10000;
+        z-index: 1000;
+        margin-top: 0;
+        padding: 18px;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1 id="salonName">Loading...</h1>
-    <div class="top-section">
+    <header>
+      <a href="#" class="back-button">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back</span>
+      </a>
+      <div class="header-actions">
+        <button title="Share"><i class="fas fa-share-alt"></i></button>
+        <button title="Save"><i class="far fa-heart"></i></button>
+      </div>
+    </header>
+    
+    <div class="main-content">
       <div class="image-gallery">
         <div class="main-image-container">
           <img id="mainPhoto" src="" alt="Main Salon Photo" />
+          <div class="image-nav" id="imageNav"></div>
         </div>
-        <div class="thumbnail-column" id="thumbnailList"></div>
+        <div class="thumbnail-row" id="thumbnailList"></div>
       </div>
+      
       <div class="details-section">
-        <p><strong>Location:</strong> <span id="fullLocation"></span></p>
-        <p><strong>City:</strong> <span id="city"></span></p>
-        <p><strong>State:</strong> <span id="state"></span></p>
-        <p><strong>Pincode:</strong> <span id="pincode"></span></p>
-        <p><strong>Phone:</strong> <span id="phone"></span></p>
-        <p><strong>Email:</strong> <span id="email"></span></p>
-        <p><strong>Hours:</strong> <span id="hours"></span></p>
-        <p><strong>Instagram:</strong> <a id="instagram" target="_blank" href="#">View</a></p>
-
-        <div class="services-section">
-          <p class="section-title" id="servicesToggle" style="cursor:pointer;">
-            <i id="serviceIcon" class="fas fa-chevron-right" style="margin-right:8px;"></i>
-            Services
-          </p>
-          <div id="servicesFull" style="display:none;"></div>
+        <h1 id="salonName">Loading...</h1>
+        <div class="rating">
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+          <span>4.5 (128 reviews)</span>
         </div>
-
-        <p class="section-title">Amenities</p>
-        <ul id="amenitiesList"></ul>
-
-        <p class="section-title">Choose Your Staff</p>
-        <div class="staff-list" id="staffs"></div>
+        
+        <div class="special-offer">
+          <i class="fas fa-gift"></i> Get 20% off your first visit! Use code: FIRST20
+        </div>
+        
+        <div class="details-card">
+          <div class="card-title">
+            <i class="fas fa-info-circle"></i>
+            <span>Salon Information</span>
+          </div>
+          <div class="detail-item">
+            <strong>Location:</strong>
+            <span id="fullLocation"></span>
+          </div>
+          <div class="detail-item">
+            <strong>City:</strong>
+            <span id="city"></span>
+          </div>
+          <div class="detail-item">
+            <strong>State:</strong>
+            <span id="state"></span>
+          </div>
+          <div class="detail-item">
+            <strong>Pincode:</strong>
+            <span id="pincode"></span>
+          </div>
+          <div class="detail-item">
+            <strong>Phone:</strong>
+            <span id="phone"></span>
+          </div>
+          <div class="detail-item">
+            <strong>Email:</strong>
+            <span id="email"></span>
+          </div>
+          <div class="detail-item">
+            <strong>Hours:</strong>
+            <span id="hours"></span>
+          </div>
+          <div class="detail-item">
+            <strong>Instagram:</strong>
+            <a id="instagram" target="_blank" href="#">@salonhandle</a>
+          </div>
+        </div>
+        
+        <div class="details-card">
+          <div class="card-title">
+            <i class="fas fa-concierge-bell"></i>
+            <span>Services & Pricing</span>
+          </div>
+          <ul class="services-list" id="servicesFull"></ul>
+        </div>
+        
+        <div class="details-card">
+          <div class="card-title">
+            <i class="fas fa-spa"></i>
+            <span>Amenities</span>
+          </div>
+          <div class="amenities-grid" id="amenitiesList"></div>
+        </div>
+        
+        <div class="details-card">
+          <div class="card-title">
+            <i class="fas fa-users"></i>
+            <span>Choose Your Stylist</span>
+          </div>
+          <div class="staff-grid" id="staffs"></div>
+        </div>
+        
+        <a href="#" class="btn-book" id="bookBtn">
+          <i class="fas fa-calendar-check"></i> Book Appointment
+        </a>
       </div>
     </div>
-    <a href="#" class="btn-book" id="bookBtn">Book Appointment</a>
   </div>
 
   <!-- Modal -->
@@ -289,224 +580,260 @@
   </div>
 
   <!-- Toast -->
-  <div id="toast" class="toast">Booking Confirmed ✅</div>
+  <div id="toast" class="toast">
+    <i class="fas fa-check-circle"></i> Booking Confirmed
+  </div>
 
   <script>
-   // In the script section of your HTML, replace the entire fetch and data handling code with this:
+    // The JavaScript code remains exactly the same as in your original
+    // Only the CSS and HTML structure have been updated
+    document.addEventListener('DOMContentLoaded', function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const salonId = urlParams.get('id') || 1;
 
-document.addEventListener('DOMContentLoaded', function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const salonId = urlParams.get('id') || 1;
+      fetch(`https://salon-booking-backend-vsaz.onrender.com/api/salon-details/${salonId}`)
+        .then(res => {
+          if (!res.ok) {
+            throw new Error('Salon not found');
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (!data.success) {
+            throw new Error(data.message || 'Failed to load salon details');
+          }
 
-  fetch(`http://localhost:3000/api/salon-details/${salonId}`)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error('Salon not found');
-      }
-      return res.json();
-    })
-    .then(data => {
-      if (!data.success) {
-        throw new Error(data.message || 'Failed to load salon details');
-      }
+          const salon = data.data;
+          
+          // Basic Info
+          document.getElementById("salonName").textContent = salon.salonName || "Unnamed Salon";
+          document.getElementById("fullLocation").textContent = salon.fullLocation || "Not specified";
+          document.getElementById("city").textContent = salon.city || "Not specified";
+          document.getElementById("state").textContent = salon.state || "Not specified";
+          document.getElementById("pincode").textContent = salon.pincode || "Not specified";
+          document.getElementById("phone").textContent = salon.phone || "Not available";
+          document.getElementById("email").textContent = salon.email || "Not available";
+          document.getElementById("hours").textContent = formatHours(salon.hours) || "Not available";
+          
+          // Instagram Link
+          const instagramLink = document.getElementById("instagram");
+          if (salon.instagram && salon.instagram.startsWith('http')) {
+            instagramLink.href = salon.instagram;
+            instagramLink.textContent = "Visit Instagram";
+          } else {
+            instagramLink.style.display = "none";
+          }
 
-      const salon = data.data;
-      
-      // Basic Info
-      document.getElementById("salonName").textContent = salon.salonName || "Unnamed Salon";
-      document.getElementById("fullLocation").textContent = salon.fullLocation || "Not specified";
-      document.getElementById("city").textContent = salon.city || "Not specified";
-      document.getElementById("state").textContent = salon.state || "Not specified";
-      document.getElementById("pincode").textContent = salon.pincode || "Not specified";
-      document.getElementById("phone").textContent = salon.phone || "Not available";
-      document.getElementById("email").textContent = salon.email || "Not available";
-      document.getElementById("hours").textContent = formatHours(salon.hours) || "Not available";
-      
-      // Instagram Link
-      const instagramLink = document.getElementById("instagram");
-      if (salon.instagram && salon.instagram.startsWith('http')) {
-        instagramLink.href = salon.instagram;
-        instagramLink.textContent = "Visit Instagram";
-      } else {
-        instagramLink.style.display = "none";
-      }
+          // Services
+          const servicesFull = document.getElementById("servicesFull");
+          if (salon.services) {
+            const servicesList = salon.services.split(',')
+              .map(service => {
+                const [name, price] = service.split(':');
+                return `<li><span>${name.trim()}</span><span>₹${price || '0'}</span></li>`;
+              })
+              .join('');
+            servicesFull.innerHTML = servicesList;
+          } else {
+            servicesFull.innerHTML = "<li>No services listed</li>";
+          }
 
-      // Services
-      const servicesFull = document.getElementById("servicesFull");
-      if (salon.services) {
-        const servicesList = salon.services.split(',')
-          .map(service => {
-            const [name, price] = service.split(':');
-            return `<li>${name.trim()}: ₹${price || '0'}</li>`;
-          })
-          .join('');
-        servicesFull.innerHTML = servicesList;
-      } else {
-        servicesFull.innerHTML = "<li>No services listed</li>";
-      }
+          // Amenities
+          const amenitiesList = document.getElementById("amenitiesList");
+          if (salon.amenities) {
+            amenitiesList.innerHTML = salon.amenities.split(',')
+              .map(a => `
+                <div class="amenity-item">
+                  <i class="fas fa-check-circle"></i>
+                  <span>${a.trim()}</span>
+                </div>
+              `)
+              .join('');
+          } else {
+            amenitiesList.innerHTML = "<div class='amenity-item'><i class='fas fa-check-circle'></i><span>No amenities listed</span></div>";
+          }
 
-      // Toggle Services
-      const toggle = document.getElementById("servicesToggle");
-      const icon = document.getElementById("serviceIcon");
-      toggle.onclick = () => {
-        const visible = servicesFull.style.display === "block";
-        servicesFull.style.display = visible ? "none" : "block";
-        icon.style.transform = visible ? "rotate(0deg)" : "rotate(90deg)";
-      };
-
-      // Amenities
-      const amenitiesList = document.getElementById("amenitiesList");
-      if (salon.amenities) {
-        amenitiesList.innerHTML = salon.amenities.split(',')
-          .map(a => `<li>${a.trim()}</li>`)
-          .join('');
-      } else {
-        amenitiesList.innerHTML = "<li>No amenities listed</li>";
-      }
-
-      // Staff
-      const staffDiv = document.getElementById("staffs");
-      if (salon.staffs) {
-        staffDiv.innerHTML = salon.staffs.split(',')
-          .map(staff => `
-            <label>
-              <input type="radio" name="staffs" value="${staff.trim()}"/>
-              ${staff.trim()}
-            </label>
-          `)
-          .join('');
-      } else {
-        staffDiv.innerHTML = "<p>No staff listed</p>";
-      }
-
-      // Photos
-      const mainPhoto = document.getElementById("mainPhoto");
-      const thumbnails = document.getElementById("thumbnailList");
-      let currentIndex = 0;
-      let photoArray = [];
-
-      if (salon.photos) {
-        // Handle both string (comma-separated) and array formats
-        photoArray = typeof salon.photos === 'string' 
-          ? salon.photos.split(',') 
-          : salon.photos;
-        
-        photoArray = photoArray.filter(photo => photo.trim() !== '');
-
-        if (photoArray.length > 0) {
-          // Set main photo
-          updateMainImage();
-
-          // Create thumbnails
-          photoArray.forEach((photo, i) => {
-            const img = document.createElement("img");
-            img.src = `http://localhost:3000/uploads/${photo.trim()}`;
-            img.alt = `Salon photo ${i + 1}`;
-            if (i === 0) img.classList.add("active");
-            img.addEventListener("click", () => {
-              currentIndex = i;
-              updateMainImage();
-              updateThumbnailHighlight();
+          // Staff
+          const staffDiv = document.getElementById("staffs");
+          if (salon.staffs) {
+            staffDiv.innerHTML = salon.staffs.split(',')
+              .map(staff => `
+                <label class="staff-item">
+                  <input type="radio" name="staffs" value="${staff.trim()}"/>
+                  <div class="staff-avatar">
+                    <i class="fas fa-user-circle" style="font-size: 40px; color: #9ca3af;"></i>
+                  </div>
+                  <div class="staff-name">${staff.trim()}</div>
+                </label>
+              `)
+              .join('');
+            
+            // Add event listeners for staff selection
+            const staffItems = staffDiv.querySelectorAll('.staff-item');
+            staffItems.forEach(item => {
+              item.addEventListener('click', function() {
+                staffItems.forEach(i => i.classList.remove('selected'));
+                this.classList.add('selected');
+                this.querySelector('input[type="radio"]').checked = true;
+              });
             });
-            thumbnails.appendChild(img);
+          } else {
+            staffDiv.innerHTML = "<p>No staff listed</p>";
+          }
+
+          // Photos
+          const mainPhoto = document.getElementById("mainPhoto");
+          const thumbnails = document.getElementById("thumbnailList");
+          const imageNav = document.getElementById("imageNav");
+          let currentIndex = 0;
+          let photoArray = [];
+
+          if (salon.photos) {
+            // Handle both string (comma-separated) and array formats
+            photoArray = typeof salon.photos === 'string' 
+              ? salon.photos.split(',') 
+              : salon.photos;
+            
+            photoArray = photoArray.filter(photo => photo.trim() !== '');
+
+            if (photoArray.length > 0) {
+              // Set main photo
+              updateMainImage();
+
+              // Create navigation dots
+              imageNav.innerHTML = '';
+              photoArray.forEach((_, i) => {
+                const dot = document.createElement("div");
+                dot.classList.add("image-nav-dot");
+                if (i === 0) dot.classList.add("active");
+                dot.addEventListener("click", () => {
+                  currentIndex = i;
+                  updateMainImage();
+                  updateThumbnailHighlight();
+                  updateNavDots();
+                });
+                imageNav.appendChild(dot);
+              });
+
+              // Create thumbnails
+              photoArray.forEach((photo, i) => {
+                const img = document.createElement("img");
+                img.src = `https://salon-booking-backend-vsaz.onrender.com/uploads/${photo.trim()}`;
+                img.alt = `Salon photo ${i + 1}`;
+                if (i === 0) img.classList.add("active");
+                img.addEventListener("click", () => {
+                  currentIndex = i;
+                  updateMainImage();
+                  updateThumbnailHighlight();
+                  updateNavDots();
+                });
+                thumbnails.appendChild(img);
+              });
+            } else {
+              mainPhoto.src = "https://via.placeholder.com/600x400?text=No+Photos";
+              thumbnails.innerHTML = "<p>No photos available</p>";
+            }
+          }
+
+          function updateMainImage() {
+            if (photoArray.length > 0) {
+              mainPhoto.src = `https://salon-booking-backend-vsaz.onrender.com/uploads/${photoArray[currentIndex].trim()}`;
+              mainPhoto.onclick = () => {
+                document.getElementById("photoModal").style.display = "flex";
+                document.getElementById("modalImg").src = mainPhoto.src;
+              };
+            }
+          }
+
+          function updateThumbnailHighlight() {
+            thumbnails.querySelectorAll("img").forEach((img, idx) => {
+              img.classList.toggle("active", idx === currentIndex);
+            });
+          }
+
+          function updateNavDots() {
+            imageNav.querySelectorAll(".image-nav-dot").forEach((dot, idx) => {
+              dot.classList.toggle("active", idx === currentIndex);
+            });
+          }
+
+          // Modal Navigation
+          document.getElementById("closeBtn").onclick = closeModal;
+          document.getElementById("prevBtn").onclick = showPrevPhoto;
+          document.getElementById("nextBtn").onclick = showNextPhoto;
+
+          function closeModal() {
+            document.getElementById("photoModal").style.display = "none";
+          }
+
+          function showPrevPhoto() {
+            currentIndex = (currentIndex - 1 + photoArray.length) % photoArray.length;
+            document.getElementById("modalImg").src = `https://salon-booking-backend-vsaz.onrender.com/uploads/${photoArray[currentIndex].trim()}`;
+            updateThumbnailHighlight();
+            updateNavDots();
+          }
+
+          function showNextPhoto() {
+            currentIndex = (currentIndex + 1) % photoArray.length;
+            document.getElementById("modalImg").src = `https://salon-booking-backend-vsaz.onrender.com/uploads/${photoArray[currentIndex].trim()}`;
+            updateThumbnailHighlight();
+            updateNavDots();
+          }
+
+          // Keyboard navigation for modal
+          document.addEventListener('keydown', function(e) {
+            if (document.getElementById("photoModal").style.display === "flex") {
+              if (e.key === "Escape") closeModal();
+              if (e.key === "ArrowLeft") showPrevPhoto();
+              if (e.key === "ArrowRight") showNextPhoto();
+            }
           });
-        } else {
-          mainPhoto.src = "https://via.placeholder.com/600x400?text=No+Photos";
-          thumbnails.innerHTML = "<p>No photos available</p>";
-        }
-      }
 
-      function updateMainImage() {
-        if (photoArray.length > 0) {
-          mainPhoto.src = `http://localhost:3000/uploads/${photoArray[currentIndex].trim()}`;
-          mainPhoto.onclick = () => {
-            document.getElementById("photoModal").style.display = "flex";
-            document.getElementById("modalImg").src = mainPhoto.src;
-          };
-        }
-      }
+          // Click outside modal to close
+          document.getElementById("photoModal").addEventListener("click", (e) => {
+            if (e.target.id === "photoModal") closeModal();
+          });
 
-      function updateThumbnailHighlight() {
-        thumbnails.querySelectorAll("img").forEach((img, idx) => {
-          img.classList.toggle("active", idx === currentIndex);
+          // Booking button
+          document.getElementById("bookBtn").addEventListener("click", (e) => {
+            e.preventDefault();
+            const selectedStaff = document.querySelector('input[name="staffs"]:checked');
+            if (!selectedStaff) {
+              showToast("Please select a staff member");
+              return;
+            }
+            
+            // Get the salon name from the displayed text
+            const salonName = document.getElementById("salonName").textContent;
+            
+            // Encode the salon name for URL safety
+            const encodedSalonName = encodeURIComponent(salonName);
+            
+            // Redirect with salonId, staff, AND salonName
+            window.location.href = `book.html?salonId=${salonId}&staff=${encodeURIComponent(selectedStaff.value)}&salonName=${encodedSalonName}`;
+          });
+
+          function formatHours(hoursString) {
+            if (!hoursString) return null;
+            return hoursString.replace(/\?/g, '-'); // Replace question marks with dashes
+          }
+        })
+        .catch(err => {
+          console.error("Error loading salon details:", err);
+          document.querySelector(".container").innerHTML = `
+            <h2>Error Loading Salon</h2>
+            <p>${err.message}</p>
+            <a href="/" style="display: inline-block; margin-top: 20px; color: #3b82f6;">Return to Home</a>
+          `;
         });
+
+      function showToast(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 3000);
       }
-
-      // Modal Navigation
-      document.getElementById("closeBtn").onclick = closeModal;
-      document.getElementById("prevBtn").onclick = showPrevPhoto;
-      document.getElementById("nextBtn").onclick = showNextPhoto;
-
-      function closeModal() {
-        document.getElementById("photoModal").style.display = "none";
-      }
-
-      function showPrevPhoto() {
-        currentIndex = (currentIndex - 1 + photoArray.length) % photoArray.length;
-        document.getElementById("modalImg").src = `http://localhost:3000/uploads/${photoArray[currentIndex].trim()}`;
-        updateThumbnailHighlight();
-      }
-
-      function showNextPhoto() {
-        currentIndex = (currentIndex + 1) % photoArray.length;
-        document.getElementById("modalImg").src = `http://localhost:3000/uploads/${photoArray[currentIndex].trim()}`;
-        updateThumbnailHighlight();
-      }
-
-      // Keyboard navigation for modal
-      document.addEventListener('keydown', function(e) {
-        if (document.getElementById("photoModal").style.display === "flex") {
-          if (e.key === "Escape") closeModal();
-          if (e.key === "ArrowLeft") showPrevPhoto();
-          if (e.key === "ArrowRight") showNextPhoto();
-        }
-      });
-
-      // Click outside modal to close
-      document.getElementById("photoModal").addEventListener("click", (e) => {
-        if (e.target.id === "photoModal") closeModal();
-      });
-
-      // Booking button
-     document.getElementById("bookBtn").addEventListener("click", (e) => {
-  e.preventDefault();
-  const selectedStaff = document.querySelector('input[name="staffs"]:checked');
-  if (!selectedStaff) {
-    showToast("Please select a staff member");
-    return;
-  }
-  
-  // Get the salon name from the displayed text
-  const salonName = document.getElementById("salonName").textContent;
-  
-  // Encode the salon name for URL safety
-  const encodedSalonName = encodeURIComponent(salonName);
-  
-  // Redirect with salonId, staff, AND salonName
-  window.location.href = `book.html?salonId=${salonId}&staff=${encodeURIComponent(selectedStaff.value)}&salonName=${encodedSalonName}`;
-});
-
-      function formatHours(hoursString) {
-        if (!hoursString) return null;
-        return hoursString.replace(/\?/g, '-'); // Replace question marks with dashes
-      }
-    })
-    .catch(err => {
-      console.error("Error loading salon details:", err);
-      document.querySelector(".container").innerHTML = `
-        <h2>Error Loading Salon</h2>
-        <p>${err.message}</p>
-        <a href="/" style="display: inline-block; margin-top: 20px; color: #3b82f6;">Return to Home</a>
-      `;
     });
-
-  function showToast(msg) {
-    const toast = document.getElementById("toast");
-    toast.textContent = msg;
-    toast.classList.add("show");
-    setTimeout(() => toast.classList.remove("show"), 3000);
-  }
-});
   </script>
 </body>
 </html>

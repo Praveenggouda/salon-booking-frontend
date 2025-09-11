@@ -186,6 +186,48 @@
       border-color: #eee;
     }
 
+    /* Logout Button */
+    .btn-logout {
+      background: linear-gradient(45deg, #dc3545, #c82333);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 8px 20px;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .btn-logout:hover {
+      background: linear-gradient(45deg, #c82333, #a71e2a);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
+    }
+    
+    .mobile-logout-btn {
+      width: 100%;
+      margin-top: 10px;
+      background: linear-gradient(45deg, #dc3545, #c82333);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 500;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .mobile-logout-btn:hover {
+      background: linear-gradient(45deg, #c82333, #a71e2a);
+      color: white;
+    }
+
     /* Hero Section */
     .hero-section {
       background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
@@ -787,6 +829,11 @@
         padding: 12px 20px;
         font-size: 16px; /* Prevents zoom on iOS */
       }
+      
+      .btn-logout {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+      }
     }
 
     /* Extra small devices */
@@ -923,6 +970,9 @@
           <div class="navbar-auth-buttons d-lg-none">
             <a id="loginLinkMobile" class="btn btn-outline-primary w-100" href="login.html">Login</a>
             <a id="registerLinkMobile" class="btn btn-primary w-100" href="register.html">Sign Up</a>
+            <button id="logoutButtonMobile" class="mobile-logout-btn" style="display: none;">
+              <i class="fas fa-sign-out-alt me-1"></i>Logout
+            </button>
           </div>
           
           <div class="d-none d-lg-flex align-items-center">
@@ -939,6 +989,10 @@
                 <li><button class="dropdown-item" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li>
               </ul>
             </div>
+            
+            <button id="logoutButton" class="btn-logout ms-2" style="display: none;">
+              <i class="fas fa-sign-out-alt me-1"></i>Logout
+            </button>
           </div>
         </div>
       </div>
@@ -1155,6 +1209,8 @@
       const myBookings = document.getElementById('myBookings');
       const profileMenu = document.getElementById('profileMenu');
       const userNameSpan = document.getElementById('userName');
+      const logoutButton = document.getElementById('logoutButton');
+      const logoutButtonMobile = document.getElementById('logoutButtonMobile');
 
       if (user && user.name) {
         if (loginLink) loginLink.style.display = 'none';
@@ -1164,6 +1220,8 @@
 
         if (myBookings) myBookings.style.display = 'block';
         if (profileMenu) profileMenu.style.display = 'block';
+        if (logoutButton) logoutButton.style.display = 'block';
+        if (logoutButtonMobile) logoutButtonMobile.style.display = 'block';
 
         if (userNameSpan) userNameSpan.textContent = user.name;
       } else {
@@ -1174,27 +1232,36 @@
 
         if (myBookings) myBookings.style.display = 'none';
         if (profileMenu) profileMenu.style.display = 'none';
+        if (logoutButton) logoutButton.style.display = 'none';
+        if (logoutButtonMobile) logoutButtonMobile.style.display = 'none';
       }
     });
 
-   async function handleAdminLink(e) {
-  e.preventDefault();
+    function logout() {
+      localStorage.removeItem('user');
+      
+      // Hide user-related items
+      document.getElementById('myBookings').style.display = 'none';
+      document.getElementById('profileMenu').style.display = 'none';
+      document.getElementById('logoutButton').style.display = 'none';
+      document.getElementById('logoutButtonMobile').style.display = 'none';
 
-  try {
-    const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/check', { credentials: 'include' });
-    const data = await res.json();
+      // Show login/register buttons
+      document.getElementById('loginLink').style.display = 'block';
+      document.getElementById('registerLink').style.display = 'block';
+      document.getElementById('loginLinkMobile').style.display = 'block';
+      document.getElementById('registerLinkMobile').style.display = 'block';
 
-    if (data.loggedIn) {
-      window.location.href = 'admin-panel.html';
-    } else {
-      alert('Please login first to access the Admin Panel');
-      window.location.href = 'admin-login.html';
+      // Clear username
+      document.getElementById('userName').textContent = '';
+
+      // Redirect to home page
+      window.location.href = 'index.html';
     }
-  } catch (err) {
-    console.error('Error checking admin session:', err);
-    window.location.href = 'admin-login.html';
-  }
-}
+
+    // Add event listeners to logout buttons
+    document.getElementById('logoutButton').addEventListener('click', logout);
+    document.getElementById('logoutButtonMobile').addEventListener('click', logout);
 
     // City search functionality
     const citySearchInput = document.getElementById("city-search");
@@ -1220,6 +1287,20 @@
     const adminLink = document.getElementById('adminLink');
     const adminLinkMobile = document.getElementById('adminLinkMobile');
 
+    function handleAdminLink(e) {
+      e.preventDefault();
+      const userEmail = localStorage.getItem('userEmail');
+      
+      if (!userEmail) {
+        alert('Please login first to access the Admin Panel');
+        window.location.href = 'login.html';
+      } else {
+        window.location.href = 'admin-panel.html';
+      }
+    }
+
+    if (adminLink) adminLink.addEventListener('click', handleAdminLink);
+    if (adminLinkMobile) adminLinkMobile.addEventListener('click', handleAdminLink);
 
     // Stats fetching
     async function fetchStats() {
@@ -1272,4 +1353,3 @@
   </script>
 </body>
 </html>
-

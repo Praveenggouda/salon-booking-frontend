@@ -31,6 +31,7 @@
       background-color: #f8f9fa;
       padding: 10px 10px;
       color: #333;
+      overflow-x: hidden;
     }
 
     .main-wrapper {
@@ -233,6 +234,8 @@
     .hero-section img {
       filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.15));
       animation: float 3s ease-in-out infinite;
+      max-width: 100%;
+      height: auto;
     }
 
     @keyframes float {
@@ -755,6 +758,76 @@
       .navbar-brand {
         font-size: 1.2rem;
       }
+      
+      /* Improved mobile-specific styles */
+      .navbar {
+        padding: 10px 15px;
+      }
+      
+      .hero-section img {
+        max-width: 85%;
+        margin-top: 20px;
+      }
+      
+      .stat-icon {
+        font-size: 40px;
+      }
+      
+      .stat-number {
+        font-size: 2rem;
+      }
+      
+      .city-btn {
+        width: calc(50% - 10px);
+        text-align: center;
+        padding: 10px 15px;
+      }
+      
+      #city-search {
+        padding: 12px 20px;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+    }
+
+    /* Extra small devices */
+    @media (max-width: 576px) {
+      .hero-section h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero-section p {
+        font-size: 0.95rem;
+      }
+      
+      .btn-primary, .btn-outline-primary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+      }
+      
+      .city-btn {
+        width: 100%;
+      }
+      
+      .footer-section {
+        text-align: center;
+      }
+      
+      .footer-socials a {
+        margin: 0 8px;
+      }
+      
+      .stat-card {
+        padding: 25px 15px;
+      }
+      
+      .stat-icon {
+        font-size: 35px;
+        margin-bottom: 15px;
+      }
+      
+      .stat-number {
+        font-size: 1.8rem;
+      }
     }
 
     /* Animation utilities */
@@ -792,6 +865,17 @@
     .navbar-backdrop.show {
       display: block;
     }
+    
+    /* Touch-friendly improvements */
+    .btn, .city-btn, .nav-link {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Prevent horizontal scrolling */
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
 
   </style>
 </head>
@@ -807,14 +891,14 @@
         <span>EasySalonBooking</span>
       </a>
       
-      <button class="navbar-toggler d-lg-none" type="button" id="mobileMenuToggler">
+      <button class="navbar-toggler d-lg-none" type="button" id="mobileMenuToggler" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon-custom"></span>
       </button>
       
       <div class="collapse navbar-collapse d-lg-flex" id="navbarNav">
         <div class="mobile-menu-header d-lg-none">
           <h5 class="mb-0">Menu</h5>
-          <button type="button" class="mobile-menu-close" id="closeMobileMenu">
+          <button type="button" class="mobile-menu-close" id="closeMobileMenu" aria-label="Close menu">
             <i class="fas fa-times"></i>
           </button>
         </div>
@@ -846,7 +930,7 @@
             <a id="registerLink" class="btn btn-primary me-2" href="register.html">Sign Up</a>
             
             <div class="dropdown" id="profileMenu" style="display: none;">
-              <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fas fa-user-circle me-1"></i> <span id="userName"></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
@@ -904,19 +988,19 @@
 
         <div class="logo-marquee-wrapper">
           <div class="logo-marquee">
-            <img src="images/logo 1.webp" height="40" />
-            <img src="images/logo 2.avif" height="40" />
-            <img src="images/logo 3.avif" height="40" />
-            <img src="images/logo 4.jpg" height="40" />
-            <img src="images/logo 1.webp" height="40" />
-            <img src="images/logo 2.avif" height="40" />
-            <img src="images/logo 3.avif" height="40" />
-            <img src="images/logo 4.jpg" height="40" />
+            <img src="images/logo 1.webp" height="40" alt="Salon Brand 1" />
+            <img src="images/logo 2.avif" height="40" alt="Salon Brand 2" />
+            <img src="images/logo 3.avif" height="40" alt="Salon Brand 3" />
+            <img src="images/logo 4.jpg" height="40" alt="Salon Brand 4" />
+            <img src="images/logo 1.webp" height="40" alt="Salon Brand 1" />
+            <img src="images/logo 2.avif" height="40" alt="Salon Brand 2" />
+            <img src="images/logo 3.avif" height="40" alt="Salon Brand 3" />
+            <img src="images/logo 4.jpg" height="40" alt="Salon Brand 4" />
             <!-- duplicate again for smooth loop -->
-            <img src="images/logo 1.webp" height="40" />
-            <img src="images/logo 2.avif" height="40" />
-            <img src="images/logo 3.avif" height="40" />
-            <img src="images/logo 4.jpg" height="40" />
+            <img src="images/logo 1.webp" height="40" alt="Salon Brand 1" />
+            <img src="images/logo 2.avif" height="40" alt="Salon Brand 2" />
+            <img src="images/logo 3.avif" height="40" alt="Salon Brand 3" />
+            <img src="images/logo 4.jpg" height="40" alt="Salon Brand 4" />
           </div>
         </div>
       </div>
@@ -1026,10 +1110,10 @@
         <div class="footer-section social">
           <h4><i class="fas fa-share-alt"></i> Follow Us</h4>
           <div class="footer-socials">
-            <a href="https://www.instagram.com/impraveengouda/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/praveen-gouda-20a359263/" target="_blank"><i class="fab fa-linkedin"></i></a>
-            <a href="https://github.com/yourprofile" target="_blank"><i class="fab fa-github"></i></a>
-            <a href="https://wa.me/1234567890" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/impraveengouda/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/praveen-gouda-20a359263/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="https://github.com/yourprofile" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://wa.me/1234567890" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
       </div>
@@ -1173,7 +1257,8 @@
     AOS.init({
       duration: 800,
       once: true,
-      easing: 'ease-out-cubic'
+      easing: 'ease-out-cubic',
+      disable: window.innerWidth < 768 // Disable animations on mobile for better performance
     });
     
     // Navbar scroll effect
@@ -1188,6 +1273,17 @@
 
     // Fetch stats on page load
     fetchStats();
+    
+    // Touch device detection for hover effects
+    function hasTouch() {
+      return 'ontouchstart' in document.documentElement
+        || navigator.maxTouchPoints > 0
+        || navigator.msMaxTouchPoints > 0;
+    }
+    
+    if (hasTouch()) {
+      document.body.classList.add('touch-device');
+    }
   </script>
 </body>
 </html>

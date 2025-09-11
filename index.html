@@ -1283,24 +1283,35 @@
       noResults.style.display = searchValue && matchCount === 0 ? "block" : "none";
     });
 
-    // Admin link functionality
-    const adminLink = document.getElementById('adminLink');
-    const adminLinkMobile = document.getElementById('adminLinkMobile');
+// Admin link functionality
+const adminLink = document.getElementById('adminLink');
+const adminLinkMobile = document.getElementById('adminLinkMobile');
 
-    function handleAdminLink(e) {
-      e.preventDefault();
-      const userEmail = localStorage.getItem('userEmail');
-      
-      if (!userEmail) {
-        alert('Please login first to access the Admin Panel');
-        window.location.href = 'login.html';
-      } else {
-        window.location.href = 'admin-panel.html';
-      }
+async function handleAdminLink(e) {
+  e.preventDefault();
+
+  try {
+    const res = await fetch('/admin/check', {
+      method: 'GET',
+      credentials: 'include' // important to send session cookie
+    });
+    const data = await res.json();
+
+    if (data.loggedIn) {
+      window.location.href = 'admin-panel.html';
+    } else {
+      alert('Please login first to access the Admin Panel');
+      window.location.href = 'admin-login.html';
     }
+  } catch (err) {
+    console.error('Error checking admin session:', err);
+    window.location.href = 'admin-login.html';
+  }
+}
 
-    if (adminLink) adminLink.addEventListener('click', handleAdminLink);
-    if (adminLinkMobile) adminLinkMobile.addEventListener('click', handleAdminLink);
+if (adminLink) adminLink.addEventListener('click', handleAdminLink);
+if (adminLinkMobile) adminLinkMobile.addEventListener('click', handleAdminLink);
+
 
     // Stats fetching
     async function fetchStats() {
@@ -1353,3 +1364,4 @@
   </script>
 </body>
 </html>
+

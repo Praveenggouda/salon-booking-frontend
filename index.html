@@ -1291,7 +1291,7 @@ async function handleAdminLink(e) {
   e.preventDefault();
 
   try {
-    const res = await fetch('/admin/check', {
+    const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/check', {
       method: 'GET',
       credentials: 'include' // important to send session cookie
     });
@@ -1364,4 +1364,5 @@ if (adminLinkMobile) adminLinkMobile.addEventListener('click', handleAdminLink);
   </script>
 </body>
 </html>
+
 

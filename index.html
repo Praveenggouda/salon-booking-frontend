@@ -1290,27 +1290,17 @@ const adminLinkMobile = document.getElementById('adminLinkMobile');
 async function handleAdminLink(e) {
   e.preventDefault();
 
-  try {
-    const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/check', {
-      method: 'GET',
-      credentials: 'include' // important to send session cookie
-    });
-    const data = await res.json();
+  const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/check', { credentials: 'include' });
+  const data = await res.json();
 
-    if (data.loggedIn) {
-      window.location.href = 'admin-panel.html';
-    } else {
-      alert('Please login first to access the Admin Panel');
-      window.location.href = 'admin-login.html';
-    }
-  } catch (err) {
-    console.error('Error checking admin session:', err);
+  if (data.loggedIn) {
+    window.location.href = 'admin-panel.html';
+  } else {
+    alert('Please login first to access the Admin Panel');
     window.location.href = 'admin-login.html';
   }
 }
 
-if (adminLink) adminLink.addEventListener('click', handleAdminLink);
-if (adminLinkMobile) adminLinkMobile.addEventListener('click', handleAdminLink);
 
 
     // Stats fetching
@@ -1364,5 +1354,6 @@ if (adminLinkMobile) adminLinkMobile.addEventListener('click', handleAdminLink);
   </script>
 </body>
 </html>
+
 
 

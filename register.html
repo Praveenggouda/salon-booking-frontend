@@ -2,154 +2,276 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register | EasySalonBooking</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Register | GlowBook/title>
+
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  
+  <!-- Google Fonts - Luxury -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
     * {
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --bg-dark: #0a0a0a;
+      --bg-card: #111111;
+      --bg-elevated: #1a1a1a;
+      --gold-primary: #D4AF37;
+      --gold-light: #F3E5AB;
+      --gold-dark: #B8960C;
+      --white-soft: #fafafa;
+      --gray-muted: #888888;
+      --border-glow: rgba(212, 175, 55, 0.2);
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     }
 
     body {
-      background: linear-gradient(to right, #f5faff, #e0f0ff);
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
       min-height: 100vh;
       display: flex;
-      justify-content: center;
       align-items: center;
+      justify-content: center;
       padding: 20px;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    /* Animated Background Effect */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at 20% 50%, rgba(212,175,55,0.08) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(212,175,55,0.02)" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') repeat-x bottom;
+      background-size: cover;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+
+    .register-container {
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      z-index: 1;
     }
 
     .register-box {
-      background-color: #ffffff;
-      padding: 32px 24px;
-      border-radius: 16px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-      width: 100%;
-      max-width: 420px;
-      animation: fadeIn 0.5s ease-in-out;
+      background: rgba(17, 17, 17, 0.95);
+      backdrop-filter: blur(20px);
+      padding: 45px 40px;
+      border-radius: 32px;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 175, 55, 0.1);
+      transition: var(--transition-smooth);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    /* Custom Scrollbar inside box */
+    .register-box::-webkit-scrollbar {
+      width: 4px;
+    }
+    .register-box::-webkit-scrollbar-track {
+      background: var(--bg-dark);
+      border-radius: 4px;
+    }
+    .register-box::-webkit-scrollbar-thumb {
+      background: var(--gold-primary);
+      border-radius: 4px;
     }
 
+    .register-box:hover {
+      border-color: rgba(212, 175, 55, 0.4);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(212, 175, 55, 0.2);
+    }
+
+    /* Logo Section */
     .logo {
       text-align: center;
-      font-size: 26px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      color: #3b82f6;
+      margin-bottom: 30px;
     }
 
-    .logo i {
-      font-size: 24px;
-      margin-right: 6px;
+    .logo-content {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 28px;
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-content i {
+      font-size: 32px;
+      color: var(--gold-primary);
+      -webkit-text-fill-color: var(--gold-primary);
+      filter: drop-shadow(0 0 10px rgba(212,175,55,0.3));
     }
 
     h2 {
       text-align: center;
-      color: #1e293b;
-      margin-bottom: 20px;
-      font-size: 22px;
+      font-size: 28px;
+      color: var(--white-soft);
+      margin-bottom: 30px;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.3px;
     }
 
+    /* Input Fields */
     .input-group {
-      margin-bottom: 16px;
       position: relative;
+      margin-bottom: 20px;
     }
 
     .input-group input,
     .input-group select {
       width: 100%;
-      padding: 12px;
-      border-radius: 12px;
-      border: 1px solid #d1d5db;
+      padding: 16px 20px;
+      background: var(--bg-elevated);
+      border: 1.5px solid rgba(212, 175, 55, 0.15);
+      border-radius: 16px;
       font-size: 15px;
-      color: #1f2937;
-      transition: 0.3s;
+      color: var(--white-soft);
+      transition: var(--transition-smooth);
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .input-group select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="%23D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 20px center;
     }
 
     .input-group input:focus,
     .input-group select:focus {
-      border-color: #3b82f6;
+      border-color: var(--gold-primary);
       outline: none;
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+      background: var(--bg-card);
     }
 
-    #otpBox {
-      display: none;
+    .input-group input::placeholder {
+      color: var(--gray-muted);
+      font-weight: 400;
     }
 
+    /* Password Toggle */
     #togglePassword {
       position: absolute;
       top: 50%;
-      right: 12px;
+      right: 18px;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #888;
+      color: var(--gray-muted);
+      font-size: 18px;
+      transition: var(--transition-smooth);
+      z-index: 2;
     }
 
-    button {
+    #togglePassword:hover {
+      color: var(--gold-primary);
+    }
+
+    /* Password Error */
+    #passwordError {
+      color: #dc3545;
+      font-size: 12px;
+      margin-top: 5px;
+      display: none;
+      text-align: left;
+    }
+
+    /* Register Button */
+    button[type="submit"] {
       width: 100%;
-      padding: 12px;
-      background: linear-gradient(to right, #4f46e5, #3b82f6);
-      color: white;
-      font-size: 16px;
-      font-weight: 500;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: #0a0a0a;
       border: none;
-      border-radius: 10px;
+      border-radius: 50px;
+      font-size: 16px;
+      font-weight: 700;
       cursor: pointer;
-      transition: background 0.3s ease, transform 0.2s;
+      transition: var(--transition-smooth);
+      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
       margin-top: 10px;
     }
 
-    button:hover {
-      background: linear-gradient(to right, #4338ca, #2563eb);
+    button[type="submit"]:hover {
       transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.5);
     }
 
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    /* Back Link */
     .back-link {
       text-align: center;
-      margin-top: 16px;
+      margin-top: 20px;
       font-size: 14px;
+      color: var(--gray-muted);
     }
 
     .back-link a {
-      color: #3b82f6;
+      color: var(--gold-primary);
       text-decoration: none;
-      font-weight: 500;
+      font-weight: 600;
+      transition: var(--transition-smooth);
     }
 
     .back-link a:hover {
+      color: var(--gold-light);
       text-decoration: underline;
     }
 
+    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background-color: #333;
-      color: #fff;
-      padding: 14px 24px;
-      border-radius: 8px;
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+      background: var(--bg-elevated);
+      color: var(--white-soft);
+      padding: 14px 28px;
+      border-radius: 50px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.4s ease, transform 0.4s ease;
       z-index: 999;
+      font-weight: 500;
+      border: 1px solid rgba(212, 175, 55, 0.2);
     }
 
     .toast.show {
@@ -159,62 +281,116 @@
     }
 
     .toast.success {
-      background-color: #22c55e;
+      background: rgba(34, 197, 94, 0.95);
+      border-color: #22c55e;
     }
 
     .toast.error {
-      background-color: #ef4444;
+      background: rgba(239, 68, 68, 0.95);
+      border-color: #ef4444;
     }
 
-    @media (max-width: 480px) {
+    /* OTP Box */
+    #otpBox {
+      display: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
       .register-box {
-        padding: 28px 16px;
-        border-radius: 0;
-        box-shadow: none;
+        padding: 35px 25px;
       }
+      
+      .logo-content {
+        font-size: 24px;
+      }
+      
+      .logo-content i {
+        font-size: 28px;
+      }
+      
+      h2 {
+        font-size: 24px;
+        margin-bottom: 25px;
+      }
+      
+      .input-group input,
+      .input-group select {
+        padding: 14px 18px;
+      }
+    }
+
+    /* Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .register-box {
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    /* Real-time validation colors */
+    .input-group input.valid,
+    .input-group select.valid {
+      border-color: #22c55e;
+    }
+    
+    .input-group input.invalid,
+    .input-group select.invalid {
+      border-color: #dc3545;
     }
   </style>
 </head>
 <body>
-  <div class="register-box">
-    <div class="logo">
-      <i class="fas fa-scissors"></i> EasySalonBooking
+  <div class="register-container">
+    <div class="register-box">
+      <div class="logo">
+        <div class="logo-content">
+          <i class="fas fa-spa"></i> GlowBook
+        </div>
+      </div>
+      <h2>Create Account</h2>
+
+      <form id="registerForm">
+        <div class="input-group">
+          <input type="text" id="name" placeholder="Full Name" required />
+        </div>
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email Address" required />
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required />
+          <i class="fas fa-eye" id="togglePassword"></i>
+          <small id="passwordError"></small>
+        </div>
+        <div class="input-group">
+          <input type="text" id="phone" placeholder="Phone Number" maxlength="10" required />
+        </div>
+        <div class="input-group">
+          <select id="gender" required>
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="input-group" id="otpBox">
+          <input type="text" id="otp" placeholder="Enter OTP" />
+        </div>
+
+        <button type="submit">Register</button>
+        <div class="back-link">
+          Already have an account? <a href="login.html">Login here</a>
+        </div>
+      </form>
     </div>
-    <h2>Register</h2>
-
-    <form id="registerForm">
-      <div class="input-group">
-        <input type="text" id="name" placeholder="Full Name" required />
-      </div>
-      <div class="input-group">
-        <input type="email" id="email" placeholder="Email" required />
-      </div>
-  <div class="input-group">
-  <input type="password" id="password" placeholder="Password" required />
-  <i class="fas fa-eye" id="togglePassword"></i>
-  <small id="passwordError" style="color: red; display: none; font-size: 13px;"></small>
-</div>
-
-      <div class="input-group">
-        <input type="text" id="phone" placeholder="Phone" maxlength="10" required />
-      </div>
-      <div class="input-group">
-        <select id="gender" required>
-          <option value="">Select Gender</option>
-          <option>Male</option>
-          <option>Female</option>
-          <option>Other</option>
-        </select>
-      </div>
-      <div class="input-group" id="otpBox">
-        <input type="text" id="otp" placeholder="Enter OTP" />
-      </div>
-
-      <button type="submit">Register</button>
-      <div class="back-link">
-        Already have an account? <a href="login.html">Login here</a>
-      </div>
-    </form>
   </div>
 
   <div id="toast" class="toast"></div>
@@ -247,17 +423,16 @@
         showToast('Invalid email format.', false);
         return false;
       }
-const passwordError = document.getElementById('passwordError');
 
-if (!passwordRegex.test(password)) {
-  passwordError.textContent = 'Password must include uppercase, lowercase, number & special character.';
-  passwordError.style.display = 'block';
-  document.getElementById('password').style.borderColor = 'red';
-  return false;
-} else {
-  passwordError.style.display = 'none';
-}
-
+      const passwordError = document.getElementById('passwordError');
+      if (!passwordRegex.test(password)) {
+        passwordError.textContent = 'Password must include uppercase, lowercase, number & special character.';
+        passwordError.style.display = 'block';
+        document.getElementById('password').style.borderColor = '#dc3545';
+        return false;
+      } else {
+        passwordError.style.display = 'none';
+      }
 
       if (!phoneRegex.test(phone)) {
         showToast('Phone must be 10 digits.', false);
@@ -272,6 +447,7 @@ if (!passwordRegex.test(password)) {
       return true;
     };
 
+    // Form submission - BACKEND API PRESERVED
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -282,6 +458,7 @@ if (!passwordRegex.test(password)) {
       const gender = document.getElementById('gender').value;
       const otp = document.getElementById('otp').value.trim();
 
+      // OTP Verification Flow - COMPLETELY UNCHANGED
       if (otpBox.style.display === 'block') {
         if (!otp) {
           showToast('Please enter the OTP.', false);
@@ -289,6 +466,7 @@ if (!passwordRegex.test(password)) {
         }
 
         try {
+          // BACKEND API - PRESERVED
           const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/verify-otp', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -308,11 +486,13 @@ if (!passwordRegex.test(password)) {
         return;
       }
 
+      // Initial Registration - BACKEND API PRESERVED
       if (!validateForm(name, email, password, phone, gender)) return;
 
       userData = { name, email, password, phone, gender };
 
       try {
+        // BACKEND API - PRESERVED
         const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -329,7 +509,7 @@ if (!passwordRegex.test(password)) {
       }
     });
 
-    // Real-time validation + password toggle
+    // Real-time validation
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const passwordInput = document.getElementById('password');
@@ -338,28 +518,38 @@ if (!passwordRegex.test(password)) {
     const togglePassword = document.getElementById('togglePassword');
 
     nameInput.addEventListener('input', () => {
-      nameInput.style.borderColor = nameInput.value.length >= 3 ? 'green' : 'red';
+      const isValid = nameInput.value.length >= 3;
+      nameInput.style.borderColor = isValid ? '#22c55e' : '#dc3545';
     });
 
     emailInput.addEventListener('input', () => {
-      const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
-      emailInput.style.borderColor = valid ? 'green' : 'red';
+      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
+      emailInput.style.borderColor = isValid ? '#22c55e' : '#dc3545';
     });
 
     passwordInput.addEventListener('input', () => {
-      const valid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(passwordInput.value);
-      passwordInput.style.borderColor = valid ? 'green' : 'red';
+      const isValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(passwordInput.value);
+      passwordInput.style.borderColor = isValid ? '#22c55e' : '#dc3545';
+      if (!isValid) {
+        document.getElementById('passwordError').textContent = 'Must contain uppercase, lowercase, number & special char';
+        document.getElementById('passwordError').style.display = 'block';
+      } else {
+        document.getElementById('passwordError').style.display = 'none';
+      }
     });
 
     phoneInput.addEventListener('input', () => {
       phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
-      phoneInput.style.borderColor = phoneInput.value.length === 10 ? 'green' : 'red';
+      const isValid = phoneInput.value.length === 10;
+      phoneInput.style.borderColor = isValid ? '#22c55e' : '#dc3545';
     });
 
     genderSelect.addEventListener('change', () => {
-      genderSelect.style.borderColor = genderSelect.value ? 'green' : 'red';
+      const isValid = genderSelect.value !== '';
+      genderSelect.style.borderColor = isValid ? '#22c55e' : '#dc3545';
     });
 
+    // Password visibility toggle
     togglePassword.addEventListener('click', () => {
       const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
       passwordInput.setAttribute('type', type);

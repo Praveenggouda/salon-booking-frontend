@@ -524,16 +524,16 @@
         
         try {
           // BACKEND API - COMPLETELY UNCHANGED
-          const res = await fetch("https://salon-booking-backend-vsaz.onrender.com/login", {
+          const res = await const res = await fetch("https://salon-booking-backend-vsaz.onrender.com/login", {
   method: "POST",
   headers: {
     "Content-Type": "application/json"
   },
   body: JSON.stringify({
-    email: document.getElementById("email").value,
-    password: document.getElementById("password").value
+    email,
+    password
   })
-})
+});
 
           const data = await res.json();
           

@@ -7,7 +7,7 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <!-- Bootstrap 5 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
   <!-- AOS -->
@@ -17,26 +17,33 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     :root {
-      --bg-dark: #0a0a0a;
-      --bg-card: #111111;
-      --bg-elevated: #1a1a1a;
-      --gold-primary: #D4AF37;
-      --gold-light: #F3E5AB;
-      --gold-dark: #B8960C;
-      --white-soft: #fafafa;
-      --gray-muted: #888888;
-      --glow-pink: #FF6B9D;
-      --glow-soft: rgba(255,107,157,0.15);
-      --transition-smooth: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --primary-blue: #0066FF;
+      --primary-light: #4D94FF;
+      --primary-dark: #0044CC;
+      --primary-gradient: linear-gradient(135deg, #0066FF, #0044CC);
+      --secondary-blue: #E8F0FE;
+      --bg-light: #F8FAFF;
+      --white: #FFFFFF;
+      --dark: #1A2332;
+      --gray: #6B7A8F;
+      --light-gray: #E8EDF2;
+      --shadow-sm: 0 2px 10px rgba(0, 102, 255, 0.08);
+      --shadow-md: 0 8px 30px rgba(0, 102, 255, 0.12);
+      --shadow-lg: 0 20px 60px rgba(0, 102, 255, 0.15);
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 30px;
     }
 
     body {
       font-family: 'Inter', sans-serif;
-      background: var(--bg-dark);
-      color: var(--white-soft);
+      background: var(--bg-light);
+      color: var(--dark);
       overflow-x: hidden;
     }
 
@@ -45,24 +52,22 @@
       width: 8px;
     }
     ::-webkit-scrollbar-track {
-      background: var(--bg-dark);
+      background: var(--bg-light);
     }
     ::-webkit-scrollbar-thumb {
-      background: var(--gold-primary);
+      background: var(--primary-blue);
       border-radius: 4px;
     }
-
-    /* Glow Effects */
-    .glow-text {
-      text-shadow: 0 0 30px rgba(212,175,55,0.3);
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-dark);
     }
-    
+
     /* Typography */
     h1, h2, h3, h4, .logo-font {
       font-family: 'Playfair Display', serif;
     }
 
-    /* ============ CUSTOM GLOWBOOK LOGO ============ */
+    /* ============ GLOWBOOK LOGO - BLUE THEME ============ */
     .glowbook-logo {
       display: flex;
       align-items: center;
@@ -73,13 +78,13 @@
       position: relative;
       width: 45px;
       height: 45px;
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-      border-radius: 12px;
+      background: var(--primary-gradient);
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(212,175,55,0.3);
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
     }
     .logo-icon::before {
       content: '';
@@ -90,7 +95,7 @@
     }
     .logo-icon i {
       font-size: 24px;
-      color: #0a0a0a;
+      color: white;
       position: relative;
       z-index: 1;
     }
@@ -117,7 +122,7 @@
       font-size: 1.6rem;
       font-weight: 800;
       letter-spacing: -0.5px;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+      background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       font-family: 'Playfair Display', serif;
@@ -125,39 +130,26 @@
     .logo-text .book {
       font-size: 0.7rem;
       letter-spacing: 2px;
-      color: var(--gray-muted);
+      color: var(--gray);
       margin-top: 2px;
-    }
-    /* Alternative logo for mobile */
-    .logo-icon-small {
-      width: 35px;
-      height: 35px;
-      border-radius: 10px;
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .logo-icon-small i {
-      font-size: 18px;
-      color: #0a0a0a;
     }
 
     /* Navbar */
     .navbar {
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(20px);
       padding: 1rem 2rem;
       transition: var(--transition-smooth);
-      border-bottom: 1px solid rgba(212,175,55,0.15);
+      border-bottom: 1px solid rgba(0, 102, 255, 0.08);
+      box-shadow: var(--shadow-sm);
     }
     .navbar.scrolled {
       padding: 0.7rem 2rem;
-      background: rgba(10, 10, 10, 0.98);
-      border-bottom-color: rgba(212,175,55,0.3);
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: var(--shadow-md);
     }
     .nav-link {
-      color: var(--white-soft) !important;
+      color: var(--dark) !important;
       font-weight: 500;
       margin: 0 5px;
       padding: 8px 18px !important;
@@ -165,90 +157,128 @@
       transition: var(--transition-smooth);
     }
     .nav-link:hover {
-      background: rgba(212,175,55,0.1);
-      color: var(--gold-primary) !important;
+      background: var(--secondary-blue);
+      color: var(--primary-blue) !important;
     }
 
-    /* Buttons */
-    .btn-gold {
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+    /* Buttons - Blue Theme */
+    .btn-primary-custom {
+      background: var(--primary-gradient);
       border: none;
-      color: #0a0a0a;
+      color: white;
       font-weight: 700;
       padding: 12px 32px;
-      border-radius: 40px;
+      border-radius: 50px;
       transition: var(--transition-smooth);
-      box-shadow: 0 5px 20px rgba(212,175,55,0.3);
+      box-shadow: 0 5px 20px rgba(0, 102, 255, 0.3);
     }
-    .btn-gold:hover {
+    .btn-primary-custom:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(212,175,55,0.5);
-      color: #0a0a0a;
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
+      color: white;
     }
-    .btn-outline-gold {
-      border: 2px solid var(--gold-primary);
+    .btn-outline-primary-custom {
+      border: 2px solid var(--primary-blue);
       background: transparent;
-      color: var(--gold-primary);
+      color: var(--primary-blue);
       font-weight: 600;
       padding: 10px 28px;
-      border-radius: 40px;
+      border-radius: 50px;
       transition: var(--transition-smooth);
     }
-    .btn-outline-gold:hover {
-      background: var(--gold-primary);
-      color: #0a0a0a;
+    .btn-outline-primary-custom:hover {
+      background: var(--primary-blue);
+      color: white;
       transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0, 102, 255, 0.2);
     }
 
-    /* Hero Section */
+    /* Hero Section - White & Blue */
     .hero {
       min-height: 100vh;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
+      background: linear-gradient(135deg, #F0F7FF 0%, #FFFFFF 50%, #E8F0FE 100%);
       position: relative;
       display: flex;
       align-items: center;
       padding-top: 80px;
+      overflow: hidden;
     }
     .hero::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(212,175,55,0.08) 0%, transparent 50%);
+      top: -50%;
+      right: -20%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.05) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(0, 102, 255, 0.03) 0%, transparent 70%);
+      border-radius: 50%;
     }
     .hero-content h1 {
       font-size: 4.5rem;
       font-weight: 800;
       line-height: 1.1;
       margin-bottom: 1.5rem;
+      color: var(--dark);
     }
-    .hero-content .gold-text {
-      color: var(--gold-primary);
+    .hero-content .blue-text {
+      color: var(--primary-blue);
     }
     .hero-content p {
       font-size: 1.2rem;
-      color: rgba(255,255,255,0.7);
+      color: var(--gray);
       margin-bottom: 2rem;
     }
     .hero-stats {
       display: flex;
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: 3rem;
+      margin-top: 2.5rem;
     }
     .hero-stats .number {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 800;
-      color: var(--gold-primary);
+      color: var(--primary-blue);
+    }
+    .hero-stats .label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    .hero-image {
+      position: relative;
+      z-index: 1;
     }
     .hero-image img {
-      border-radius: 30px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
       transition: transform 0.5s;
+      background: white;
     }
     .hero-image:hover img {
       transform: scale(1.02);
+    }
+    .floating-badge {
+      position: absolute;
+      background: white;
+      padding: 12px 20px;
+      border-radius: 50px;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: float 3s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
     /* Section Titles */
@@ -259,6 +289,7 @@
     .section-title h2 {
       font-size: 2.8rem;
       font-weight: 700;
+      color: var(--dark);
       position: relative;
       display: inline-block;
     }
@@ -269,28 +300,32 @@
       left: 50%;
       transform: translateX(-50%);
       width: 80px;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      height: 4px;
+      background: var(--primary-gradient);
+      border-radius: 2px;
     }
     .section-title p {
-      color: var(--gray-muted);
+      color: var(--gray);
       margin-top: 25px;
     }
 
     /* Trust Bar */
     .trust-bar {
-      background: rgba(212,175,55,0.05);
+      background: white;
       padding: 30px 0;
-      border-top: 1px solid rgba(212,175,55,0.1);
-      border-bottom: 1px solid rgba(212,175,55,0.1);
+      border-top: 1px solid var(--light-gray);
+      border-bottom: 1px solid var(--light-gray);
+      box-shadow: var(--shadow-sm);
     }
     .trust-item {
       text-align: center;
-      color: var(--gray-muted);
+      color: var(--gray);
+      font-weight: 500;
     }
     .trust-item i {
-      color: var(--gold-primary);
-      margin-right: 8px;
+      color: var(--primary-blue);
+      margin-right: 10px;
+      font-size: 1.2rem;
     }
 
     /* Quick Actions */
@@ -302,50 +337,64 @@
       margin: 40px 0;
     }
     .action-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(212,175,55,0.15);
+      background: white;
+      border: 1px solid var(--light-gray);
       border-radius: 60px;
-      padding: 12px 28px;
+      padding: 14px 30px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      color: var(--white-soft);
+      gap: 12px;
+      color: var(--dark);
       text-decoration: none;
-      transition: all 0.3s;
+      transition: var(--transition-smooth);
       font-weight: 500;
+      box-shadow: var(--shadow-sm);
     }
     .action-card:hover {
-      border-color: var(--gold-primary);
+      border-color: var(--primary-blue);
       transform: translateY(-3px);
-      color: var(--gold-primary);
+      color: var(--primary-blue);
+      box-shadow: var(--shadow-md);
+    }
+    .action-card i {
+      color: var(--primary-blue);
+      font-size: 1.2rem;
     }
 
-    /* City Grid */
+    /* City Section */
+    #city-section {
+      background: white;
+      padding: 60px 0;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+      margin: 30px 0;
+    }
     .city-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 30px;
+      gap: 25px;
       margin-top: 40px;
     }
     .city-card {
-      background: var(--bg-card);
-      border: 1px solid rgba(212,175,55,0.1);
-      border-radius: 20px;
-      padding: 20px;
+      background: var(--bg-light);
+      border: 2px solid transparent;
+      border-radius: var(--radius-md);
+      padding: 25px 20px;
       text-align: center;
       transition: var(--transition-smooth);
       cursor: pointer;
       text-decoration: none;
-      color: var(--white-soft);
+      color: var(--dark);
     }
     .city-card:hover {
+      border-color: var(--primary-blue);
       transform: translateY(-8px);
-      border-color: var(--gold-primary);
-      box-shadow: 0 20px 30px rgba(0,0,0,0.3);
+      box-shadow: var(--shadow-md);
+      background: white;
     }
     .city-card i {
       font-size: 2.5rem;
-      color: var(--gold-primary);
+      color: var(--primary-blue);
       margin-bottom: 15px;
     }
     .city-card span {
@@ -361,57 +410,71 @@
     .search-wrapper input {
       width: 100%;
       padding: 16px 24px;
-      background: var(--bg-card);
-      border: 1px solid rgba(212,175,55,0.2);
+      background: var(--bg-light);
+      border: 2px solid var(--light-gray);
       border-radius: 60px;
-      color: white;
+      color: var(--dark);
       font-size: 1rem;
-      transition: all 0.3s;
+      transition: var(--transition-smooth);
     }
     .search-wrapper input:focus {
       outline: none;
-      border-color: var(--gold-primary);
-      box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+      border-color: var(--primary-blue);
+      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+      background: white;
     }
 
-    /* Stats Section */
+    /* Stats Section - Blue Theme */
     .stats-section {
-      background: linear-gradient(135deg, #0d0d0d, #141414);
+      background: var(--primary-gradient);
       padding: 80px 0;
+      border-radius: var(--radius-lg);
+      margin: 40px 0;
+    }
+    .stats-section .section-title h2 {
+      color: white;
+    }
+    .stats-section .section-title h2:after {
+      background: white;
+    }
+    .stats-section .section-title p {
+      color: rgba(255,255,255,0.8);
     }
     .stat-card-premium {
-      background: rgba(26,26,26,0.8);
+      background: rgba(255,255,255,0.15);
       backdrop-filter: blur(10px);
-      border: 1px solid rgba(212,175,55,0.2);
-      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: var(--radius-md);
       padding: 40px;
       text-align: center;
-      transition: all 0.4s;
+      transition: var(--transition-smooth);
     }
     .stat-card-premium:hover {
       transform: translateY(-10px);
-      border-color: var(--gold-primary);
+      background: rgba(255,255,255,0.25);
     }
     .stat-icon-premium {
       font-size: 3rem;
-      color: var(--gold-primary);
+      color: white;
       margin-bottom: 20px;
     }
     .stat-number-premium {
       font-size: 3rem;
       font-weight: 800;
+      color: white;
       margin-bottom: 10px;
     }
     .stat-label-premium {
-      color: var(--gray-muted);
+      color: rgba(255,255,255,0.8);
     }
 
     /* Footer */
     .footer-premium {
-      background: #050505;
+      background: var(--dark);
       padding: 60px 0 30px;
-      border-top: 1px solid rgba(212,175,55,0.15);
+      border-top: 4px solid var(--primary-blue);
       margin-top: 60px;
+      color: white;
     }
     .footer-logo {
       display: flex;
@@ -429,9 +492,12 @@
     .footer-logo span {
       font-size: 1.4rem;
       font-weight: 700;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary));
+      background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+    }
+    .footer-premium p {
+      color: rgba(255,255,255,0.7);
     }
     .social-links a {
       display: inline-block;
@@ -439,20 +505,20 @@
       height: 45px;
       line-height: 45px;
       text-align: center;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255,255,255,0.1);
       border-radius: 50%;
       margin-right: 12px;
       color: white;
-      transition: all 0.3s;
+      transition: var(--transition-smooth);
     }
     .social-links a:hover {
-      background: var(--gold-primary);
-      color: #0a0a0a;
+      background: var(--primary-blue);
       transform: translateY(-5px);
     }
     .footer-links h4 {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin-bottom: 20px;
+      color: white;
     }
     .footer-links ul {
       list-style: none;
@@ -462,12 +528,12 @@
       margin-bottom: 12px;
     }
     .footer-links a {
-      color: var(--gray-muted);
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
-      transition: all 0.3s;
+      transition: var(--transition-smooth);
     }
     .footer-links a:hover {
-      color: var(--gold-primary);
+      color: var(--primary-blue);
       padding-left: 5px;
     }
 
@@ -480,10 +546,11 @@
         width: 80%;
         max-width: 320px;
         height: 100vh;
-        background: var(--bg-dark);
+        background: white;
         padding: 2rem;
         transition: right 0.3s;
         z-index: 1050;
+        box-shadow: var(--shadow-lg);
       }
       .navbar-collapse.show {
         right: 0;
@@ -494,11 +561,11 @@
         align-items: center;
         margin-bottom: 2rem;
         padding-bottom: 1rem;
-        border-bottom: 1px solid rgba(212,175,55,0.2);
+        border-bottom: 2px solid var(--light-gray);
       }
       .navbar-toggler {
         border: none;
-        color: var(--gold-primary);
+        color: var(--primary-blue);
         font-size: 1.5rem;
         background: transparent;
       }
@@ -509,7 +576,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.7);
+        background: rgba(0,0,0,0.5);
         z-index: 1040;
       }
       .navbar-backdrop.show {
@@ -521,6 +588,9 @@
       .city-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+      .hero-stats {
+        gap: 1.5rem;
+      }
     }
 
     @media (max-width: 576px) {
@@ -529,7 +599,30 @@
       }
       .hero-stats {
         justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
       }
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+      .quick-actions-modern {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .action-card {
+        justify-content: center;
+      }
+      .stat-number-premium {
+        font-size: 2rem;
+      }
+    }
+
+    /* Utility Classes */
+    .text-primary-blue {
+      color: var(--primary-blue);
+    }
+    .bg-primary-blue {
+      background: var(--primary-gradient);
     }
   </style>
 </head>
@@ -541,7 +634,6 @@
   <!-- Navbar with GlowBook Logo -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <!-- Custom GlowBook Logo -->
       <a class="glowbook-logo" href="index.html">
         <div class="logo-icon">
           <i class="fas fa-spa"></i>
@@ -559,42 +651,42 @@
       
       <div class="collapse navbar-collapse" id="navbarNav">
         <div class="mobile-menu-header d-lg-none">
-          <div class="logo-icon-small">
+          <div class="logo-icon" style="width: 35px; height: 35px;">
             <i class="fas fa-spa"></i>
           </div>
-          <button type="button" class="btn-close btn-close-white" id="closeMobileMenu"></button>
+          <button type="button" class="btn-close" id="closeMobileMenu"></button>
         </div>
         
         <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i>Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html"><i class="fas fa-info-circle me-1"></i>About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html"><i class="fas fa-envelope me-1"></i>Contact</a></li>
         </ul>
         
         <div class="d-flex flex-column flex-lg-row gap-2">
           <a id="myBookings" class="nav-link" href="mybookings.html" style="display: none;">📅 My Bookings</a>
           
           <div class="d-lg-none">
-            <a id="loginLinkMobile" class="btn btn-outline-gold w-100 mb-2" href="login.html">Login</a>
-            <a id="registerLinkMobile" class="btn btn-gold w-100" href="register.html">Sign Up</a>
-            <button id="logoutButtonMobile" class="btn btn-outline-gold w-100 mt-2" style="display: none;">Logout</button>
+            <a id="loginLinkMobile" class="btn btn-outline-primary-custom w-100 mb-2" href="login.html">Login</a>
+            <a id="registerLinkMobile" class="btn btn-primary-custom w-100" href="register.html">Sign Up</a>
+            <button id="logoutButtonMobile" class="btn btn-outline-primary-custom w-100 mt-2" style="display: none;">Logout</button>
           </div>
           
           <div class="d-none d-lg-flex align-items-center gap-2">
-            <a id="loginLink" class="btn btn-outline-gold" href="login.html">Login</a>
-            <a id="registerLink" class="btn btn-gold" href="register.html">Sign Up</a>
+            <a id="loginLink" class="btn btn-outline-primary-custom" href="login.html">Login</a>
+            <a id="registerLink" class="btn btn-primary-custom" href="register.html">Sign Up</a>
             
             <div class="dropdown" id="profileMenu" style="display: none;">
-              <button class="btn btn-outline-gold dropdown-toggle" type="button" data-bs-toggle="dropdown">
+              <button class="btn btn-outline-primary-custom dropdown-toggle" type="button" data-bs-toggle="dropdown">
                 <i class="fas fa-user me-1"></i> <span id="userName"></span>
               </button>
-              <ul class="dropdown-menu dropdown-menu-dark">
+              <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="mybookings.html">📅 My Bookings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><button class="dropdown-item" onclick="logout()">🚪 Logout</button></li>
               </ul>
             </div>
-            <button id="logoutButton" class="btn btn-outline-gold" style="display: none;" onclick="logout()">Logout</button>
+            <button id="logoutButton" class="btn btn-outline-primary-custom" style="display: none;" onclick="logout()">Logout</button>
           </div>
         </div>
       </div>
@@ -606,18 +698,33 @@
     <div class="container">
       <div class="row align-items-center">
         <div class="col-lg-6 hero-content" data-aos="fade-right">
-          <h1>Your <span class="gold-text">Glow</span><br>Starts Here</h1>
+          <h1>Your <span class="blue-text">Glow</span><br>Starts Here</h1>
           <p>India's most premium beauty booking platform. Connect with top salons, book instantly, and experience luxury.</p>
-          <a href="#city-section" class="btn btn-gold btn-lg me-3">Book Now <i class="fas fa-arrow-right ms-2"></i></a>
-          <a href="contact.html" class="btn btn-outline-gold btn-lg">Explore</a>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="#city-section" class="btn btn-primary-custom btn-lg">Book Now <i class="fas fa-arrow-right ms-2"></i></a>
+            <a href="contact.html" class="btn btn-outline-primary-custom btn-lg">Explore</a>
+          </div>
           <div class="hero-stats">
-            <div><div class="number">03</div><div>Salons</div></div>
-            <div><div class="number">0</div><div>Happy Clients</div></div>
-            <div><div class="number">4.9★</div><div>Rating</div></div>
+            <div>
+              <div class="number">500+</div>
+              <div class="label">Premium Salons</div>
+            </div>
+            <div>
+              <div class="number">50K+</div>
+              <div class="label">Happy Clients</div>
+            </div>
+            <div>
+              <div class="number">4.9★</div>
+              <div class="label">Average Rating</div>
+            </div>
           </div>
         </div>
         <div class="col-lg-6 hero-image" data-aos="fade-left">
           <img src="images/saalom illu.png" class="img-fluid" alt="GlowBook Salon">
+          <div class="floating-badge" style="top: 10%; right: -5%; background: white; box-shadow: var(--shadow-md);">
+            <i class="fas fa-star" style="color: var(--primary-blue);"></i>
+            <span style="font-weight: 600; color: var(--dark);">Trusted Since 2024</span>
+          </div>
         </div>
       </div>
     </div>
@@ -627,10 +734,18 @@
   <div class="trust-bar">
     <div class="container">
       <div class="row text-center">
-        <div class="col-md-3 col-6 trust-item"><i class="fas fa-shield-alt"></i> 100% Verified</div>
-        <div class="col-md-3 col-6 trust-item"><i class="fas fa-clock"></i> Instant Booking</div>
-        <div class="col-md-3 col-6 trust-item"><i class="fas fa-lock"></i> Secure Payment</div>
-        <div class="col-md-3 col-6 trust-item"><i class="fas fa-headset"></i> 24/7 Support</div>
+        <div class="col-md-3 col-6 trust-item">
+          <i class="fas fa-shield-alt"></i> 100% Verified
+        </div>
+        <div class="col-md-3 col-6 trust-item">
+          <i class="fas fa-bolt"></i> Instant Booking
+        </div>
+        <div class="col-md-3 col-6 trust-item">
+          <i class="fas fa-lock"></i> Secure Payment
+        </div>
+        <div class="col-md-3 col-6 trust-item">
+          <i class="fas fa-headset"></i> 24/7 Support
+        </div>
       </div>
     </div>
   </div>
@@ -666,7 +781,7 @@
       <a href="salons.html?city=Hampi" class="city-card"><i class="fas fa-landmark"></i><span>Hampi</span></a>
       <a href="salons.html?city=Gokarna" class="city-card"><i class="fas fa-water"></i><span>Gokarna</span></a>
     </div>
-    <p id="no-results" style="display:none; text-align:center; color: var(--gold-primary); margin-top: 20px;">No cities found</p>
+    <p id="no-results" style="display:none; text-align:center; color: var(--primary-blue); margin-top: 20px; font-weight: 600;">No cities found</p>
   </section>
 
   <!-- Stats Section -->
@@ -702,7 +817,7 @@
     </div>
   </section>
 
-  <!-- Footer with GlowBook Logo -->
+  <!-- Footer -->
   <footer class="footer-premium">
     <div class="container">
       <div class="row g-4">
@@ -713,7 +828,7 @@
             </div>
             <span>GlowBook</span>
           </div>
-          <p style="color: var(--gray-muted);">India's most trusted platform for premium beauty and wellness services. Book your glow today!</p>
+          <p>India's most trusted platform for premium beauty and wellness services. Book your glow today!</p>
           <div class="social-links mt-3">
             <a href="https://www.instagram.com/impraveengouda/"><i class="fab fa-instagram"></i></a>
             <a href="https://www.linkedin.com/in/praveen-gouda-20a359263/"><i class="fab fa-linkedin-in"></i></a>
@@ -733,7 +848,7 @@
         <div class="col-lg-3 col-md-4 footer-links">
           <h4>Contact</h4>
           <ul>
-            <li><i class="fas fa-envelope me-2"></i> supportglowbook@gmail.com</li>
+            <li><i class="fas fa-envelope me-2"></i> support@glowbook.com</li>
             <li><i class="fas fa-phone me-2"></i> +91 8431878531</li>
             <li><i class="fas fa-map-marker-alt me-2"></i> Haliyal, Karnataka</li>
           </ul>
@@ -747,9 +862,9 @@
           </ul>
         </div>
       </div>
-      <hr style="border-color: rgba(212,175,55,0.1); margin: 30px 0;">
-      <div class="text-center" style="color: var(--gray-muted);">
-        <p>&copy; 2025 GlowBook. Crafted with <i class="fas fa-heart" style="color: var(--gold-primary);"></i> by <a href="https://www.instagram.com/impraveengouda/" style="color: var(--gold-primary); text-decoration: none;">Praveen Gouda</a></p>
+      <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+      <div class="text-center">
+        <p style="color: rgba(255,255,255,0.6);">&copy; 2025 GlowBook. Crafted with <i class="fas fa-heart" style="color: var(--primary-blue);"></i> by <a href="https://www.instagram.com/impraveengouda/" style="color: var(--primary-blue); text-decoration: none;">Praveen Gouda</a></p>
       </div>
     </div>
   </footer>

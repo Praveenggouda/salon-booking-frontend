@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>GlowBook | Premium Salon Details</title>
+  <title>Salon Details | GlowBook - Premium Beauty Booking</title>
   
   <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
@@ -23,19 +23,20 @@
     }
 
     :root {
-      --bg-dark: #0a0a0a;
-      --bg-card: #111111;
-      --bg-elevated: #1a1a1a;
-      --gold-primary: #D4AF37;
-      --gold-light: #F3E5AB;
-      --gold-dark: #B8960C;
-      --white-soft: #fafafa;
-      --gray-muted: #888888;
-      --border-glow: rgba(212, 175, 55, 0.2);
+      --primary-blue: #0066FF;
+      --primary-light: #4D94FF;
+      --primary-dark: #0044CC;
+      --primary-gradient: linear-gradient(135deg, #0066FF, #0044CC);
+      --secondary-blue: #E8F0FE;
+      --bg-light: #F8FAFF;
+      --white: #FFFFFF;
+      --dark: #1A2332;
+      --gray: #6B7A8F;
+      --light-gray: #E8EDF2;
+      --shadow-sm: 0 2px 10px rgba(0, 102, 255, 0.08);
+      --shadow-md: 0 8px 30px rgba(0, 102, 255, 0.12);
+      --shadow-lg: 0 20px 60px rgba(0, 102, 255, 0.15);
       --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.3);
-      --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
-      --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.5);
       --radius-sm: 12px;
       --radius-md: 20px;
       --radius-lg: 30px;
@@ -43,15 +44,14 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0a0a0a 100%);
-      color: var(--white-soft);
+      background: var(--bg-light);
+      color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
       position: relative;
-      overflow-x: hidden;
     }
 
-    /* Animated Background Particles */
+    /* Subtle Background Pattern */
     body::before {
       content: '';
       position: fixed;
@@ -59,24 +59,147 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-                  radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+      background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.03) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
 
-    /* Floating Animation */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+      padding: 0 20px;
     }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.5; }
-      50% { opacity: 1; }
+    /* ============ PREMIUM NAVBAR ============ */
+    .premium-nav {
+      background: var(--white);
+      border-bottom: 1px solid var(--light-gray);
+      padding: 14px 0;
+      box-shadow: var(--shadow-sm);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    @keyframes slideInUp {
+    .premium-nav .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* GlowBook Logo - Like Image */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--primary-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.25);
+    }
+
+    .nav-logo-icon i {
+      font-size: 18px;
+      color: white;
+    }
+
+    .nav-logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .nav-logo-text .brand {
+      font-size: 1.4rem;
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-logo-text .tagline {
+      font-size: 0.55rem;
+      letter-spacing: 2.5px;
+      color: var(--gray);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* Back Button - Better */
+    .back-button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--secondary-blue);
+      padding: 8px 18px;
+      border-radius: 50px;
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+      border: 1px solid transparent;
+    }
+
+    .back-button:hover {
+      background: var(--primary-blue);
+      color: white;
+      transform: translateX(-4px);
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    }
+
+    .back-button i {
+      font-size: 0.9rem;
+    }
+
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .nav-actions button {
+      background: var(--secondary-blue);
+      border: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      color: var(--gray);
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      font-size: 0.9rem;
+    }
+
+    .nav-actions button:hover {
+      background: var(--primary-blue);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* ============ MAIN LAYOUT ============ */
+    .salon-details-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 30px;
+      padding: 30px 0 50px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    @keyframes fadeInUp {
       from {
         opacity: 0;
         transform: translateY(30px);
@@ -87,109 +210,21 @@
       }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .container {
-      max-width: 1300px;
-      margin: 100px auto 30px;
-      position: relative;
-      z-index: 1;
-      padding: 0 20px;
-    }
-
-    /* Premium Navbar */
-    .premium-nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(10, 10, 10, 0.95);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
-      padding: 15px 30px;
-      z-index: 1000;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-    }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--gold-primary);
-      text-decoration: none;
-    }
-
-    .nav-logo i {
-      font-size: 1.8rem;
-    }
-
-    .back-button {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(212, 175, 55, 0.1);
-      padding: 10px 20px;
-      border-radius: 50px;
-      color: var(--gold-primary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: var(--transition-smooth);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-    }
-
-    .back-button:hover {
-      background: rgba(212, 175, 55, 0.2);
-      transform: translateX(-3px);
-    }
-
-    .nav-actions {
-      display: flex;
-      gap: 12px;
-    }
-
-    .nav-actions button {
-      background: rgba(212, 175, 55, 0.1);
-      border: 1px solid rgba(212, 175, 55, 0.2);
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      color: var(--gold-primary);
-      cursor: pointer;
-      transition: var(--transition-smooth);
-    }
-
-    .nav-actions button:hover {
-      background: rgba(212, 175, 55, 0.2);
-      transform: translateY(-2px);
-    }
-
-    /* Main Content Layout */
-    .salon-details-wrapper {
-      display: grid;
-      grid-template-columns: 1fr 1.2fr;
-      gap: 30px;
-      animation: slideInUp 0.6s ease-out;
-    }
-
-    /* Image Gallery Section */
+    /* ============ GALLERY SECTION ============ */
     .gallery-section {
-      background: var(--bg-card);
+      background: var(--white);
       border-radius: var(--radius-lg);
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      border: 1px solid var(--light-gray);
       overflow: hidden;
       padding: 20px;
       position: sticky;
       top: 100px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-smooth);
+    }
+
+    .gallery-section:hover {
+      box-shadow: var(--shadow-md);
     }
 
     .main-image {
@@ -198,17 +233,18 @@
       overflow: hidden;
       cursor: pointer;
       margin-bottom: 15px;
+      background: var(--bg-light);
     }
 
     .main-image img {
       width: 100%;
-      height: 400px;
+      height: 380px;
       object-fit: cover;
       transition: transform 0.5s ease;
     }
 
     .main-image:hover img {
-      transform: scale(1.05);
+      transform: scale(1.03);
     }
 
     .image-overlay {
@@ -216,187 +252,228 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-      padding: 20px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       color: white;
+      font-size: 0.8rem;
+      opacity: 0;
+      transition: var(--transition-smooth);
+    }
+
+    .main-image:hover .image-overlay {
+      opacity: 1;
     }
 
     .thumbnail-scroll {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       overflow-x: auto;
-      padding: 10px 0;
+      padding: 8px 0;
+      scrollbar-width: thin;
+    }
+
+    .thumbnail-scroll::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .thumbnail-scroll::-webkit-scrollbar-thumb {
+      background: var(--primary-blue);
+      border-radius: 2px;
     }
 
     .thumbnail-scroll img {
-      width: 85px;
-      height: 85px;
+      width: 75px;
+      height: 75px;
       border-radius: var(--radius-sm);
       object-fit: cover;
       cursor: pointer;
       border: 2px solid transparent;
       transition: all 0.3s;
+      flex-shrink: 0;
+      background: var(--bg-light);
     }
 
     .thumbnail-scroll img.active,
     .thumbnail-scroll img:hover {
-      border-color: var(--gold-primary);
+      border-color: var(--primary-blue);
       transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
     }
 
     .image-nav-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      margin-top: 15px;
+      margin-top: 12px;
     }
 
     .dot {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(255,255,255,0.3);
+      background: var(--light-gray);
       cursor: pointer;
       transition: all 0.3s;
     }
 
     .dot.active {
-      background: var(--gold-primary);
-      width: 25px;
+      background: var(--primary-blue);
+      width: 24px;
       border-radius: 4px;
     }
 
-    /* Info Section */
+    /* ============ INFO SECTION ============ */
     .info-section {
       display: flex;
       flex-direction: column;
-      gap: 25px;
+      gap: 20px;
     }
 
-    /* Salon Header Card */
+    /* Salon Header */
     .salon-header {
-      background: var(--bg-card);
+      background: var(--white);
       border-radius: var(--radius-md);
-      padding: 25px;
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 24px 28px;
+      border: 1px solid var(--light-gray);
+      box-shadow: var(--shadow-sm);
     }
 
     .salon-header h1 {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-family: 'Playfair Display', serif;
-      color: var(--gold-primary);
-      margin-bottom: 12px;
+      color: var(--dark);
+      margin-bottom: 8px;
     }
 
     .rating-badge {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
     }
 
     .stars {
-      color: var(--gold-primary);
-      font-size: 1rem;
+      color: #F59E0B;
+      font-size: 0.95rem;
     }
 
     .review-count {
-      color: var(--gray-muted);
-      font-size: 0.9rem;
+      color: var(--gray);
+      font-size: 0.85rem;
     }
 
     .offer-banner {
-      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: var(--secondary-blue);
+      border: 1px solid rgba(0, 102, 255, 0.15);
       border-radius: var(--radius-sm);
-      padding: 15px 20px;
+      padding: 12px 18px;
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin-top: 15px;
     }
 
     .offer-banner i {
-      font-size: 2rem;
-      color: var(--gold-primary);
+      font-size: 1.3rem;
+      color: var(--primary-blue);
     }
 
     .offer-banner .offer-text {
       flex: 1;
+      font-size: 0.9rem;
+      color: var(--dark);
     }
 
     .offer-banner .offer-text strong {
-      color: var(--gold-primary);
-      font-size: 1.1rem;
+      color: var(--primary-blue);
     }
 
     .offer-code {
-      background: var(--gold-primary);
-      color: #0a0a0a;
-      padding: 8px 16px;
+      background: var(--primary-gradient);
+      color: white;
+      padding: 5px 14px;
       border-radius: 50px;
-      font-weight: 700;
+      font-weight: 600;
       font-family: monospace;
       letter-spacing: 1px;
+      font-size: 0.8rem;
     }
 
     /* Info Cards Grid */
     .info-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 16px;
     }
 
     .info-card {
-      background: var(--bg-card);
+      background: var(--white);
       border-radius: var(--radius-md);
-      padding: 20px;
-      border: 1px solid rgba(212, 175, 55, 0.15);
+      padding: 18px 20px;
+      border: 1px solid var(--light-gray);
       transition: var(--transition-smooth);
+      box-shadow: var(--shadow-sm);
     }
 
     .info-card:hover {
-      border-color: rgba(212, 175, 55, 0.3);
+      border-color: var(--primary-blue);
       transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
     }
 
     .info-card-header {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 15px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--light-gray);
     }
 
     .info-card-header i {
-      font-size: 1.3rem;
-      color: var(--gold-primary);
+      font-size: 1rem;
+      color: var(--primary-blue);
     }
 
     .info-card-header h3 {
-      font-size: 1rem;
+      font-size: 0.8rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
+      color: var(--gray);
     }
 
     .info-content p {
-      margin: 8px 0;
+      margin: 5px 0;
       font-size: 0.9rem;
-      color: var(--gray-muted);
+      color: var(--gray);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .info-content p i {
-      width: 20px;
-      color: var(--gold-primary);
+      width: 16px;
+      color: var(--gray);
+      font-size: 0.75rem;
+    }
+
+    .info-content p span,
+    .info-content p a {
+      color: var(--dark);
+    }
+
+    .info-content p a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .info-content p a:hover {
+      text-decoration: underline;
     }
 
     /* Services List */
@@ -407,8 +484,9 @@
     .service-item {
       display: flex;
       justify-content: space-between;
-      padding: 12px 0;
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--light-gray);
+      font-size: 0.9rem;
     }
 
     .service-item:last-child {
@@ -417,18 +495,19 @@
 
     .service-name {
       font-weight: 500;
+      color: var(--dark);
     }
 
     .service-price {
-      color: var(--gold-primary);
+      color: var(--primary-blue);
       font-weight: 600;
     }
 
-    /* Amenities Grid */
+    /* Amenities */
     .amenities-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
+      gap: 6px;
     }
 
     .amenity-tag {
@@ -436,51 +515,52 @@
       align-items: center;
       gap: 8px;
       font-size: 0.85rem;
-      color: var(--gray-muted);
-      padding: 6px 0;
+      color: var(--gray);
+      padding: 4px 0;
     }
 
     .amenity-tag i {
-      color: var(--gold-primary);
-      font-size: 0.8rem;
+      color: var(--primary-blue);
+      font-size: 0.7rem;
     }
 
     /* Staff Grid */
     .staff-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 15px;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 12px;
     }
 
     .staff-card {
-      background: var(--bg-elevated);
-      border: 2px solid rgba(212, 175, 55, 0.15);
+      background: var(--bg-light);
+      border: 2px solid var(--light-gray);
       border-radius: var(--radius-sm);
-      padding: 15px 10px;
+      padding: 12px 8px;
       text-align: center;
       cursor: pointer;
       transition: all 0.3s;
     }
 
     .staff-card:hover {
-      border-color: var(--gold-primary);
+      border-color: var(--primary-blue);
       transform: translateY(-3px);
     }
 
     .staff-card.selected {
-      border-color: var(--gold-primary);
-      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--primary-blue);
+      background: var(--secondary-blue);
     }
 
     .staff-avatar {
-      font-size: 3rem;
-      color: var(--gray-muted);
-      margin-bottom: 8px;
+      font-size: 2.2rem;
+      color: var(--gray);
+      margin-bottom: 4px;
     }
 
     .staff-name {
       font-weight: 500;
-      font-size: 0.85rem;
+      font-size: 0.78rem;
+      color: var(--dark);
     }
 
     .staff-card input {
@@ -488,35 +568,38 @@
     }
 
     /* Book Button */
-    .book-btn-container {
-      position: sticky;
-      bottom: 20px;
-      margin-top: 20px;
-    }
-
     .btn-book {
       display: block;
       width: 100%;
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-      color: #0a0a0a;
-      padding: 18px;
+      background: var(--primary-gradient);
+      color: white;
+      padding: 16px;
       border: none;
-      border-radius: 60px;
-      font-size: 1.1rem;
+      border-radius: 50px;
+      font-size: 1.05rem;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.3s;
       text-align: center;
-      text-decoration: none;
-      box-shadow: 0 5px 20px rgba(212, 175, 55, 0.3);
+      font-family: 'Inter', sans-serif;
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+      letter-spacing: 0.3px;
     }
 
     .btn-book:hover {
       transform: translateY(-3px);
-      box-shadow: 0 10px 35px rgba(212, 175, 55, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
     }
 
-    /* Modal */
+    .btn-book:active {
+      transform: translateY(0);
+    }
+
+    .btn-book i {
+      margin-right: 10px;
+    }
+
+    /* ============ MODAL ============ */
     .modal {
       display: none;
       position: fixed;
@@ -524,7 +607,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.96);
+      background: rgba(0, 0, 0, 0.92);
       z-index: 2000;
       justify-content: center;
       align-items: center;
@@ -545,14 +628,14 @@
       width: 100%;
       max-height: 90vh;
       object-fit: contain;
-      border-radius: 12px;
+      border-radius: var(--radius-sm);
     }
 
     .modal-close {
       position: absolute;
       top: -50px;
       right: 0;
-      background: var(--gold-primary);
+      background: var(--primary-blue);
       width: 40px;
       height: 40px;
       border-radius: 50%;
@@ -560,54 +643,66 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #0a0a0a;
+      color: white;
       font-size: 1.2rem;
+      border: none;
+      transition: var(--transition-smooth);
+    }
+
+    .modal-close:hover {
+      transform: scale(1.1);
     }
 
     .modal-nav {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: var(--gold-primary);
-      width: 45px;
-      height: 45px;
+      background: var(--white);
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      color: #0a0a0a;
-      font-size: 1.5rem;
+      color: var(--dark);
+      font-size: 1.2rem;
       transition: all 0.3s;
+      border: none;
+      box-shadow: var(--shadow-md);
     }
 
     .modal-nav:hover {
       transform: translateY(-50%) scale(1.1);
+      background: var(--primary-blue);
+      color: white;
     }
 
     .modal-prev {
-      left: -60px;
+      left: -55px;
     }
 
     .modal-next {
-      right: -60px;
+      right: -55px;
     }
 
-    /* Toast */
+    /* ============ TOAST ============ */
     .toast-message {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(100px);
-      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
-      color: #0a0a0a;
+      background: var(--dark);
+      color: white;
       padding: 12px 25px;
       border-radius: 50px;
-      font-weight: 600;
+      font-weight: 500;
       z-index: 2001;
-      transition: all 0.3s;
+      transition: all 0.4s ease;
       opacity: 0;
       visibility: hidden;
+      font-size: 0.95rem;
+      box-shadow: var(--shadow-lg);
     }
 
     .toast-message.show {
@@ -616,24 +711,16 @@
       visibility: visible;
     }
 
-    /* Loading Skeleton */
-    .skeleton {
-      background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-elevated) 50%, var(--bg-card) 75%);
-      background-size: 200% 100%;
-      animation: loading 1.5s infinite;
-      border-radius: var(--radius-sm);
+    .toast-message i {
+      margin-right: 8px;
     }
 
-    @keyframes loading {
-      0% { background-position: 200% 0; }
-      100% { background-position: -200% 0; }
-    }
-
-    /* Responsive */
+    /* ============ RESPONSIVE ============ */
     @media (max-width: 1024px) {
       .salon-details-wrapper {
         grid-template-columns: 1fr;
         gap: 20px;
+        padding: 20px 0 40px;
       }
       
       .gallery-section {
@@ -642,51 +729,62 @@
       }
       
       .main-image img {
-        height: 350px;
+        height: 320px;
       }
     }
 
     @media (max-width: 768px) {
-      .premium-nav {
-        padding: 12px 20px;
+      .premium-nav .nav-inner {
+        padding: 0 15px;
+        flex-wrap: wrap;
+        gap: 10px;
       }
-      
+
+      .nav-logo-text .brand {
+        font-size: 1.2rem;
+      }
+
+      .back-button span {
+        display: none;
+      }
+
+      .back-button {
+        padding: 8px 14px;
+      }
+
       .container {
-        margin: 80px auto 20px;
         padding: 0 15px;
       }
       
       .info-grid {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 12px;
       }
       
+      .salon-header {
+        padding: 18px 20px;
+      }
+
       .salon-header h1 {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
       }
       
       .main-image img {
-        height: 250px;
+        height: 220px;
       }
       
       .modal-nav {
-        width: 35px;
-        height: 35px;
+        width: 36px;
+        height: 36px;
         font-size: 1rem;
       }
       
       .modal-prev {
-        left: -45px;
+        left: -40px;
       }
       
       .modal-next {
-        right: -45px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .nav-logo span {
-        display: none;
+        right: -40px;
       }
       
       .staff-grid {
@@ -694,12 +792,83 @@
       }
       
       .amenities-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr;
       }
-      
+
       .offer-banner {
         flex-direction: column;
         text-align: center;
+      }
+
+      .offer-code {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .premium-nav .nav-inner {
+        padding: 0 12px;
+      }
+
+      .nav-logo-icon {
+        width: 32px;
+        height: 32px;
+      }
+
+      .nav-logo-icon i {
+        font-size: 14px;
+      }
+
+      .nav-logo-text .brand {
+        font-size: 1rem;
+      }
+
+      .nav-logo-text .tagline {
+        font-size: 0.45rem;
+        letter-spacing: 1.5px;
+      }
+
+      .nav-actions button {
+        width: 34px;
+        height: 34px;
+        font-size: 0.8rem;
+      }
+
+      .salon-header h1 {
+        font-size: 1.3rem;
+      }
+
+      .info-card {
+        padding: 14px 16px;
+      }
+
+      .staff-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .amenities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .btn-book {
+        font-size: 0.95rem;
+        padding: 14px;
+      }
+
+      .modal-nav {
+        width: 30px;
+        height: 30px;
+        font-size: 0.8rem;
+      }
+      
+      .modal-prev {
+        left: -30px;
+      }
+      
+      .modal-next {
+        right: -30px;
       }
     }
   </style>
@@ -708,17 +877,29 @@
 
 <!-- Premium Navbar -->
 <nav class="premium-nav">
-  <a href="index.html" class="nav-logo">
-    <i class="fas fa-spa"></i>
-    <span>GlowBook</span>
-  </a>
-  <a href="#" class="back-button" onclick="history.back(); return false;">
-    <i class="fas fa-arrow-left"></i>
-    <span>Back</span>
-  </a>
-  <div class="nav-actions">
-    <button id="shareBtn" title="Share"><i class="fas fa-share-alt"></i></button>
-    <button id="saveBtn" title="Save"><i class="far fa-heart"></i></button>
+  <div class="nav-inner">
+    <!-- GlowBook Logo -->
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">
+        <i class="fas fa-spa"></i>
+      </div>
+      <div class="nav-logo-text">
+        <span class="brand">GlowBook</span>
+        <span class="tagline">BOOK YOUR GLOW</span>
+      </div>
+    </a>
+
+    <!-- Back Button + Actions -->
+    <div style="display: flex; align-items: center; gap: 12px;">
+      <a href="#" class="back-button" onclick="history.back(); return false;">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back</span>
+      </a>
+      <div class="nav-actions">
+        <button id="shareBtn" title="Share"><i class="fas fa-share-alt"></i></button>
+        <button id="saveBtn" title="Save"><i class="far fa-heart"></i></button>
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -765,7 +946,8 @@
           </div>
           <div class="info-content">
             <p><i class="fas fa-location-dot"></i> <span id="fullLocation"></span></p>
-            <p><i class="fas fa-city"></i> <span id="city"></span>, <span id="state"></span> - <span id="pincode"></span></p>
+            <p><i class="fas fa-city"></i> <span id="city"></span>, <span id="state"></span></p>
+            <p><i class="fas fa-mailbox"></i> <span id="pincode"></span></p>
           </div>
         </div>
 
@@ -778,7 +960,7 @@
           <div class="info-content">
             <p><i class="fas fa-phone"></i> <span id="phone"></span></p>
             <p><i class="fas fa-envelope"></i> <span id="email"></span></p>
-            <p><i class="fab fa-instagram"></i> <a id="instagram" href="#" target="_blank" style="color: var(--gold-primary);">@salonhandle</a></p>
+            <p><i class="fab fa-instagram"></i> <a id="instagram" href="#" target="_blank">@salonhandle</a></p>
           </div>
         </div>
 
@@ -824,11 +1006,9 @@
       </div>
 
       <!-- Book Button -->
-      <div class="book-btn-container">
-        <button class="btn-book" id="bookBtn">
-          <i class="fas fa-calendar-check"></i> Book Appointment
-        </button>
-      </div>
+      <button class="btn-book" id="bookBtn">
+        <i class="fas fa-calendar-check"></i> Book Appointment
+      </button>
     </div>
   </div>
 </div>
@@ -836,10 +1016,10 @@
 <!-- Modal -->
 <div class="modal" id="photoModal">
   <div class="modal-content">
-    <div class="modal-close" id="closeModal">&times;</div>
-    <div class="modal-nav modal-prev" id="prevBtn">&#8249;</div>
+    <button class="modal-close" id="closeModal">&times;</button>
+    <button class="modal-nav modal-prev" id="prevBtn">&#8249;</button>
     <img id="modalImg" src="" alt="Salon Photo">
-    <div class="modal-nav modal-next" id="nextBtn">&#8250;</div>
+    <button class="modal-nav modal-next" id="nextBtn">&#8250;</button>
   </div>
 </div>
 
@@ -921,7 +1101,7 @@
               <div class="staff-card" data-staff="${staff.trim()}">
                 <div class="staff-avatar"><i class="fas fa-user-circle"></i></div>
                 <div class="staff-name">${staff.trim()}</div>
-                <input type="radio" name="staffs" value="${staff.trim()}" style="display:none">
+                <input type="radio" name="staffs" value="${staff.trim()}">
               </div>
             `).join('');
           
@@ -934,7 +1114,7 @@
             });
           });
         } else {
-          staffDiv.innerHTML = "<div class='staff-card'>No staff listed</div>";
+          staffDiv.innerHTML = "<div class='staff-card' style='grid-column: 1/-1;'>No staff listed</div>";
         }
 
         // Photos
@@ -957,6 +1137,9 @@
               const img = document.createElement("img");
               img.src = `https://salon-booking-backend-vsaz.onrender.com/uploads/${photo.trim()}`;
               img.alt = `Photo ${i + 1}`;
+              img.onerror = function() {
+                this.src = 'https://via.placeholder.com/75x75/EEEEEE/666666?text=No+Image';
+              };
               if (i === 0) img.classList.add("active");
               img.addEventListener("click", () => {
                 currentIndex = i;
@@ -979,13 +1162,16 @@
               imageNavDots.appendChild(dot);
             });
           } else {
-            mainPhoto.src = "https://via.placeholder.com/600x400?text=No+Photos";
+            mainPhoto.src = "https://via.placeholder.com/600x400/EEEEEE/666666?text=No+Photos";
           }
         }
 
         function updateMainImage() {
           if (photoArray.length > 0) {
             mainPhoto.src = `https://salon-booking-backend-vsaz.onrender.com/uploads/${photoArray[currentIndex].trim()}`;
+            mainPhoto.onerror = function() {
+              this.src = 'https://via.placeholder.com/600x400/EEEEEE/666666?text=No+Image';
+            };
           }
         }
 
@@ -1060,17 +1246,18 @@
       .catch(err => {
         console.error("Error:", err);
         document.querySelector(".salon-details-wrapper").innerHTML = `
-          <div style="text-align: center; padding: 50px;">
-            <h2 style="color: var(--gold-primary);">Error Loading Salon</h2>
-            <p>${err.message}</p>
-            <a href="index.html" style="color: var(--gold-primary);">Return Home</a>
+          <div style="text-align: center; padding: 50px; grid-column: 1/-1;">
+            <h2 style="color: var(--primary-blue); font-family: 'Playfair Display', serif;">Error Loading Salon</h2>
+            <p style="color: var(--gray);">${err.message}</p>
+            <a href="index.html" style="color: var(--primary-blue); text-decoration: none; font-weight: 600; display: inline-block; margin-top: 15px;">← Return Home</a>
           </div>
         `;
       });
 
     function showToast(msg, type = "success") {
       const toast = document.getElementById("toastMsg");
-      toast.innerHTML = `<i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}"></i> ${msg}`;
+      const icon = type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle';
+      toast.innerHTML = `<i class="fas ${icon}"></i> ${msg}`;
       toast.classList.add("show");
       setTimeout(() => toast.classList.remove("show"), 3000);
     }
@@ -1078,7 +1265,10 @@
     // Share button
     document.getElementById("shareBtn")?.addEventListener("click", () => {
       if (navigator.share) {
-        navigator.share({ title: document.getElementById("salonName").textContent, url: window.location.href });
+        navigator.share({ 
+          title: document.getElementById("salonName").textContent, 
+          url: window.location.href 
+        });
       } else {
         showToast("Share feature not supported", "error");
       }
@@ -1090,10 +1280,12 @@
       if (icon.classList.contains("far")) {
         icon.classList.remove("far");
         icon.classList.add("fas");
+        icon.style.color = '#0066FF';
         showToast("Saved to favorites!");
       } else {
         icon.classList.remove("fas");
         icon.classList.add("far");
+        icon.style.color = '';
         showToast("Removed from favorites");
       }
     });

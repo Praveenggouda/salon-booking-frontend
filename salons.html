@@ -48,7 +48,6 @@
       position: relative;
     }
 
-    /* Subtle Background Pattern */
     body::before {
       content: '';
       position: fixed;
@@ -56,9 +55,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.03) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.02) 0%, transparent 50%);
+      background: radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.03) 0%, transparent 50%);
       pointer-events: none;
       z-index: 0;
     }
@@ -70,7 +67,7 @@
       z-index: 1;
     }
 
-    /* ============ GLOWBOOK LOGO - BLUE THEME ============ */
+    /* ============ GLOWBOOK LOGO ============ */
     .glowbook-logo {
       display: flex;
       align-items: center;
@@ -142,7 +139,7 @@
       margin-top: 2px;
     }
 
-    /* Header */
+    /* ============ HEADER ============ */
     .header {
       display: flex;
       justify-content: space-between;
@@ -150,12 +147,14 @@
       flex-wrap: wrap;
       gap: 1rem;
       margin-bottom: 2rem;
-      padding: 20px 0;
       background: var(--white);
       border-radius: var(--radius-md);
       padding: 20px 30px;
       box-shadow: var(--shadow-sm);
       border: 1px solid var(--light-gray);
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .header-left {
@@ -194,6 +193,7 @@
       border-radius: 50px;
       color: var(--dark);
       font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
       transition: var(--transition-smooth);
     }
 
@@ -205,6 +205,7 @@
 
     #search-bar::placeholder {
       color: var(--gray);
+      font-weight: 400;
     }
 
     .filter-toggle {
@@ -215,6 +216,7 @@
       padding: 10px 20px;
       border-radius: 50px;
       font-weight: 600;
+      font-family: 'Inter', sans-serif;
       cursor: pointer;
       align-items: center;
       gap: 8px;
@@ -228,15 +230,17 @@
       box-shadow: var(--shadow-md);
     }
 
-    /* Content Wrapper */
+    /* ============ CONTENT WRAPPER ============ */
     .content-wrapper {
       display: flex;
       gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
-    /* Filters Sidebar - White & Blue */
+    /* ============ FILTERS SIDEBAR ============ */
     #filters {
-      width: 300px;
+      width: 280px;
       background: var(--white);
       padding: 1.5rem;
       border-radius: var(--radius-md);
@@ -253,7 +257,7 @@
     }
 
     #filters h2 {
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       margin-bottom: 1.2rem;
       color: var(--dark);
       display: flex;
@@ -275,13 +279,13 @@
     }
 
     .filter-section strong {
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       display: block;
-      color: var(--primary-blue);
+      color: var(--gray);
       margin-bottom: 0.8rem;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 700;
+      letter-spacing: 0.8px;
+      font-weight: 600;
     }
 
     .filter-section label {
@@ -294,10 +298,11 @@
       border-radius: 8px;
       transition: var(--transition-smooth);
       color: var(--gray);
+      font-weight: 400;
     }
 
     .filter-section label:hover {
-      color: var(--primary-blue);
+      color: var(--dark);
       background: var(--secondary-blue);
       padding-left: 8px;
     }
@@ -313,20 +318,21 @@
     .clear-filters {
       background: none;
       border: none;
-      color: var(--primary-blue);
+      color: var(--gray);
       cursor: pointer;
       font-size: 0.8rem;
       padding: 4px 8px;
       border-radius: 6px;
       transition: var(--transition-smooth);
-      font-weight: 600;
+      font-weight: 500;
     }
 
     .clear-filters:hover {
       background: var(--secondary-blue);
+      color: var(--primary-blue);
     }
 
-    /* Active Filters Tags - Blue Theme */
+    /* ============ ACTIVE FILTERS ============ */
     .filter-tags {
       margin-bottom: 1.5rem;
       display: flex;
@@ -338,23 +344,23 @@
       padding: 6px 14px;
       border-radius: 50px;
       background: var(--secondary-blue);
-      color: var(--primary-blue);
+      color: var(--dark);
       cursor: pointer;
       font-size: 0.8rem;
       transition: var(--transition-smooth);
       display: flex;
       align-items: center;
       gap: 8px;
-      border: 1px solid rgba(0, 102, 255, 0.15);
+      border: 1px solid var(--light-gray);
       font-weight: 500;
     }
 
     .filter-tags span:hover {
-      background: rgba(0, 102, 255, 0.15);
+      background: #dce4f0;
       transform: translateY(-2px);
     }
 
-    /* Main Content */
+    /* ============ MAIN CONTENT ============ */
     main {
       background: var(--white);
       padding: 1.5rem;
@@ -364,10 +370,10 @@
       box-shadow: var(--shadow-sm);
     }
 
-    /* Salon Grid - Clean Cards */
+    /* ============ SALON GRID ============ */
     .salon-list {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.5rem;
       list-style: none;
     }
@@ -382,9 +388,9 @@
     }
 
     .salon-list li:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       border-color: var(--primary-blue);
-      box-shadow: var(--shadow-lg);
+      box-shadow: var(--shadow-md);
     }
 
     .salon-image {
@@ -395,20 +401,16 @@
       background: var(--light-gray);
     }
 
-    .salon-list li:hover .salon-image {
-      transform: scale(1.02);
-    }
-
     .salon-badge {
       position: absolute;
       top: 15px;
       right: 15px;
       background: var(--primary-gradient);
       color: white;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 50px;
-      font-size: 0.75rem;
-      font-weight: 700;
+      font-size: 0.7rem;
+      font-weight: 600;
       z-index: 1;
       box-shadow: var(--shadow-sm);
     }
@@ -423,6 +425,7 @@
       display: block;
       margin-bottom: 0.5rem;
       font-family: 'Playfair Display', serif;
+      font-weight: 700;
     }
 
     .details p {
@@ -432,11 +435,13 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-weight: 400;
     }
 
     .details p i {
-      width: 18px;
-      color: var(--primary-blue);
+      width: 16px;
+      color: var(--gray);
+      font-size: 0.8rem;
     }
 
     .rating {
@@ -458,6 +463,7 @@
       text-align: center;
       transition: var(--transition-smooth);
       font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
       box-shadow: var(--shadow-sm);
     }
 
@@ -466,7 +472,7 @@
       box-shadow: var(--shadow-md);
     }
 
-    /* No Results */
+    /* ============ NO RESULTS ============ */
     .no-results {
       grid-column: 1 / -1;
       text-align: center;
@@ -475,13 +481,20 @@
     }
 
     .no-results i {
-      font-size: 4rem;
-      color: var(--primary-blue);
+      font-size: 3rem;
+      color: var(--gray);
       margin-bottom: 1rem;
       opacity: 0.3;
     }
 
-    /* Loading Animation */
+    .no-results h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+    }
+
+    /* ============ LOADING ============ */
     .loading-spinner {
       grid-column: 1 / -1;
       text-align: center;
@@ -502,7 +515,7 @@
       to { transform: rotate(360deg); }
     }
 
-    /* Animations */
+    /* ============ ANIMATIONS ============ */
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -518,16 +531,22 @@
       animation: fadeIn 0.5s ease-out;
     }
 
-    /* Responsive */
-    @media (max-width: 1024px) {
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1200px) {
       .salon-list {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       }
     }
 
-    @media (max-width: 900px) {
+    @media (max-width: 992px) {
+      .header {
+        padding: 15px 20px;
+        margin: 0 10px 20px;
+      }
+
       .content-wrapper {
         flex-direction: column;
+        padding: 0 10px;
       }
       
       #filters {
@@ -547,7 +566,6 @@
       .header {
         flex-direction: column;
         align-items: stretch;
-        padding: 15px 20px;
       }
       
       .header-left {
@@ -566,7 +584,7 @@
 
     @media (max-width: 600px) {
       body {
-        padding: 15px;
+        padding: 10px;
       }
       
       .salon-list {
@@ -591,17 +609,20 @@
       }
       
       .header h1 {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+      }
+      
+      .header {
+        padding: 12px 15px;
       }
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <!-- Header with GlowBook Logo -->
+  <!-- Header -->
   <div class="header">
     <div class="header-left">
-      <!-- GlowBook Logo - Clickable to Home -->
       <a href="index.html" class="glowbook-logo">
         <div class="logo-icon">
           <i class="fas fa-spa"></i>
@@ -615,38 +636,40 @@
       <h1>Salons in <span id="city-name"></span></h1>
     </div>
     <div class="header-right">
-      <input type="text" id="search-bar" placeholder="🔍 Search salons by name..." />
+      <input type="text" id="search-bar" placeholder="Search salons by name..." />
       <button class="filter-toggle" id="filter-toggle">
-        <i class="fas fa-filter"></i> Filters
+        <i class="fas fa-sliders-h"></i> Filters
       </button>
     </div>
   </div>
 
   <div class="content-wrapper">
+    <!-- Filters -->
     <section id="filters">
       <h2>
         Filters 
         <button class="clear-filters" id="clear-filters">Clear all</button>
       </h2>
       <div class="filter-section">
-        <strong>💰 Price Range (₹)</strong>
+        <strong>Price Range</strong>
         <label><input type="checkbox" name="price" value="100" /> Up to ₹100</label>
         <label><input type="checkbox" name="price" value="300" /> ₹200 - ₹300</label>
         <label><input type="checkbox" name="price" value="500" /> ₹400 - ₹500</label>
       </div>
       <div class="filter-section">
-        <strong>🥂 Welcome Drink</strong>
+        <strong>Welcome Drink</strong>
         <label><input type="checkbox" name="welcomeDrink" value="yes" /> Available</label>
         <label><input type="checkbox" name="welcomeDrink" value="no" /> Not Available</label>
       </div>
       <div class="filter-section">
-        <strong>✨ Extra Services</strong>
+        <strong>Extra Services</strong>
         <label><input type="checkbox" name="extra" value="spa" /> Spa</label>
         <label><input type="checkbox" name="extra" value="massage" /> Massage</label>
         <label><input type="checkbox" name="extra" value="facial" /> Facial</label>
       </div>
     </section>
 
+    <!-- Main Content -->
     <main>
       <div class="filter-tags" id="active-filters"></div>
       <ul class="salon-list" id="salon-list">
@@ -689,7 +712,7 @@
     if (filteredSalons.length === 0) {
       salonListEl.innerHTML = `
         <div class="no-results">
-          <i class="fas fa-spa"></i>
+          <i class="fas fa-search"></i>
           <h3>No salons found</h3>
           <p>Try adjusting your filters or search term</p>
         </div>
@@ -710,7 +733,7 @@
           src="https://salon-booking-backend-vsaz.onrender.com/uploads/${salon.photoURL}"
           alt="${salon.salonName}"
           class="salon-image"
-          onerror="this.src='https://via.placeholder.com/300x200/0066FF/FFFFFF?text=Salon'">
+          onerror="this.src='https://via.placeholder.com/300x200/EEEEEE/666666?text=Salon'">
         <div class="details">
           <strong>${salon.salonName}</strong>
           <p><i class="fas fa-map-marker-alt"></i> ${salon.location}</p>
@@ -732,7 +755,7 @@
     activeFilters.price.forEach(value => {
       hasActiveFilters = true;
       const span = document.createElement('span');
-      span.innerHTML = `💰 Up to ₹${value} <i class="fas fa-times"></i>`;
+      span.innerHTML = `Up to ₹${value} <i class="fas fa-times"></i>`;
       span.dataset.type = 'price';
       span.dataset.value = value;
       activeFiltersEl.appendChild(span);
@@ -742,7 +765,7 @@
       hasActiveFilters = true;
       const span = document.createElement('span');
       const displayText = value === 'yes' ? 'Available' : 'Not Available';
-      span.innerHTML = `🥂 Welcome Drink: ${displayText} <i class="fas fa-times"></i>`;
+      span.innerHTML = `Welcome Drink: ${displayText} <i class="fas fa-times"></i>`;
       span.dataset.type = 'welcomeDrink';
       span.dataset.value = value;
       activeFiltersEl.appendChild(span);
@@ -751,7 +774,7 @@
     activeFilters.extra.forEach(value => {
       hasActiveFilters = true;
       const span = document.createElement('span');
-      span.innerHTML = `✨ ${value.charAt(0).toUpperCase() + value.slice(1)} <i class="fas fa-times"></i>`;
+      span.innerHTML = `${value.charAt(0).toUpperCase() + value.slice(1)} <i class="fas fa-times"></i>`;
       span.dataset.type = 'extra';
       span.dataset.value = value;
       activeFiltersEl.appendChild(span);
@@ -863,7 +886,7 @@
   
   // Close filters when clicking outside on mobile
   document.addEventListener('click', (e) => {
-    if (window.innerWidth <= 900 && 
+    if (window.innerWidth <= 992 && 
         filtersSection && filtersSection.classList.contains('active') &&
         !filtersSection.contains(e.target) &&
         e.target !== filterToggle) {

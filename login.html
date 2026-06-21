@@ -13,7 +13,651 @@
 
   <style>
     * {
+      margin: 0;<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Login | GlowBook - Premium Beauty Booking</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --primary-blue: #0066FF;
+      --primary-light: #4D94FF;
+      --primary-dark: #0044CC;
+      --primary-gradient: linear-gradient(135deg, #0066FF, #0044CC);
+      --secondary-blue: #E8F0FE;
+      --bg-light: #F8FAFF;
+      --white: #FFFFFF;
+      --dark: #1A2332;
+      --gray: #6B7A8F;
+      --light-gray: #E8EDF2;
+      --shadow-sm: 0 2px 10px rgba(0, 102, 255, 0.08);
+      --shadow-md: 0 8px 30px rgba(0, 102, 255, 0.12);
+      --shadow-lg: 0 20px 60px rgba(0, 102, 255, 0.15);
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 30px;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+    }
+
+    /* Subtle Background Pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(0, 102, 255, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(0, 102, 255, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .login-container {
+      width: 100%;
+      max-width: 440px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .login-box {
+      background: var(--white);
+      padding: 45px 40px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--light-gray);
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-smooth);
+    }
+
+    .login-box:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary-blue);
+    }
+
+    /* ============ GLOWBOOK LOGO ============ */
+    .logo {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+
+    .logo-link:hover {
+      transform: scale(1.02);
+    }
+
+    .logo-icon {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: var(--primary-gradient);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    }
+
+    .logo-icon i {
+      font-size: 24px;
+      color: white;
+      position: relative;
+      z-index: 1;
+    }
+
+    .logo-icon .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: white;
+      border-radius: 50%;
+      top: 8px;
+      right: 8px;
+      animation: sparkle 1.5s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0; transform: scale(0.5); }
+      50% { opacity: 1; transform: scale(1); }
+    }
+
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .logo-text .brand {
+      font-size: 1.8rem;
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text .tagline {
+      font-size: 0.6rem;
+      letter-spacing: 2.5px;
+      color: var(--gray);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 1.6rem;
+      color: var(--dark);
+      margin-bottom: 28px;
+      font-weight: 600;
+      font-family: 'Playfair Display', serif;
+      letter-spacing: -0.3px;
+    }
+
+    /* ============ INPUT FIELDS ============ */
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 14px 45px 14px 18px;
+      background: var(--bg-light);
+      border: 2px solid var(--light-gray);
+      border-radius: var(--radius-sm);
+      font-size: 0.95rem;
+      color: var(--dark);
+      transition: var(--transition-smooth);
+      font-weight: 400;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .input-group input:focus {
+      border-color: var(--primary-blue);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(0, 102, 255, 0.1);
+      background: var(--white);
+    }
+
+    .input-group input::placeholder {
+      color: var(--gray);
+      font-weight: 400;
+    }
+
+    .input-group i:not(.password-toggle) {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+      pointer-events: none;
+    }
+
+    .input-group input:focus + i {
+      color: var(--primary-blue);
+    }
+
+    .password-toggle {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      color: var(--gray);
+      font-size: 1rem;
+      transition: var(--transition-smooth);
+      z-index: 2;
+    }
+
+    .password-toggle:hover {
+      color: var(--primary-blue);
+    }
+
+    /* ============ REMEMBER & FORGOT ============ */
+    .remember-forgot {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      font-size: 0.9rem;
+    }
+
+    .remember {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--gray);
+      cursor: pointer;
+    }
+
+    .remember input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--primary-blue);
+      border-radius: 4px;
+    }
+
+    .remember span {
+      cursor: pointer;
+    }
+
+    .forgot-password {
+      color: var(--primary-blue);
+      text-decoration: none;
+      transition: var(--transition-smooth);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .forgot-password:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* ============ LOGIN BUTTON ============ */
+    button[type="submit"] {
+      width: 100%;
+      padding: 14px;
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.3px;
+    }
+
+    button[type="submit"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 102, 255, 0.4);
+    }
+
+    button[type="submit"]:active {
+      transform: translateY(0);
+    }
+
+    button[type="submit"]:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ============ MESSAGE ============ */
+    #msg {
+      margin-top: 16px;
+      text-align: center;
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .success {
+      background: #E8F5E9;
+      color: #2E7D32;
+      border: 1px solid #A5D6A7;
+    }
+
+    .error {
+      background: #FFEBEE;
+      color: #C62828;
+      border: 1px solid #FFCDD2;
+    }
+
+    /* ============ DIVIDER ============ */
+    .divider {
+      display: flex;
+      align-items: center;
+      margin: 24px 0;
+      color: var(--gray);
+    }
+
+    .divider::before,
+    .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--light-gray);
+    }
+
+    .divider span {
+      padding: 0 15px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--gray);
+    }
+
+    /* ============ SOCIAL LOGIN ============ */
+    .social-login {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .social-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+      border: 2px solid var(--light-gray);
+      background: var(--white);
+      font-size: 1.1rem;
+      color: var(--gray);
+    }
+
+    .social-btn.google:hover {
+      border-color: #DB4437;
+      color: #DB4437;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(219, 68, 55, 0.2);
+    }
+
+    .social-btn.facebook:hover {
+      border-color: #4267B2;
+      color: #4267B2;
+      transform: translateY(-3px);
+      box-shadow: 0 4px 15px rgba(66, 103, 178, 0.2);
+    }
+
+    /* ============ BACK LINK ============ */
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .back-link a {
+      color: var(--primary-blue);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition-smooth);
+    }
+
+    .back-link a:hover {
+      color: var(--primary-dark);
+      text-decoration: underline;
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 576px) {
+      .login-box {
+        padding: 30px 24px;
+        border-radius: var(--radius-md);
+      }
+      
+      .logo-text .brand {
+        font-size: 1.4rem;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo-icon i {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 1.3rem;
+        margin-bottom: 22px;
+      }
+      
+      .input-group input {
+        padding: 12px 40px 12px 16px;
+        font-size: 0.9rem;
+      }
+
+      button[type="submit"] {
+        padding: 12px;
+        font-size: 0.95rem;
+      }
+
+      .remember-forgot {
+        font-size: 0.8rem;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+    }
+
+    @media (max-width: 380px) {
+      .login-box {
+        padding: 24px 16px;
+      }
+
+      .logo-text .brand {
+        font-size: 1.2rem;
+      }
+
+      .logo-text .tagline {
+        font-size: 0.5rem;
+        letter-spacing: 1.5px;
+      }
+
+      .social-btn {
+        width: 42px;
+        height: 42px;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-box">
+      <!-- Logo - Clickable to Home -->
+      <div class="logo">
+        <a href="index.html" class="logo-link">
+          <div class="logo-icon">
+            <i class="fas fa-spa"></i>
+            <div class="sparkle"></div>
+          </div>
+          <div class="logo-text">
+            <span class="brand">GlowBook</span>
+            <span class="tagline">BOOK YOUR GLOW</span>
+          </div>
+        </a>
+      </div>
+
+      <h2>Welcome Back</h2>
+
+      <form id="loginForm">
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Email Address" required />
+          <i class="fas fa-envelope"></i>
+        </div>
+        <div class="input-group">
+          <input type="password" id="password" placeholder="Password" required />
+          <i class="fas fa-lock"></i>
+          <i class="fas fa-eye password-toggle" id="passwordToggle"></i>
+        </div>
+        
+        <div class="remember-forgot">
+          <label class="remember">
+            <input type="checkbox" id="remember">
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot-password">Forgot Password?</a>
+        </div>
+        
+        <button type="submit" id="loginButton">Login</button>
+      </form>
+
+      <div class="divider"><span>Or continue with</span></div>
+      
+      <div class="social-login">
+        <div class="social-btn google">
+          <i class="fab fa-google"></i>
+        </div>
+        <div class="social-btn facebook">
+          <i class="fab fa-facebook-f"></i>
+        </div>
+      </div>
+
+      <p id="msg"></p>
+
+      <div class="back-link">
+        Don't have an account? <a href="register.html">Register here</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const loginForm = document.getElementById('loginForm');
+      const passwordToggle = document.getElementById('passwordToggle');
+      const passwordInput = document.getElementById('password');
+      const loginButton = document.getElementById('loginButton');
+      const msgEl = document.getElementById('msg');
+      
+      // Check if there's a remembered email
+      const rememberedEmail = localStorage.getItem('rememberedEmail');
+      if (rememberedEmail) {
+        document.getElementById('email').value = rememberedEmail;
+        document.getElementById('remember').checked = true;
+      }
+      
+      // Password visibility toggle
+      passwordToggle.addEventListener('click', function() {
+        if (passwordInput.type === 'password') {
+          passwordInput.type = 'text';
+          passwordToggle.classList.remove('fa-eye');
+          passwordToggle.classList.add('fa-eye-slash');
+        } else {
+          passwordInput.type = 'password';
+          passwordToggle.classList.remove('fa-eye-slash');
+          passwordToggle.classList.add('fa-eye');
+        }
+      });
+      
+      // Form submission - BACKEND API PRESERVED
+      loginForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const rememberMe = document.getElementById('remember').checked;
+        
+        // Show loading state
+        const originalText = loginButton.textContent;
+        loginButton.textContent = 'Logging in...';
+        loginButton.disabled = true;
+        
+        try {
+          // BACKEND API - COMPLETELY UNCHANGED
+          const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+          });
+
+          const data = await res.json();
+          
+          // Restore button state
+          loginButton.textContent = originalText;
+          loginButton.disabled = false;
+          
+          msgEl.textContent = data.message;
+          msgEl.className = data.success ? 'success' : 'error';
+          
+          if (data.success) {
+            // Store email if remember me is checked
+            if (rememberMe) {
+              localStorage.setItem('rememberedEmail', email);
+            } else {
+              localStorage.removeItem('rememberedEmail');
+            }
+            
+            // STORAGE LOGIC - COMPLETELY UNCHANGED
+            localStorage.setItem('user', JSON.stringify({ 
+              name: data.name, 
+              email: data.email 
+            }));
+            
+            setTimeout(() => {
+              window.location.href = 'index.html';
+            }, 1000);
+          }
+        } catch (error) {
+          // Restore button state
+          loginButton.textContent = originalText;
+          loginButton.disabled = false;
+          
+          msgEl.textContent = 'Network error. Please try again.';
+          msgEl.className = 'error';
+          console.error('Login error:', error);
+        }
+      });
+      
+      // Social login buttons (placeholder - COMPLETELY UNCHANGED)
+      document.querySelectorAll('.social-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+          msgEl.textContent = 'Social login would be implemented here';
+          msgEl.className = 'success';
+        });
+      });
+      
+      // Forgot password (placeholder - COMPLETELY UNCHANGED)
+      document.querySelector('.forgot-password').addEventListener('click', function(e) {
+        e.preventDefault();
+        msgEl.textContent = 'Password reset feature would be implemented here';
+        msgEl.className = 'success';
+      });
+    });
+  </script>
+</body>
+</html>
       padding: 0;
       box-sizing: border-box;
       -webkit-tap-highlight-color: transparent;

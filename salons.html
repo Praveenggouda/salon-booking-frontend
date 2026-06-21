@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Salons | Salon Elegance</title>
+  <title>Salons | GLow Book</title>
   
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
@@ -551,11 +551,14 @@
       
       const badge = salon.discount ? `<span class="salon-badge">${salon.discount}% OFF</span>` : '';
       
-      li.innerHTML = `
-        ${badge}
-        <img src="/uploads/${salon.photoURL}" alt="${salon.salonName}" class="salon-image" onerror="this.src='https://via.placeholder.com/300x200?text=Salon'">
-        <div class="details">
-          <strong>${salon.salonName}</strong>
+   li.innerHTML = `
+  ${badge}
+  <img 
+    src="https://salon-booking-backend-vsaz.onrender.com/uploads/${salon.photoURL}" 
+    alt="${salon.salonName}" 
+    class="salon-image"
+    onerror="this.src='https://dummyimage.com/300x200/000/fff&text=Salon'">
+  <div class="details">e}</strong>
           <p><i class="fas fa-map-marker-alt"></i> ${salon.location}</p>
           <p><i class="fas fa-tag"></i> ₹${salon.priceRange}</p>
           <p class="rating"><i class="fas fa-star"></i> ${salon.rating} / 5</p>

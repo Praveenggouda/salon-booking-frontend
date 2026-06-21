@@ -536,54 +536,47 @@
     };
 
     // Form submission - BACKEND API PRESERVED
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+   form.addEventListener('submit', async (e) => {
+  e.preventDefault();
 
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const gender = document.getElementById('gender').value;
-      const otp = document.getElementById('otp').value.trim();
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const gender = document.getElementById('gender').value;
 
-      // OTP Verification Flow - COMPLETELY UNCHANGED
-      if (otpBox.style.display === 'block') {
-        if (!otp) {
-          showToast('Please enter the OTP.', false);
-          return;
-        }
+  if (!validateForm(name, email, password, phone, gender)) return;
 
-        const originalText = registerButton.textContent;
-        registerButton.textContent = 'Verifying...';
-        registerButton.disabled = true;
+  const originalText = registerButton.textContent;
+  registerButton.textContent = 'Registering...';
+  registerButton.disabled = true;
 
-        try {
-          // BACKEND API - PRESERVED
-          const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/verify-otp', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...userData, otp })
-          });
-          const data = await res.json();
-          
-          registerButton.textContent = originalText;
-          registerButton.disabled = false;
-          
-          showToast(data.message, data.success);
+  try {
+    const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email, password, phone, gender })
+    });
 
-          if (data.success) {
-            setTimeout(() => {
-              window.location.href = 'login.html';
-            }, 1500);
-          }
-        } catch {
-          registerButton.textContent = originalText;
-          registerButton.disabled = false;
-          showToast('Network error', false);
-        }
-        return;
-      }
+    const data = await res.json();
 
+    registerButton.textContent = originalText;
+    registerButton.disabled = false;
+
+    showToast(data.message, data.success);
+
+    if (data.success) {
+      setTimeout(() => {
+        window.location.href = 'login.html';
+      }, 1500);
+    }
+
+  } catch (err) {
+    registerButton.textContent = originalText;
+    registerButton.disabled = false;
+    showToast('Network error', false);
+  }
+});
       // Initial Registration - BACKEND API PRESERVED
       if (!validateForm(name, email, password, phone, gender)) return;
 

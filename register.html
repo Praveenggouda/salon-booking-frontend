@@ -483,60 +483,31 @@
   <div id="toast" class="toast"></div>
 
   <script>
-    const form = document.getElementById('registerForm');
-    const otpBox = document.getElementById('otpBox');
-    const toast = document.getElementById('toast');
-    const registerButton = document.getElementById('registerButton');
-    let userData = {};
+const form = document.getElementById('registerForm');
+const toast = document.getElementById('toast');
+const registerButton = document.getElementById('registerButton');
 
-    const showToast = (message, isSuccess = true) => {
-      toast.textContent = message;
-      toast.className = `toast show ${isSuccess ? 'success' : 'error'}`;
-      setTimeout(() => {
-        toast.className = 'toast';
-      }, 3000);
-    };
+const showToast = (message, isSuccess = true) => {
+  toast.textContent = message;
+  toast.className = `toast show ${isSuccess ? 'success' : 'error'}`;
+  setTimeout(() => toast.className = 'toast', 3000);
+};
 
-    const validateForm = (name, email, password, phone, gender) => {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      const phoneRegex = /^[0-9]{10}$/;
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
+const validateForm = (name, email, password, phone, gender) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const phoneRegex = /^[0-9]{10}$/;
+  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/;
 
-      if (name.length < 3) {
-        showToast('Name must be at least 3 characters.', false);
-        return false;
-      }
+  if (name.length < 3) return showToast('Name must be at least 3 characters', false), false;
+  if (!emailRegex.test(email)) return showToast('Invalid email', false), false;
+  if (!passwordRegex.test(password)) return showToast('Weak password', false), false;
+  if (!phoneRegex.test(phone)) return showToast('Phone must be 10 digits', false), false;
+  if (!gender) return showToast('Select gender', false), false;
 
-      if (!emailRegex.test(email)) {
-        showToast('Invalid email format.', false);
-        return false;
-      }
+  return true;
+};
 
-      const passwordError = document.getElementById('passwordError');
-      if (!passwordRegex.test(password)) {
-        passwordError.textContent = 'Password must include uppercase, lowercase, number & special character.';
-        passwordError.style.display = 'block';
-        document.getElementById('password').style.borderColor = '#C62828';
-        return false;
-      } else {
-        passwordError.style.display = 'none';
-      }
-
-      if (!phoneRegex.test(phone)) {
-        showToast('Phone must be 10 digits.', false);
-        return false;
-      }
-
-      if (!gender) {
-        showToast('Please select a gender.', false);
-        return false;
-      }
-
-      return true;
-    };
-
-    // Form submission - BACKEND API PRESERVED
-   form.addEventListener('submit', async (e) => {
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   const name = document.getElementById('name').value.trim();
@@ -547,120 +518,36 @@
 
   if (!validateForm(name, email, password, phone, gender)) return;
 
-  const originalText = registerButton.textContent;
-  registerButton.textContent = 'Registering...';
+  registerButton.textContent = "Registering...";
   registerButton.disabled = true;
 
   try {
-    const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/register', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password, phone, gender })
-    });
+    const res = await fetch(
+      'https://salon-booking-backend-vsaz.onrender.com/register',
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, password, phone, gender })
+      }
+    );
 
     const data = await res.json();
 
-    registerButton.textContent = originalText;
+    registerButton.textContent = "Register";
     registerButton.disabled = false;
 
     showToast(data.message, data.success);
 
     if (data.success) {
       setTimeout(() => {
-        window.location.href = 'login.html';
+        window.location.href = "login.html";
       }, 1500);
     }
 
   } catch (err) {
-    registerButton.textContent = originalText;
+    registerButton.textContent = "Register";
     registerButton.disabled = false;
-    showToast('Network error', false);
+    showToast("Network error", false);
   }
 });
-      // Initial Registration - BACKEND API PRESERVED
-      if (!validateForm(name, email, password, phone, gender)) return;
-
-      userData = { name, email, password, phone, gender };
-
-      const originalText = registerButton.textContent;
-      registerButton.textContent = 'Registering...';
-      registerButton.disabled = true;
-
-      try {
-        // BACKEND API - PRESERVED
-        const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/register', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(userData)
-        });
-        const data = await res.json();
-        
-        registerButton.textContent = originalText;
-        registerButton.disabled = false;
-        
-        showToast(data.message, data.success);
-
-        if (data.success) {
-          otpBox.style.display = 'block';
-          otpBox.style.animation = 'fadeInUp 0.4s ease-out';
-        }
-      } catch {
-        registerButton.textContent = originalText;
-        registerButton.disabled = false;
-        showToast('Network error', false);
-      }
-    });
-
-    // Real-time validation
-    const nameInput = document.getElementById('name');
-    const emailInput = document.getElementById('email');
-    const passwordInput = document.getElementById('password');
-    const phoneInput = document.getElementById('phone');
-    const genderSelect = document.getElementById('gender');
-    const togglePassword = document.getElementById('togglePassword');
-
-    nameInput.addEventListener('input', () => {
-      const isValid = nameInput.value.length >= 3;
-      nameInput.style.borderColor = isValid ? '#2E7D32' : '#C62828';
-    });
-
-    emailInput.addEventListener('input', () => {
-      const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value);
-      emailInput.style.borderColor = isValid ? '#2E7D32' : '#C62828';
-    });
-
-    passwordInput.addEventListener('input', () => {
-      const isValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])/.test(passwordInput.value);
-      passwordInput.style.borderColor = isValid ? '#2E7D32' : '#C62828';
-      const errorEl = document.getElementById('passwordError');
-      if (!isValid) {
-        errorEl.textContent = 'Must contain uppercase, lowercase, number & special character';
-        errorEl.style.display = 'block';
-      } else {
-        errorEl.style.display = 'none';
-      }
-    });
-
-    phoneInput.addEventListener('input', () => {
-      phoneInput.value = phoneInput.value.replace(/\D/g, '').slice(0, 10);
-      const isValid = phoneInput.value.length === 10;
-      phoneInput.style.borderColor = isValid ? '#2E7D32' : '#C62828';
-    });
-
-    genderSelect.addEventListener('change', () => {
-      const isValid = genderSelect.value !== '';
-      genderSelect.style.borderColor = isValid ? '#2E7D32' : '#C62828';
-    });
-
-    // Password visibility toggle
-    togglePassword.addEventListener('click', () => {
-      const input = passwordInput;
-      const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-      input.setAttribute('type', type);
-      const icon = togglePassword.querySelector('i');
-      icon.classList.toggle('fa-eye');
-      icon.classList.toggle('fa-eye-slash');
-    });
-  </script>
-</body>
-</html>
+</script>

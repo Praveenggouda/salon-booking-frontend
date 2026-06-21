@@ -496,50 +496,224 @@
       background: white;
     }
 
-    /* Stats Section - Blue Theme */
-    .stats-section {
-      background: var(--primary-gradient);
-      padding: 80px 0;
-      border-radius: var(--radius-lg);
-      margin: 40px 0;
-    }
-    .stats-section .section-title h2 {
-      color: white;
-    }
-    .stats-section .section-title h2:after {
-      background: white;
-    }
-    .stats-section .section-title p {
-      color: rgba(255,255,255,0.8);
-    }
-    .stat-card-premium {
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: var(--radius-md);
-      padding: 40px;
-      text-align: center;
-      transition: var(--transition-smooth);
-    }
-    .stat-card-premium:hover {
-      transform: translateY(-10px);
-      background: rgba(255,255,255,0.25);
-    }
-    .stat-icon-premium {
-      font-size: 3rem;
-      color: white;
-      margin-bottom: 20px;
-    }
-    .stat-number-premium {
-      font-size: 3rem;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 10px;
-    }
-    .stat-label-premium {
-      color: rgba(255,255,255,0.8);
-    }
+   /* ============ STATS SECTION - PROFESSIONAL ============ */
+.stats-section {
+  background: linear-gradient(135deg, #0066FF 0%, #0044CC 100%);
+  padding: 80px 0;
+  border-radius: 30px;
+  margin: 40px 0;
+  position: relative;
+  overflow: hidden;
+}
 
+/* Subtle background decoration */
+.stats-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -30%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.stats-section::after {
+  content: '';
+  position: absolute;
+  bottom: -40%;
+  left: -20%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Section Title */
+.stats-section .section-title {
+  text-align: center;
+  margin-bottom: 50px;
+  position: relative;
+  z-index: 1;
+}
+
+.stats-section .section-title h2 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  font-family: 'Playfair Display', serif;
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.5px;
+}
+
+.stats-section .section-title h2:after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 2px;
+}
+
+.stats-section .section-title p {
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 25px;
+  font-size: 1.1rem;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* Stat Cards */
+.stat-card-premium {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Shine effect on cards */
+.stat-card-premium::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+.stat-card-premium:hover::before {
+  opacity: 1;
+}
+
+.stat-card-premium:hover {
+  transform: translateY(-12px);
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+}
+
+/* Icon */
+.stat-icon-premium {
+  font-size: 3.2rem;
+  color: white;
+  margin-bottom: 18px;
+  display: block;
+  filter: drop-shadow(0 4px 15px rgba(255, 255, 255, 0.2));
+}
+
+/* Number - Bold & Elegant */
+.stat-number-premium {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: white;
+  margin-bottom: 8px;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: 1px;
+  line-height: 1.1;
+}
+
+/* Label */
+.stat-label-premium {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 8px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Description text */
+.stat-description {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+  margin-top: 5px;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Number animation */
+.stat-number-premium {
+  transition: all 0.3s ease;
+}
+
+.stat-card-premium:hover .stat-number-premium {
+  transform: scale(1.05);
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 768px) {
+  .stats-section {
+    padding: 50px 20px;
+    border-radius: 20px;
+    margin: 20px 0;
+  }
+
+  .stats-section .section-title h2 {
+    font-size: 2rem;
+  }
+
+  .stats-section .section-title p {
+    font-size: 0.95rem;
+  }
+
+  .stat-card-premium {
+    padding: 30px 20px;
+  }
+
+  .stat-number-premium {
+    font-size: 2.5rem;
+  }
+
+  .stat-icon-premium {
+    font-size: 2.5rem;
+  }
+
+  .stat-label-premium {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .stats-section {
+    padding: 40px 15px;
+    border-radius: 15px;
+  }
+
+  .stats-section .section-title h2 {
+    font-size: 1.6rem;
+  }
+
+  .stat-number-premium {
+    font-size: 2rem;
+  }
+
+  .stat-card-premium {
+    padding: 25px 15px;
+  }
+
+  .stat-icon-premium {
+    font-size: 2rem;
+  }
+}
     /* Footer */
     .footer-premium {
       background: var(--dark);
@@ -857,37 +1031,40 @@
   </section>
 
   <!-- Stats Section -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="section-title" data-aos="fade-up">
-        <h2>Platform Statistics</h2>
-        <p>Trusted by thousands across India</p>
+ <section class="stats-section">
+  <div class="container">
+    <div class="section-title" data-aos="fade-up">
+      <h2>Trusted by Thousands</h2>
+      <p>Our growing community of beauty enthusiasts and premium salons</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="stat-card-premium">
+          <div class="stat-icon-premium"><i class="fas fa-users"></i></div>
+          <div class="stat-number-premium" id="totalUsers">--</div>
+          <div class="stat-label-premium">Active Users</div>
+          <div class="stat-description">Happy customers booking daily</div>
+        </div>
       </div>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="stat-card-premium">
-            <div class="stat-icon-premium"><i class="fas fa-users"></i></div>
-            <div class="stat-number-premium" id="totalUsers">--</div>
-            <div class="stat-label-premium">Active Users</div>
-          </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="stat-card-premium">
+          <div class="stat-icon-premium"><i class="fas fa-spa"></i></div>
+          <div class="stat-number-premium" id="totalSalons">--</div>
+          <div class="stat-label-premium">Partner Salons</div>
+          <div class="stat-description">Premium salons across India</div>
         </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="stat-card-premium">
-            <div class="stat-icon-premium"><i class="fas fa-spa"></i></div>
-            <div class="stat-number-premium" id="totalSalons">--</div>
-            <div class="stat-label-premium">Partner Salons</div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="stat-card-premium">
-            <div class="stat-icon-premium"><i class="fas fa-calendar-check"></i></div>
-            <div class="stat-number-premium" id="totalBookings">--</div>
-            <div class="stat-label-premium">Bookings Completed</div>
-          </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="stat-card-premium">
+          <div class="stat-icon-premium"><i class="fas fa-calendar-check"></i></div>
+          <div class="stat-number-premium" id="totalBookings">--</div>
+          <div class="stat-label-premium">Bookings Completed</div>
+          <div class="stat-description">Successful appointments delivered</div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
  <style>
     * {
       margin: 0;

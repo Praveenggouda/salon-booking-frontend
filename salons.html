@@ -1104,11 +1104,15 @@
 
       
 
-      li.innerHTML = `
+     li.innerHTML = `
+  ${badge}
 
-        ${badge}
+  <img
+    src="https://salon-booking-backend-vsaz.onrender.com/uploads/${salon.photoURL}"
+    alt="${salon.salonName}"
+    class="salon-image"
+    onerror="console.log('Image failed:', this.src); this.src='https://dummyimage.com/300x200/000/fff&text=Salon'">
 
-        <img src="/uploads/${salon.photoURL}" alt="${salon.salonName}" class="salon-image" onerror="this.src='https://via.placeholder.com/300x200?text=Salon'">
 
         <div class="details">
 

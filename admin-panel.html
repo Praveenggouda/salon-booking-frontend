@@ -2,225 +2,551 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Admin Panel | GlowBook</title>
+  
+  <!-- Bootstrap 5 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
-<style>
-  :root {
-    --sidebar-bg: #0f172a;
-    --sidebar-hover: #1e293b;
-    --sidebar-text: #cbd5e1;
-    --bg: #f1f5f9;
-    --text: #1f2937;
-    --white: #ffffff;
-    --accent: #6366f1;
-    --shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  }
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 
-  body {
-    font-family: 'Poppins', sans-serif;
-    background-color: var(--bg);
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-  }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  .wrapper {
-    display: flex;
-    min-height: 100vh;
-  }
+    :root {
+      --primary-blue: #0066FF;
+      --primary-light: #4D94FF;
+      --primary-dark: #0044CC;
+      --primary-gradient: linear-gradient(135deg, #0066FF, #0044CC);
+      --secondary-blue: #E8F0FE;
+      --bg-light: #F8FAFF;
+      --white: #FFFFFF;
+      --dark: #1A2332;
+      --gray: #6B7A8F;
+      --light-gray: #E8EDF2;
+      --shadow-sm: 0 2px 10px rgba(0, 102, 255, 0.08);
+      --shadow-md: 0 8px 30px rgba(0, 102, 255, 0.12);
+      --shadow-lg: 0 20px 60px rgba(0, 102, 255, 0.15);
+      --transition-smooth: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 30px;
+      --sidebar-bg: #0f172a;
+      --sidebar-hover: #1e293b;
+      --sidebar-text: #94a3b8;
+    }
 
-  .sidebar {
-    width: 250px;
-    background: var(--sidebar-bg);
-    color: var(--sidebar-text);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 30px 20px;
-    position: fixed;
-    height: 100%;
-    transition: left 0.3s ease;
-    z-index: 1000;
-    box-shadow: var(--shadow);
-  }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-light);
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
 
-  .sidebar .navbar-brand {
-    font-size: 22px;
-    margin-bottom: 30px;
-    color: #fff;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-  }
+    /* ============ SIDEBAR ============ */
+    .wrapper {
+      display: flex;
+      min-height: 100vh;
+    }
 
-  .sidebar .profile {
-    background-color: var(--sidebar-hover);
-    border-radius: 10px;
-    padding: 16px;
-    color: #fff;
-    text-align: center;
-    margin-bottom: 25px;
-  }
-
-  .sidebar .profile i {
-    font-size: 36px;
-    margin-bottom: 6px;
-  }
-
-  .sidebar a {
-    padding: 12px 15px;
-    display: flex;
-    align-items: center;
-    color: var(--sidebar-text);
-    text-decoration: none;
-    border-radius: 8px;
-    transition: background 0.3s;
-    font-weight: 500;
-  }
-
-  .sidebar a:hover,
-  .sidebar a.active {
-    background-color: var(--sidebar-hover);
-    color: #fff;
-  }
-
-  .main {
-    margin-left: 250px;
-    padding: 40px;
-    flex-grow: 1;
-    width: 100%;
-    background: var(--bg);
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-  }
-
-  .admin-info {
-    font-size: 15px;
-    background: #e2e8f0;
-    padding: 10px 18px;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-  }
-
-  .content {
-    background: var(--white);
-    padding: 30px;
-    border-radius: 16px;
-    box-shadow: var(--shadow);
-    margin-bottom: 30px;
-  }
-
-  .stat-card {
-    padding: 25px;
-    border-radius: 12px;
-    text-align: center;
-    color: #fff;
-    box-shadow: var(--shadow);
-    transition: transform 0.2s;
-  }
-
-  .stat-card:hover {
-    transform: scale(1.02);
-  }
-
-  .mobile-toggle {
-    display: none;
-    font-size: 24px;
-    background: none;
-    border: none;
-    color: var(--text);
-  }
-
-  .logout-section {
-    margin-top: auto;
-    padding-top: 20px;
-    border-top: 1px solid #334155;
-  }
-
-  @media (max-width: 768px) {
     .sidebar {
-      left: -250px;
+      width: 260px;
+      background: var(--sidebar-bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 25px 20px 20px;
+      position: fixed;
+      height: 100%;
+      transition: left 0.3s ease;
+      z-index: 1000;
+      box-shadow: 4px 0 20px rgba(0, 0, 0, 0.1);
+      overflow-y: auto;
     }
 
-    .sidebar.show {
-      left: 0;
+    /* ============ GLOWBOOK LOGO IN SIDEBAR ============ */
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 28px;
+      padding: 0 4px;
     }
 
+    .sidebar-logo .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--primary-gradient);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+    }
+
+    .sidebar-logo .logo-icon i {
+      font-size: 18px;
+      color: white;
+    }
+
+    .sidebar-logo .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .sidebar-logo .logo-text .brand {
+      font-size: 1.2rem;
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: -0.3px;
+    }
+
+    .sidebar-logo .logo-text .tagline {
+      font-size: 0.5rem;
+      letter-spacing: 2px;
+      color: var(--sidebar-text);
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* Profile Section */
+    .sidebar .profile {
+      background: var(--sidebar-hover);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      color: #fff;
+      text-align: center;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .sidebar .profile i {
+      font-size: 36px;
+      margin-bottom: 6px;
+      color: var(--primary-light);
+    }
+
+    .sidebar .profile .admin-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .sidebar .profile .admin-email {
+      font-size: 0.75rem;
+      color: var(--sidebar-text);
+      word-break: break-all;
+    }
+
+    /* Sidebar Links */
+    .sidebar a {
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: var(--transition-smooth);
+      font-weight: 500;
+      font-size: 0.9rem;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+      background: var(--sidebar-hover);
+      color: #fff;
+    }
+
+    .sidebar a.active {
+      background: rgba(0, 102, 255, 0.2);
+      color: var(--primary-light);
+      border-left: 3px solid var(--primary-blue);
+    }
+
+    .sidebar a i {
+      width: 20px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .logout-section {
+      margin-top: auto;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .logout-section a {
+      color: #ef4444 !important;
+    }
+
+    .logout-section a:hover {
+      background: rgba(239, 68, 68, 0.15) !important;
+      color: #ef4444 !important;
+    }
+
+    /* ============ MAIN CONTENT ============ */
     .main {
-      margin-left: 0;
-      padding: 20px;
+      margin-left: 260px;
+      padding: 30px 35px 40px;
+      flex-grow: 1;
+      width: 100%;
+      background: var(--bg-light);
+      min-height: 100vh;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 15px;
+      background: var(--white);
+      padding: 16px 24px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--light-gray);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--dark);
+      margin: 0;
+    }
+
+    .header .admin-info {
+      font-size: 0.85rem;
+      background: var(--secondary-blue);
+      color: var(--primary-blue);
+      padding: 8px 18px;
+      border-radius: 50px;
+      font-weight: 500;
     }
 
     .mobile-toggle {
-      display: inline-block;
+      display: none;
+      font-size: 1.3rem;
+      background: none;
+      border: none;
+      color: var(--dark);
+      cursor: pointer;
+      padding: 5px;
     }
-  }
-</style>
 
+    /* Content Cards */
+    .content-card {
+      background: var(--white);
+      padding: 28px 30px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--light-gray);
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 25px;
+      transition: var(--transition-smooth);
+    }
+
+    .content-card:hover {
+      box-shadow: var(--shadow-md);
+    }
+
+    .content-card .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      color: var(--dark);
+      margin-bottom: 12px;
+    }
+
+    .content-card .card-subtitle {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Stats */
+    .stat-card {
+      padding: 28px 20px;
+      border-radius: var(--radius-md);
+      text-align: center;
+      color: #fff;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-smooth);
+      border: none;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .stat-card .stat-icon {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    .stat-card h5 {
+      font-size: 0.85rem;
+      font-weight: 500;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .stat-card h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .stat-card.blue {
+      background: var(--primary-gradient);
+    }
+
+    .stat-card.green {
+      background: linear-gradient(135deg, #22c55e, #16a34a);
+    }
+
+    /* Salon Details */
+    .salon-detail-item {
+      display: flex;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--light-gray);
+    }
+
+    .salon-detail-item:last-child {
+      border-bottom: none;
+    }
+
+    .salon-detail-item .label {
+      font-weight: 600;
+      color: var(--gray);
+      width: 120px;
+      flex-shrink: 0;
+    }
+
+    .salon-detail-item .value {
+      color: var(--dark);
+    }
+
+    .salon-detail-item .value img {
+      border-radius: var(--radius-sm);
+      max-width: 200px;
+      height: auto;
+      margin-top: 5px;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 12px;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .btn-edit {
+      background: var(--primary-gradient);
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-edit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    }
+
+    .btn-delete {
+      background: #ef4444;
+      color: white;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-delete:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 992px) {
+      .main {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        left: -280px;
+        width: 280px;
+      }
+
+      .sidebar.show {
+        left: 0;
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 15px;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+
+      .header {
+        padding: 14px 18px;
+      }
+
+      .header h2 {
+        font-size: 1.2rem;
+      }
+
+      .content-card {
+        padding: 20px;
+      }
+
+      .stat-card h2 {
+        font-size: 1.8rem;
+      }
+
+      .salon-detail-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .salon-detail-item .label {
+        width: 100%;
+      }
+
+      .salon-detail-item .value img {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+
+      .header .admin-info {
+        text-align: center;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+      }
+
+      .btn-edit,
+      .btn-delete {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
 </head>
 <body>
 
 <div class="wrapper">
+  <!-- Sidebar -->
   <nav class="sidebar" id="sidebarMenu">
-    <div class="top">
-      <a class="navbar-brand" href="#">
-        <i class="fas fa-cut"></i> EasySalonBooking
+    <div>
+      <!-- GlowBook Logo -->
+      <a href="index.html" class="sidebar-logo">
+        <div class="logo-icon">
+          <i class="fas fa-spa"></i>
+        </div>
+        <div class="logo-text">
+          <span class="brand">GlowBook</span>
+          <span class="tagline">BOOK YOUR GLOW</span>
+        </div>
       </a>
+
+      <!-- Profile -->
       <div class="profile">
         <i class="fas fa-user-circle"></i>
-        <div id="adminProfileName">Admin Name</div>
+        <div class="admin-name" id="adminProfileName">Admin</div>
+        <div class="admin-email" id="adminProfileEmail">admin@glowbook.com</div>
       </div>
-      <a href="#" class="active">Dashboard</a>
-      <a href="add-salon.html">Add Salon</a>
-      <a href="#" id="adminBookingsLink">Admin Bookings</a>
+
+      <!-- Navigation -->
+      <a href="#" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+      <a href="add-salon.html"><i class="fas fa-plus-circle"></i> Add Salon</a>
+      <a href="#" id="adminBookingsLink"><i class="fas fa-calendar-check"></i> Admin Bookings</a>
     </div>
+
+    <!-- Logout -->
     <div class="logout-section">
-      <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+      <a href="#" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </div>
   </nav>
 
+  <!-- Main Content -->
   <main class="main">
+    <!-- Header -->
     <div class="header">
-      <button class="mobile-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
-      <h2>Welcome Admin</h2>
+      <button class="mobile-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+      <h2>Dashboard</h2>
       <div class="admin-info" id="adminInfo">Loading...</div>
     </div>
 
-    <div class="content mb-4">
-      <h4 class="mb-3">Dashboard Overview</h4>
-      <p class="text-muted">Use the sidebar to manage salons and view your booking details.</p>
+    <!-- Welcome Card -->
+    <div class="content-card">
+      <div class="card-title">Welcome Back, <span id="adminNameDisplay">Admin</span>!</div>
+      <p class="card-subtitle">Manage your salon, view bookings, and track platform statistics from one place.</p>
     </div>
 
-    <div class="content mb-4" id="adminSalonBox" style="display:none;">
-      <h4 class="mb-3">Your Added Salon Details</h4>
-      <div class="border rounded p-3" id="adminSalonDetails">
-        <!-- Salon details will appear here -->
-      </div>
-
-    </div>
-
-    <div class="row">
-      <div class="col-md-6 mb-4">
-        <div class="stat-card bg-primary">
+    <!-- Stats -->
+    <div class="row g-4 mb-4">
+      <div class="col-md-6">
+        <div class="stat-card blue">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
           <h5>Total Users Booked</h5>
           <h2 id="adminStatUsers">--</h2>
         </div>
       </div>
-      <div class="col-md-6 mb-4">
-        <div class="stat-card bg-success">
+      <div class="col-md-6">
+        <div class="stat-card green">
+          <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
           <h5>Total Bookings</h5>
           <h2 id="adminStatBookings">--</h2>
         </div>
+      </div>
+    </div>
+
+    <!-- Salon Details -->
+    <div class="content-card" id="adminSalonBox" style="display:none;">
+      <div class="card-title">Your Salon Details</div>
+      <p class="card-subtitle">Here's the information for your registered salon.</p>
+      <div id="adminSalonDetails">
+        <!-- Salon details will appear here -->
       </div>
     </div>
   </main>
@@ -230,25 +556,41 @@
   const adminName = localStorage.getItem('adminName');
   const adminEmail = localStorage.getItem('adminEmail');
 
+  // Redirect if not logged in
   if (!adminName || !adminEmail) {
     window.location.href = 'admin-login.html';
   } else {
-    document.getElementById('adminInfo').textContent = `${adminName} (${adminEmail})`;
+    document.getElementById('adminInfo').textContent = `${adminName}`;
     document.getElementById('adminProfileName').textContent = adminName;
+    document.getElementById('adminProfileEmail').textContent = adminEmail;
+    document.getElementById('adminNameDisplay').textContent = adminName;
     document.getElementById('adminBookingsLink').href = `admin-bookings.html?email=${encodeURIComponent(adminEmail)}`;
   }
 
   function logout() {
-    localStorage.removeItem('adminName');
-    localStorage.removeItem('adminEmail');
-    window.location.href = 'admin-login.html';
+    if (confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('adminName');
+      localStorage.removeItem('adminEmail');
+      window.location.href = 'admin-login.html';
+    }
   }
 
   function toggleSidebar() {
     document.getElementById('sidebarMenu').classList.toggle('show');
   }
 
-  // Fetch admin stats (users & bookings)
+  // Close sidebar on outside click (mobile)
+  document.addEventListener('click', function(e) {
+    const sidebar = document.getElementById('sidebarMenu');
+    const toggleBtn = document.querySelector('.mobile-toggle');
+    if (window.innerWidth <= 768) {
+      if (!sidebar.contains(e.target) && !toggleBtn.contains(e.target)) {
+        sidebar.classList.remove('show');
+      }
+    }
+  });
+
+  // ============ FETCH STATS ============
   fetch(`https://salon-booking-backend-vsaz.onrender.com/api/admin-stats?email=${encodeURIComponent(adminEmail)}`)
     .then(res => res.json())
     .then(data => {
@@ -257,32 +599,57 @@
     })
     .catch(err => console.error('Failed to fetch stats', err));
 
-  // Fetch salon details by admin email
+  // ============ FETCH SALON DETAILS ============
   fetch(`https://salon-booking-backend-vsaz.onrender.com/api/admin-salon?email=${encodeURIComponent(adminEmail)}`)
     .then(res => res.json())
     .then(data => {
       if (data.salon) {
         const salon = data.salon;
-
         document.getElementById('adminSalonDetails').innerHTML = `
-          <h5 class="mb-2">${salon.salonName}</h5>
-          <p><strong>Location:</strong> ${salon.location}</p>
-          <p><strong>Price Range:</strong> ${salon.priceRange}</p>
-          <p><strong>Rating:</strong> ${salon.rating} ⭐</p>
-          <p><strong>Description:</strong> ${salon.description}</p>
-          <p><strong>Photo:</strong> ${salon.photo ? `<img src="/uploads/${salon.photo}" width="200" class="img-fluid rounded mt-2" />` : 'No Photo'}</p>
+          <div class="salon-detail-item">
+            <span class="label">Salon Name</span>
+            <span class="value"><strong>${salon.salonName}</strong></span>
+          </div>
+          <div class="salon-detail-item">
+            <span class="label">Location</span>
+            <span class="value">${salon.location}</span>
+          </div>
+          <div class="salon-detail-item">
+            <span class="label">Price Range</span>
+            <span class="value">₹${salon.priceRange}</span>
+          </div>
+          <div class="salon-detail-item">
+            <span class="label">Rating</span>
+            <span class="value">${salon.rating} ⭐</span>
+          </div>
+          <div class="salon-detail-item">
+            <span class="label">Description</span>
+            <span class="value">${salon.description || 'No description provided'}</span>
+          </div>
+          <div class="salon-detail-item">
+            <span class="label">Photo</span>
+            <span class="value">
+              ${salon.photo ? `<img src="https://salon-booking-backend-vsaz.onrender.com/uploads/${salon.photo}" alt="Salon Photo" />` : 'No photo uploaded'}
+            </span>
+          </div>
+          <div class="action-buttons">
+            <button class="btn-edit" onclick="editSalon()"><i class="fas fa-edit me-2"></i> Edit Salon</button>
+            <button class="btn-delete" onclick="deleteSalon()"><i class="fas fa-trash-alt me-2"></i> Delete Salon</button>
+          </div>
         `;
         document.getElementById('adminSalonBox').style.display = 'block';
       }
     })
     .catch(err => console.error('Error loading salon details:', err));
+
+  // ============ EDIT SALON ============
   function editSalon() {
-  window.location.href = `edit-salon.html?email=${encodeURIComponent(adminEmail)}`;
-}
+    window.location.href = `edit-salon.html?email=${encodeURIComponent(adminEmail)}`;
+  }
 
-
+  // ============ DELETE SALON ============
   function deleteSalon() {
-    if (!confirm("Are you sure you want to delete your salon? This cannot be undone.")) return;
+    if (!confirm('Are you sure you want to delete your salon? This cannot be undone.')) return;
 
     fetch(`https://salon-booking-backend-vsaz.onrender.com/api/delete-salon?email=${encodeURIComponent(adminEmail)}`, {
       method: 'DELETE'
@@ -290,19 +657,17 @@
     .then(res => res.json())
     .then(data => {
       if (data.success) {
-        alert("Salon deleted successfully.");
-        location.reload(); // or redirect to add-salon.html
+        alert('Salon deleted successfully.');
+        location.reload();
       } else {
-        alert("Failed to delete salon.");
+        alert('Failed to delete salon.');
       }
     })
     .catch(err => {
-      console.error("Delete failed", err);
-      alert("Something went wrong.");
+      console.error('Delete failed', err);
+      alert('Something went wrong.');
     });
   }
 </script>
-
-
 </body>
 </html>

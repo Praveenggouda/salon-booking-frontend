@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>GlowBook | Enterprise Beauty Platform</title>
+  <title>GlowBook - Book Your Beauty Experience</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- Google Fonts -->
@@ -15,45 +15,43 @@
   <style>
     /* ============ ROOT VARIABLES ============ */
     :root {
-      --primary: #0A0A0F;
-      --primary-light: #1A1A2E;
-      --primary-dark: #050508;
-      --accent: #7C3AED;
-      --accent-light: #A78BFA;
-      --accent-gradient: linear-gradient(135deg, #7C3AED, #A78BFA);
-      --accent-glow: 0 0 40px rgba(124, 58, 237, 0.15);
+      --primary: #1A1A2E;
+      --primary-light: #2D2D44;
+      --primary-dark: #0F0F1A;
+      --accent: #6C3CE1;
+      --accent-light: #8B5CF6;
+      --accent-gradient: linear-gradient(135deg, #6C3CE1, #8B5CF6);
+      --accent-orange: #FF6B35;
+      --accent-orange-light: #FF8A5C;
+      --accent-orange-gradient: linear-gradient(135deg, #FF6B35, #FF8A5C);
       --white: #FFFFFF;
-      --bg: #F8F9FC;
+      --bg: #F0F2F5;
       --surface: #FFFFFF;
-      --surface-dark: #0A0A0F;
-      --gray-50: #F9FAFB;
-      --gray-100: #F3F4F6;
-      --gray-200: #E5E7EB;
-      --gray-300: #D1D5DB;
-      --gray-400: #9CA3AF;
-      --gray-500: #6B7280;
-      --gray-600: #4B5563;
-      --gray-700: #374151;
-      --gray-800: #1F2937;
-      --gray-900: #111827;
-      --shadow-xs: 0 1px 2px rgba(0,0,0,0.02);
-      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.03);
-      --shadow-md: 0 4px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03);
-      --shadow-lg: 0 12px 48px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.03);
-      --shadow-xl: 0 20px 64px rgba(0,0,0,0.1), 0 8px 24px rgba(0,0,0,0.04);
-      --shadow-2xl: 0 32px 80px rgba(0,0,0,0.12), 0 12px 32px rgba(0,0,0,0.04);
-      --shadow-accent: 0 8px 32px rgba(124, 58, 237, 0.2);
+      --gray-50: #F8F9FA;
+      --gray-100: #F1F3F5;
+      --gray-200: #E9ECEF;
+      --gray-300: #DEE2E6;
+      --gray-400: #CED4DA;
+      --gray-500: #ADB5BD;
+      --gray-600: #6C757D;
+      --gray-700: #495057;
+      --gray-800: #343A40;
+      --gray-900: #212529;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+      --shadow-lg: 0 8px 40px rgba(0,0,0,0.08);
+      --shadow-xl: 0 12px 60px rgba(0,0,0,0.1);
+      --shadow-2xl: 0 20px 80px rgba(0,0,0,0.12);
       --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-lg: 20px;
-      --radius-xl: 24px;
-      --radius-2xl: 32px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 28px;
       --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      --transition-spring: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-      --transition-smooth: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    /* ============ RESET & BASE ============ */
+    /* ============ RESET ============ */
     * {
       margin: 0;
       padding: 0;
@@ -67,673 +65,519 @@
       color: var(--gray-900);
       overflow-x: hidden;
       scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: var(--bg); }
-    ::-webkit-scrollbar-thumb { background: var(--gray-300); border-radius: 3px; }
-    ::-webkit-scrollbar-thumb:hover { background: var(--gray-400); }
-
-    /* ============ GLASSMORPHISM NAVBAR ============ */
+    /* ============ NAVBAR ============ */
     .navbar {
-      background: rgba(255, 255, 255, 0.75);
-      backdrop-filter: blur(24px) saturate(1.6);
-      -webkit-backdrop-filter: blur(24px) saturate(1.6);
-      padding: 0.6rem 2.5rem;
-      transition: var(--transition-smooth);
-      border-bottom: 1px solid rgba(0,0,0,0.04);
+      background: var(--white);
+      padding: 0.6rem 2rem;
+      box-shadow: var(--shadow-sm);
+      border-bottom: 1px solid var(--gray-200);
+      transition: var(--transition);
     }
     .navbar.scrolled {
-      padding: 0.3rem 2.5rem;
-      background: rgba(255, 255, 255, 0.88);
-      box-shadow: var(--shadow-sm);
+      box-shadow: var(--shadow-md);
     }
 
     .glowbook-logo {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       text-decoration: none;
-      transition: var(--transition);
     }
-    .glowbook-logo:hover { opacity: 0.85; }
-
     .logo-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--primary);
+      width: 38px;
+      height: 38px;
+      background: var(--accent-gradient);
       border-radius: var(--radius-sm);
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: var(--transition-spring);
-      position: relative;
-      overflow: hidden;
     }
-    .logo-icon::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--accent-gradient);
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .glowbook-logo:hover .logo-icon::before { opacity: 1; }
     .logo-icon i {
       font-size: 18px;
       color: white;
-      position: relative;
-      z-index: 1;
     }
-
     .logo-text .glow {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       color: var(--primary);
       font-family: 'Playfair Display', serif;
-      letter-spacing: -0.5px;
     }
     .logo-text .book {
       font-size: 0.55rem;
-      letter-spacing: 2.5px;
-      color: var(--gray-400);
+      letter-spacing: 2px;
+      color: var(--gray-500);
       text-transform: uppercase;
-      margin-top: 1px;
     }
 
     .nav-link {
-      color: var(--gray-600) !important;
+      color: var(--gray-700) !important;
       font-weight: 500;
       font-size: 0.85rem;
-      padding: 6px 18px !important;
+      padding: 6px 16px !important;
       border-radius: 40px;
       transition: var(--transition);
-      letter-spacing: 0.01em;
-      position: relative;
     }
     .nav-link:hover {
-      color: var(--gray-900) !important;
-      background: var(--gray-100);
+      color: var(--accent) !important;
+      background: rgba(108, 60, 225, 0.06);
     }
     .nav-link.active {
-      color: var(--gray-900) !important;
-      background: var(--gray-100);
-      font-weight: 600;
+      color: var(--accent) !important;
+      background: rgba(108, 60, 225, 0.08);
     }
 
-    /* ============ BUTTONS ============ */
-    .btn-primary-custom {
-      background: var(--primary);
-      border: none;
-      color: white;
-      font-weight: 500;
-      font-size: 0.85rem;
-      padding: 10px 28px;
-      border-radius: 50px;
-      transition: var(--transition-spring);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      letter-spacing: 0.01em;
+    /* ============ HERO - MAKEMYTRIP STYLE ============ */
+    .hero-booking {
+      background: linear-gradient(135deg, #1A1A2E 0%, #2D2D44 50%, #1A1A2E 100%);
+      padding: 40px 0 60px;
       position: relative;
       overflow: hidden;
+      margin-top: 64px;
     }
-    .btn-primary-custom::after {
+    .hero-booking::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: var(--accent-gradient);
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .btn-primary-custom:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: var(--shadow-lg);
-      color: white;
-    }
-    .btn-primary-custom:hover::after { opacity: 1; }
-    .btn-primary-custom span { position: relative; z-index: 1; }
-
-    .btn-outline-primary-custom {
-      border: 1.5px solid var(--gray-200);
-      background: transparent;
-      color: var(--gray-700);
-      font-weight: 500;
-      font-size: 0.85rem;
-      padding: 8px 24px;
-      border-radius: 50px;
-      transition: var(--transition-spring);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .btn-outline-primary-custom:hover {
-      border-color: var(--gray-900);
-      background: var(--gray-100);
-      transform: translateY(-2px);
-      color: var(--gray-900);
-    }
-
-    .btn-accent {
-      background: var(--accent-gradient);
-      border: none;
-      color: white;
-      font-weight: 500;
-      font-size: 0.85rem;
-      padding: 12px 32px;
-      border-radius: 50px;
-      transition: var(--transition-spring);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: var(--shadow-accent);
-      position: relative;
-      overflow: hidden;
-    }
-    .btn-accent::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
-      opacity: 0;
-      transition: var(--transition);
-    }
-    .btn-accent:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.3);
-      color: white;
-    }
-    .btn-accent:hover::before { opacity: 1; }
-    .btn-accent span { position: relative; z-index: 1; }
-
-    /* ============ HERO SECTION - PREMIUM ============ */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      background: var(--bg);
-      position: relative;
-      overflow: hidden;
-      padding-top: 70px;
-    }
-
-    .hero-grid-bg {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(124, 58, 237, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(124, 58, 237, 0.02) 1px, transparent 1px);
-      background-size: 60px 60px;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(108, 60, 225, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 80% 50%, rgba(255, 107, 53, 0.08) 0%, transparent 60%);
       pointer-events: none;
     }
+    .hero-booking .container { position: relative; z-index: 1; }
 
-    .hero-glow {
-      position: absolute;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
-      top: -200px;
-      right: -200px;
-      pointer-events: none;
-      animation: glowPulse 8s ease-in-out infinite;
-    }
-    .hero-glow-2 {
-      position: absolute;
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
-      bottom: -100px;
-      left: -100px;
-      pointer-events: none;
-      animation: glowPulse 10s ease-in-out infinite reverse;
-    }
-    @keyframes glowPulse {
-      0%, 100% { transform: scale(1); opacity: 0.5; }
-      50% { transform: scale(1.2); opacity: 1; }
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(124, 58, 237, 0.08);
-      color: var(--accent);
-      padding: 6px 16px 6px 8px;
-      border-radius: 50px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      margin-bottom: 1.5rem;
-      border: 1px solid rgba(124, 58, 237, 0.1);
-      transition: var(--transition);
-    }
-    .hero-badge:hover {
-      background: rgba(124, 58, 237, 0.12);
-      transform: translateX(4px);
-    }
-    .hero-badge .dot {
-      width: 6px;
-      height: 6px;
-      background: var(--accent);
-      border-radius: 50%;
-      animation: dotPulse 2s ease-in-out infinite;
-    }
-    @keyframes dotPulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.8); }
-    }
-
-    .hero-content h1 {
-      font-size: 4.8rem;
-      font-weight: 800;
-      line-height: 1.02;
-      margin-bottom: 1.2rem;
-      color: var(--primary);
-      letter-spacing: -0.04em;
-    }
-    .hero-content h1 .accent-text {
-      background: var(--accent-gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-    }
-    .hero-content p {
-      font-size: 1.15rem;
-      color: var(--gray-500);
-      max-width: 460px;
-      margin-bottom: 2rem;
-      line-height: 1.8;
-      font-weight: 400;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--gray-200);
-    }
-    .hero-stats .stat-item .number {
-      font-size: 2rem;
+    .hero-booking h1 {
+      font-size: 2.8rem;
       font-weight: 700;
-      color: var(--primary);
+      color: white;
       font-family: 'Playfair Display', serif;
       letter-spacing: -0.02em;
+      margin-bottom: 8px;
     }
-    .hero-stats .stat-item .label {
-      color: var(--gray-400);
-      font-size: 0.8rem;
-      font-weight: 400;
-    }
-
-    .hero-image-wrapper {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .hero-image-wrapper .image-container {
-      position: relative;
-      border-radius: var(--radius-2xl);
-      overflow: hidden;
-      box-shadow: var(--shadow-2xl);
-      transition: var(--transition-spring);
-      background: var(--gray-100);
-    }
-    .hero-image-wrapper .image-container:hover {
-      transform: scale(1.01) translateY(-6px);
-      box-shadow: var(--shadow-2xl), var(--accent-glow);
-    }
-    .hero-image-wrapper img {
-      width: 100%;
-      height: auto;
-      display: block;
+    .hero-booking .subtitle {
+      color: rgba(255,255,255,0.6);
+      font-size: 1rem;
+      margin-bottom: 30px;
     }
 
-    .floating-card {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      padding: 14px 20px;
-      border-radius: var(--radius-md);
-      box-shadow: var(--shadow-lg);
+    /* ============ SEARCH BAR - MAKEMYTRIP STYLE ============ */
+    .booking-search {
+      background: white;
+      border-radius: var(--radius-xl);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-xl);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .booking-search .search-tabs {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      border: 1px solid rgba(255,255,255,0.2);
-      animation: floatCard 4s ease-in-out infinite;
-      z-index: 2;
-    }
-    @keyframes floatCard {
-      0%, 100% { transform: translateY(0px); }
-      50% { transform: translateY(-10px); }
-    }
-    .floating-card.card-1 { top: 5%; right: -8%; animation-delay: 0s; }
-    .floating-card.card-2 { bottom: 8%; left: -8%; animation-delay: 1.5s; }
-    .floating-card.card-3 { top: 40%; right: -15%; animation-delay: 3s; animation-duration: 5s; }
-    .floating-card .icon-wrap {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--gray-100);
-    }
-    .floating-card .icon-wrap i { color: var(--accent); font-size: 0.9rem; }
-    .floating-card .info .title { font-weight: 600; font-size: 0.85rem; color: var(--gray-900); }
-    .floating-card .info .sub { font-size: 0.7rem; color: var(--gray-400); }
-
-    /* ============ TRUST BAR ============ */
-    .trust-bar {
-      background: var(--white);
-      padding: 18px 0;
-      border-top: 1px solid var(--gray-200);
+      gap: 4px;
+      margin-bottom: 16px;
       border-bottom: 1px solid var(--gray-200);
+      padding-bottom: 12px;
     }
-    .trust-item {
-      text-align: center;
-      color: var(--gray-500);
-      font-weight: 400;
+    .booking-search .search-tab {
+      padding: 6px 20px;
+      border-radius: 50px;
       font-size: 0.8rem;
-      letter-spacing: 0.02em;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
+      font-weight: 500;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      background: transparent;
     }
-    .trust-item i {
-      color: var(--gray-400);
-      font-size: 0.9rem;
+    .booking-search .search-tab:hover {
+      background: var(--gray-100);
+      color: var(--gray-900);
     }
+    .booking-search .search-tab.active {
+      background: var(--accent-gradient);
+      color: white;
+      box-shadow: 0 4px 15px rgba(108, 60, 225, 0.3);
+    }
+    .booking-search .search-tab i { margin-right: 6px; }
 
-    /* ============ SECTION COMMON ============ */
-    .section-header {
-      text-align: center;
-      margin-bottom: 40px;
+    .search-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 12px;
+      align-items: end;
     }
-    .section-header .label {
-      display: inline-block;
+    .search-fields .field-group {
+      position: relative;
+    }
+    .search-fields .field-group label {
       font-size: 0.7rem;
       font-weight: 600;
+      color: var(--gray-600);
       text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--accent);
-      background: rgba(124, 58, 237, 0.08);
-      padding: 4px 16px;
-      border-radius: 50px;
-      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+      display: block;
+      margin-bottom: 4px;
     }
-    .section-header h2 {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--primary);
-      font-family: 'Playfair Display', serif;
-      letter-spacing: -0.03em;
-    }
-    .section-header p {
-      color: var(--gray-500);
-      margin-top: 12px;
-      font-size: 1rem;
-      max-width: 500px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* ============ CITY SECTION ============ */
-    #city-section {
-      background: var(--white);
-      padding: 50px 40px;
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-sm);
-      margin: 30px auto 40px;
-      max-width: 1200px;
-      border: 1px solid var(--gray-200);
-      transition: var(--transition);
-    }
-    #city-section:hover { box-shadow: var(--shadow-md); }
-
-    .search-wrapper {
-      max-width: 400px;
-      margin: 0 auto 30px;
-      position: relative;
-    }
-    .search-wrapper input {
+    .search-fields .field-group .field-input {
       width: 100%;
-      padding: 12px 18px 12px 44px;
-      background: var(--gray-50);
+      padding: 10px 14px;
       border: 1.5px solid var(--gray-200);
-      border-radius: 60px;
+      border-radius: var(--radius-md);
       font-size: 0.9rem;
       transition: var(--transition);
+      background: var(--gray-50);
       font-family: 'Inter', sans-serif;
       color: var(--gray-900);
     }
-    .search-wrapper input:focus {
+    .search-fields .field-group .field-input:focus {
       outline: none;
       border-color: var(--accent);
-      background: var(--white);
-      box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.06);
+      background: white;
+      box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.06);
     }
-    .search-wrapper .search-icon {
+    .search-fields .field-group .field-input::placeholder {
+      color: var(--gray-400);
+    }
+    .search-fields .field-group .field-icon {
       position: absolute;
-      left: 16px;
-      top: 50%;
-      transform: translateY(-50%);
+      right: 12px;
+      bottom: 12px;
       color: var(--gray-400);
     }
 
-    .city-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 14px;
-    }
-    .city-card {
-      background: var(--gray-50);
-      border: 1.5px solid var(--gray-200);
+    .search-fields .btn-search {
+      background: var(--accent-orange-gradient);
+      border: none;
+      color: white;
+      padding: 10px 32px;
       border-radius: var(--radius-md);
-      padding: 20px 16px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      transition: var(--transition-spring);
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+    }
+    .search-fields .btn-search:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(255, 107, 53, 0.4);
+    }
+
+    /* ============ QUICK FILTERS ============ */
+    .quick-filters {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-top: 30px;
+      flex-wrap: wrap;
+    }
+    .quick-filter {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255,255,255,0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 6px 16px;
+      border-radius: 50px;
+      background: rgba(255,255,255,0.06);
+      transition: var(--transition);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .quick-filter:hover {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      transform: translateY(-2px);
+    }
+    .quick-filter i { font-size: 1rem; }
+
+    /* ============ SECTION HEADERS ============ */
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .section-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: 'Playfair Display', serif;
+    }
+    .section-header .view-all {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    .section-header .view-all:hover {
+      color: var(--accent-light);
+      transform: translateX(4px);
+    }
+
+    /* ============ DESTINATION CARDS ============ */
+    .destination-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .destination-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition-spring);
+      cursor: pointer;
+      border: 1px solid var(--gray-200);
+      text-decoration: none;
+      color: var(--gray-900);
+      display: block;
+    }
+    .destination-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+    }
+    .destination-card .card-image {
+      height: 180px;
+      background: var(--gray-200);
+      position: relative;
+      overflow: hidden;
+    }
+    .destination-card .card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: var(--transition-spring);
+    }
+    .destination-card:hover .card-image img {
+      transform: scale(1.05);
+    }
+    .destination-card .card-image .badge-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--accent-gradient);
+      color: white;
+      padding: 4px 14px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+    .destination-card .card-image .rating-badge {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .destination-card .card-image .rating-badge i { color: #FFD700; }
+
+    .destination-card .card-body {
+      padding: 16px 18px;
+    }
+    .destination-card .card-body .card-title {
+      font-weight: 600;
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .destination-card .card-body .card-location {
+      color: var(--gray-500);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .destination-card .card-body .card-location i { font-size: 0.7rem; }
+    .destination-card .card-body .card-price {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .destination-card .card-body .card-price .price {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--accent-orange);
+    }
+    .destination-card .card-body .card-price .price small {
+      font-weight: 400;
+      font-size: 0.7rem;
+      color: var(--gray-400);
+    }
+    .destination-card .card-body .card-price .book-now {
+      background: var(--accent-gradient);
+      color: white;
+      padding: 4px 16px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+    .destination-card:hover .card-body .card-price .book-now {
+      transform: scale(1.05);
+    }
+
+    /* ============ TOP CITIES ============ */
+    .top-cities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .city-card-simple {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 20px;
       text-align: center;
+      border: 1px solid var(--gray-200);
       transition: var(--transition-spring);
       cursor: pointer;
       text-decoration: none;
       color: var(--gray-900);
-      position: relative;
-      overflow: hidden;
     }
-    .city-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--accent-gradient);
-      opacity: 0;
+    .city-card-simple:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--accent);
+    }
+    .city-card-simple .city-icon {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+      opacity: 0.5;
       transition: var(--transition);
     }
-    .city-card:hover {
-      border-color: var(--accent);
+    .city-card-simple:hover .city-icon {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+    .city-card-simple .city-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+    .city-card-simple .city-count {
+      color: var(--gray-400);
+      font-size: 0.75rem;
+    }
+
+    /* ============ FEATURES ============ */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--white);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      text-align: center;
+      border: 1px solid var(--gray-200);
+      transition: var(--transition-spring);
+    }
+    .feature-card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-md);
     }
-    .city-card:hover::before { opacity: 0.04; }
-    .city-card i {
-      font-size: 1.8rem;
-      color: var(--gray-600);
-      margin-bottom: 8px;
+    .feature-card .feature-icon {
+      font-size: 2.2rem;
+      color: var(--accent);
+      margin-bottom: 12px;
       display: block;
-      transition: var(--transition);
-      position: relative;
-      z-index: 1;
     }
-    .city-card:hover i { color: var(--accent); transform: scale(1.05); }
-    .city-card span { font-weight: 600; font-size: 0.9rem; display: block; position: relative; z-index: 1; }
-    .city-card .city-count {
-      font-size: 0.7rem;
-      color: var(--gray-400);
-      font-weight: 400;
-      margin-top: 2px;
-      position: relative;
-      z-index: 1;
+    .feature-card h4 {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 4px;
     }
-
-    #no-results {
-      text-align: center;
+    .feature-card p {
       color: var(--gray-500);
-      padding: 12px;
-      background: var(--gray-50);
-      border-radius: var(--radius-sm);
-      display: none;
+      font-size: 0.8rem;
+      margin: 0;
     }
 
-    /* ============ STATS SECTION ============ */
-    .stats-section {
+    /* ============ TESTIMONIALS ============ */
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .testimonial-card {
       background: var(--white);
-      padding: 60px 0;
-      border-radius: var(--radius-xl);
-      margin: 20px 0 40px;
-      border: 1px solid var(--gray-200);
-    }
-    .stat-card-premium {
-      background: var(--gray-50);
-      border: 1px solid var(--gray-200);
       border-radius: var(--radius-md);
-      padding: 30px 20px;
-      text-align: center;
-      transition: var(--transition-spring);
-      position: relative;
-      overflow: hidden;
-    }
-    .stat-card-premium::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: var(--accent-gradient);
-      opacity: 0;
+      padding: 24px;
+      border: 1px solid var(--gray-200);
       transition: var(--transition);
     }
-    .stat-card-premium:hover {
-      transform: translateY(-6px);
-      border-color: var(--accent);
+    .testimonial-card:hover {
       box-shadow: var(--shadow-md);
     }
-    .stat-card-premium:hover::before { opacity: 1; }
-    .stat-icon-premium {
-      font-size: 2.2rem;
-      color: var(--gray-600);
-      margin-bottom: 10px;
-      display: block;
-      transition: var(--transition);
-    }
-    .stat-card-premium:hover .stat-icon-premium { color: var(--accent); }
-    .stat-number-premium {
-      font-size: 2.8rem;
-      font-weight: 700;
-      color: var(--primary);
-      font-family: 'Playfair Display', serif;
-      letter-spacing: -0.02em;
-    }
-    .stat-label-premium {
-      color: var(--gray-500);
+    .testimonial-card .stars {
+      color: #FFD700;
       font-size: 0.85rem;
-      font-weight: 400;
+      margin-bottom: 8px;
     }
-    .stat-description {
-      color: var(--gray-400);
-      font-size: 0.75rem;
-      margin-top: 4px;
+    .testimonial-card .testimonial-text {
+      font-size: 0.9rem;
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 12px;
     }
-
-    /* ============ CTA BANNER ============ */
-    .cta-banner {
-      background: var(--primary);
-      border-radius: var(--radius-xl);
-      padding: 56px 40px;
-      text-align: center;
-      color: white;
-      margin: 20px auto 40px;
-      max-width: 1200px;
-      position: relative;
-      overflow: hidden;
-    }
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 20% 50%, rgba(124,58,237,0.15) 0%, transparent 60%);
-      pointer-events: none;
-    }
-    .cta-banner::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
-    }
-    .cta-banner h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 2.4rem;
-      font-weight: 700;
-      position: relative;
-      z-index: 1;
-    }
-    .cta-banner p {
-      opacity: 0.7;
-      margin: 15px 0 28px;
-      font-size: 1.05rem;
-      position: relative;
-      z-index: 1;
-    }
-    .cta-banner .btn-white {
-      background: white;
-      color: var(--primary);
-      padding: 14px 40px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
+    .testimonial-card .testimonial-author {
+      display: flex;
       align-items: center;
       gap: 10px;
-      transition: var(--transition-spring);
-      position: relative;
-      z-index: 1;
     }
-    .cta-banner .btn-white:hover {
-      transform: translateY(-3px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(255,255,255,0.2);
+    .testimonial-card .testimonial-author .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .testimonial-card .testimonial-author .name {
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    .testimonial-card .testimonial-author .role {
+      font-size: 0.75rem;
+      color: var(--gray-400);
     }
 
     /* ============ FOOTER ============ */
     .footer-premium {
       background: var(--primary);
-      padding: 50px 0 24px;
+      padding: 48px 0 24px;
       margin-top: 40px;
       color: white;
-      border-radius: var(--radius-xl) var(--radius-xl) 0 0;
     }
-    .footer-premium p { color: rgba(255,255,255,0.5); font-size: 0.85rem; line-height: 1.7; }
+    .footer-premium p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      line-height: 1.7;
+    }
     .footer-links h4 {
       font-size: 0.85rem;
       margin-bottom: 16px;
       color: white;
       font-weight: 600;
-      letter-spacing: 0.03em;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
     }
     .footer-links ul {
       list-style: none;
@@ -748,7 +592,6 @@
     }
     .footer-links a:hover {
       color: white;
-      padding-left: 4px;
     }
     .social-links a {
       display: inline-block;
@@ -770,50 +613,44 @@
 
     /* ============ RESPONSIVE ============ */
     @media (max-width: 991px) {
-      .navbar { padding: 0.4rem 1.2rem; }
-      .hero-content h1 { font-size: 3.5rem; }
-      .hero { padding-top: 60px; }
-      .floating-card.card-1 { right: 0; }
-      .floating-card.card-2 { left: 0; }
-      .floating-card.card-3 { display: none; }
-      #city-section { padding: 35px 20px; margin: 20px 15px; }
-      .city-grid { grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
-      .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+      .navbar { padding: 0.4rem 1rem; }
+      .hero-booking { margin-top: 56px; padding: 30px 0 40px; }
+      .hero-booking h1 { font-size: 2rem; }
+      .booking-search { padding: 16px; }
+      .search-fields { grid-template-columns: 1fr 1fr; }
+      .search-fields .btn-search { grid-column: span 2; }
     }
 
     @media (max-width: 768px) {
-      .hero-content h1 { font-size: 2.8rem; }
-      .hero-stats .stat-item .number { font-size: 1.5rem; }
-      .section-header h2 { font-size: 2rem; }
-      .stats-section { padding: 40px 15px; }
-      .stat-number-premium { font-size: 2.2rem; }
-      .floating-card { display: none; }
-      .city-grid { grid-template-columns: repeat(2, 1fr); }
-      .cta-banner { padding: 36px 20px; }
-      .cta-banner h2 { font-size: 1.8rem; }
-      .hero-cta-group { flex-direction: column; align-items: stretch; }
-      .hero-cta-group .btn { justify-content: center; }
+      .hero-booking h1 { font-size: 1.6rem; }
+      .search-fields { grid-template-columns: 1fr; }
+      .search-fields .btn-search { grid-column: span 1; width: 100%; justify-content: center; }
+      .destination-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+      .top-cities-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .features-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+      .section-header h2 { font-size: 1.3rem; }
+      .quick-filters { gap: 10px; }
+      .quick-filter { font-size: 0.75rem; padding: 4px 12px; }
     }
 
     @media (max-width: 480px) {
-      .hero-content h1 { font-size: 2.2rem; }
-      .navbar { padding: 0.3rem 0.8rem; }
+      .hero-booking { padding: 20px 0 30px; }
+      .hero-booking h1 { font-size: 1.3rem; }
+      .hero-booking .subtitle { font-size: 0.85rem; }
+      .booking-search { padding: 12px; border-radius: var(--radius-lg); }
+      .booking-search .search-tabs { flex-wrap: wrap; gap: 4px; }
+      .booking-search .search-tab { font-size: 0.7rem; padding: 4px 12px; }
+      .destination-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .destination-card .card-image { height: 120px; }
+      .destination-card .card-body { padding: 12px; }
+      .destination-card .card-body .card-title { font-size: 0.85rem; }
+      .top-cities-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .city-card-simple { padding: 14px; }
+      .features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .testimonial-grid { grid-template-columns: 1fr; }
       .logo-text .glow { font-size: 1.1rem; }
       .logo-icon { width: 32px; height: 32px; }
       .logo-icon i { font-size: 14px; }
-      .city-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .city-card { padding: 14px 10px; }
-      .city-card i { font-size: 1.4rem; }
-      .city-card span { font-size: 0.8rem; }
-      #city-section { padding: 20px 12px; margin: 12px 5px; border-radius: var(--radius-md); }
-      .section-header h2 { font-size: 1.6rem; }
-      .stats-section { padding: 28px 10px; border-radius: var(--radius-md); }
-      .stat-card-premium { padding: 18px 12px; }
-      .stat-number-premium { font-size: 1.8rem; }
-      .cta-banner { padding: 28px 16px; border-radius: var(--radius-md); }
-      .cta-banner h2 { font-size: 1.4rem; }
-      .btn-primary-custom, .btn-outline-primary-custom, .btn-accent { padding: 10px 20px; font-size: 0.8rem; }
-      .hero-stats { gap: 1.2rem; }
     }
   </style>
 </head>
@@ -828,7 +665,7 @@
       </div>
       <div class="logo-text">
         <span class="glow">GlowBook</span>
-        <span class="book">Enterprise</span>
+        <span class="book">Book Your Glow</span>
       </div>
     </a>
     
@@ -847,16 +684,16 @@
         <a id="myBookings" class="nav-link" href="mybookings.html" style="display: none;">My Bookings</a>
         
         <div class="d-lg-none">
-          <a id="loginLinkMobile" class="btn btn-outline-primary-custom w-100 mb-2" href="login.html">Login</a>
-          <a id="registerLinkMobile" class="btn btn-primary-custom w-100" href="register.html">Sign Up</a>
-          <button id="logoutButtonMobile" class="btn btn-outline-primary-custom w-100 mt-2" style="display: none;">Logout</button>
+          <a id="loginLinkMobile" class="btn btn-outline-primary-custom w-100 mb-2" href="login.html" style="display: inline-block; border: 1.5px solid var(--gray-300); color: var(--gray-700); padding: 8px 20px; border-radius: 50px; text-align: center; text-decoration: none; font-weight: 500; font-size: 0.85rem;">Login</a>
+          <a id="registerLinkMobile" class="btn btn-primary-custom w-100" href="register.html" style="display: inline-block; background: var(--accent-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-align: center; text-decoration: none; font-weight: 500; font-size: 0.85rem;">Sign Up</a>
+          <button id="logoutButtonMobile" class="btn btn-outline-primary-custom w-100 mt-2" style="display: none; border: 1.5px solid var(--gray-300); color: var(--gray-700); padding: 8px 20px; border-radius: 50px; text-align: center; text-decoration: none; font-weight: 500; font-size: 0.85rem;">Logout</button>
         </div>
         
         <div class="d-none d-lg-flex align-items-center gap-2">
-          <a id="loginLink" class="btn btn-outline-primary-custom" href="login.html">Login</a>
-          <a id="registerLink" class="btn btn-primary-custom" href="register.html"><span>Get Started</span></a>
+          <a id="loginLink" class="nav-link" href="login.html">Login</a>
+          <a id="registerLink" class="btn btn-primary-custom" href="register.html" style="background: var(--accent-gradient); color: white; padding: 8px 20px; border-radius: 50px; text-decoration: none; font-weight: 500; font-size: 0.85rem; transition: var(--transition);">Sign Up</a>
           <div class="dropdown" id="profileMenu" style="display: none;">
-            <button class="btn btn-outline-primary-custom dropdown-toggle" type="button" data-bs-toggle="dropdown">
+            <button class="btn btn-outline-primary-custom dropdown-toggle" type="button" data-bs-toggle="dropdown" style="border: 1.5px solid var(--gray-300); color: var(--gray-700); padding: 8px 20px; border-radius: 50px; background: transparent; font-weight: 500; font-size: 0.85rem;">
               <i class="fas fa-user me-1"></i> <span id="userName"></span>
             </button>
             <ul class="dropdown-menu">
@@ -865,224 +702,282 @@
               <li><button class="dropdown-item" onclick="logout()"><i class="fas fa-sign-out-alt me-2"></i>Logout</button></li>
             </ul>
           </div>
-          <button id="logoutButton" class="btn btn-outline-primary-custom" style="display: none;" onclick="logout()">Logout</button>
+          <button id="logoutButton" class="btn btn-outline-primary-custom" style="display: none; border: 1.5px solid var(--gray-300); color: var(--gray-700); padding: 8px 20px; border-radius: 50px; background: transparent; font-weight: 500; font-size: 0.85rem;" onclick="logout()">Logout</button>
         </div>
       </div>
     </div>
   </div>
 </nav>
 
-<!-- ============ HERO ============ -->
-<section class="hero">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow-2"></div>
-  
+<!-- ============ HERO WITH SEARCH - MAKEMYTRIP STYLE ============ -->
+<section class="hero-booking">
   <div class="container">
-    <div class="row align-items-center min-vh-100">
-      <div class="col-lg-6 hero-content" data-aos="fade-up" data-aos-duration="800">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          <span>Now available in 50+ cities</span>
-          <i class="fas fa-arrow-right" style="font-size: 0.7rem;"></i>
-        </div>
-        
-        <h1>Your <span class="accent-text">Glow</span><br>Starts Here</h1>
-        <p>India's premier beauty booking platform. Connect with top salons, book instantly, and experience luxury like never before.</p>
-        
-        <div class="hero-cta-group">
-          <a href="#city-section" class="btn-accent"><span>Book Now</span> <i class="fas fa-arrow-right"></i></a>
-          <a href="about.html" class="btn-outline-primary-custom">Explore <i class="fas fa-play-circle"></i></a>
-        </div>
-        
-        <div class="hero-stats">
-          <div class="stat-item">
-            <div class="number">500+</div>
-            <div class="label">Premium Salons</div>
-          </div>
-          <div class="stat-item">
-            <div class="number">50K+</div>
-            <div class="label">Happy Clients</div>
-          </div>
-          <div class="stat-item">
-            <div class="number">4.9★</div>
-            <div class="label">Average Rating</div>
-          </div>
-        </div>
+    <h1 data-aos="fade-up">Find Your Perfect <span style="color: var(--accent-orange);">Glow</span></h1>
+    <p class="subtitle" data-aos="fade-up" data-aos-delay="100">Book premium beauty services at the best salons near you</p>
+    
+    <!-- Search Bar -->
+    <div class="booking-search" data-aos="fade-up" data-aos-delay="200">
+      <div class="search-tabs">
+        <button class="search-tab active"><i class="fas fa-spa"></i> Salons</button>
+        <button class="search-tab"><i class="fas fa-user"></i> Stylists</button>
+        <button class="search-tab"><i class="fas fa-gift"></i> Offers</button>
       </div>
       
-      <div class="col-lg-6 hero-image-wrapper" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
-        <div class="image-container">
-          <img src="images/saalom illu.png" class="img-fluid" alt="GlowBook Salon">
+      <form class="search-fields" id="searchForm">
+        <div class="field-group">
+          <label><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> City / Location</label>
+          <input type="text" class="field-input" id="citySearchInput" placeholder="Search for a city..." />
+          <i class="fas fa-chevron-down field-icon"></i>
         </div>
-        <div class="floating-card card-1">
-          <div class="icon-wrap"><i class="fas fa-star"></i></div>
-          <div class="info">
-            <div class="title">Trusted Platform</div>
-            <div class="sub">Since 2024</div>
-          </div>
+        <div class="field-group">
+          <label><i class="fas fa-calendar-alt" style="color: var(--accent);"></i> Date</label>
+          <input type="text" class="field-input" placeholder="Select date" value="Today, 12 Jul" />
+          <i class="fas fa-calendar-alt field-icon"></i>
         </div>
-        <div class="floating-card card-2">
-          <div class="icon-wrap"><i class="fas fa-clock"></i></div>
-          <div class="info">
-            <div class="title">Instant Booking</div>
-            <div class="sub">Real-time availability</div>
-          </div>
+        <div class="field-group">
+          <label><i class="fas fa-users" style="color: var(--accent);"></i> Guests</label>
+          <input type="text" class="field-input" placeholder="1 person" />
+          <i class="fas fa-chevron-down field-icon"></i>
         </div>
-        <div class="floating-card card-3">
-          <div class="icon-wrap"><i class="fas fa-shield-alt"></i></div>
-          <div class="info">
-            <div class="title">100% Secure</div>
-            <div class="sub">Verified salons</div>
-          </div>
-        </div>
-      </div>
+        <button type="submit" class="btn-search" onclick="handleSearch(event)">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </form>
+    </div>
+    
+    <!-- Quick Filters -->
+    <div class="quick-filters" data-aos="fade-up" data-aos-delay="300">
+      <a href="#" class="quick-filter"><i class="fas fa-cut"></i> Hair</a>
+      <a href="#" class="quick-filter"><i class="fas fa-paint-brush"></i> Makeup</a>
+      <a href="#" class="quick-filter"><i class="fas fa-hand-sparkles"></i> Spa</a>
+      <a href="#" class="quick-filter"><i class="fas fa-smile"></i> Facial</a>
+      <a href="#" class="quick-filter"><i class="fas fa-hand"></i> Nails</a>
+      <a href="#" class="quick-filter"><i class="fas fa-gem"></i> Premium</a>
     </div>
   </div>
 </section>
 
-<!-- ============ TRUST BAR ============ -->
-<div class="trust-bar">
-  <div class="container">
-    <div class="row text-center g-3">
-      <div class="col-md-3 col-6 trust-item"><i class="fas fa-shield-alt"></i> 100% Verified</div>
-      <div class="col-md-3 col-6 trust-item"><i class="fas fa-bolt"></i> Instant Booking</div>
-      <div class="col-md-3 col-6 trust-item"><i class="fas fa-lock"></i> Secure Payment</div>
-      <div class="col-md-3 col-6 trust-item"><i class="fas fa-headset"></i> 24/7 Support</div>
-    </div>
-  </div>
-</div>
-
-<!-- ============ QUICK ACTIONS ============ -->
-<div class="container">
-  <div class="quick-actions" style="display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin: 30px 0;">
-    <a href="#city-section" class="action-card" style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 60px; padding: 10px 24px; display: inline-flex; align-items: center; gap: 10px; color: var(--gray-700); text-decoration: none; transition: var(--transition-spring); font-weight: 500; font-size: 0.85rem; box-shadow: var(--shadow-sm);">
-      <i class="fas fa-calendar-plus" style="color: var(--gray-900); opacity: 0.6;"></i> Book Appointment
-    </a>
-    <a href="admin-panel.html" id="adminLink" class="action-card" style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 60px; padding: 10px 24px; display: inline-flex; align-items: center; gap: 10px; color: var(--gray-700); text-decoration: none; transition: var(--transition-spring); font-weight: 500; font-size: 0.85rem; box-shadow: var(--shadow-sm);">
-      <i class="fas fa-store" style="color: var(--gray-900); opacity: 0.6;"></i> Partner With Us
-    </a>
-    <a href="#" class="action-card" style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 60px; padding: 10px 24px; display: inline-flex; align-items: center; gap: 10px; color: var(--gray-700); text-decoration: none; transition: var(--transition-spring); font-weight: 500; font-size: 0.85rem; box-shadow: var(--shadow-sm);">
-      <i class="fas fa-tag" style="color: var(--gray-900); opacity: 0.6;"></i> Exclusive Offers
-    </a>
-    <a href="contact.html" class="action-card" style="background: var(--white); border: 1px solid var(--gray-200); border-radius: 60px; padding: 10px 24px; display: inline-flex; align-items: center; gap: 10px; color: var(--gray-700); text-decoration: none; transition: var(--transition-spring); font-weight: 500; font-size: 0.85rem; box-shadow: var(--shadow-sm);">
-      <i class="fas fa-headset" style="color: var(--gray-900); opacity: 0.6;"></i> Support
-    </a>
-  </div>
-</div>
-
-<!-- ============ CITY SECTION ============ -->
-<section id="city-section" data-aos="fade-up" data-aos-duration="600">
+<!-- ============ TOP DESTINATIONS / SALONS ============ -->
+<section class="container" style="padding: 40px 0;" data-aos="fade-up">
   <div class="section-header">
-    <span class="label">Locations</span>
-    <h2>Find Your City</h2>
-    <p>Discover premium salons near you</p>
+    <h2>Popular Salons Near You</h2>
+    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
   </div>
   
-  <div class="search-wrapper">
-    <i class="fas fa-search search-icon"></i>
-    <input type="text" id="city-search" placeholder="Search for your city..." />
-  </div>
-  
-  <div id="city-list" class="city-grid">
-    <a href="salons.html?city=Haliyal" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Haliyal</span>
-      <span class="city-count">2 salons</span>
-    </a>
-    <a href="salons.html?city=Dharwad" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Dharwad</span>
-      <span class="city-count">5 salons</span>
-    </a>
-    <a href="salons.html?city=Hubli" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Hubli</span>
-      <span class="city-count">8 salons</span>
-    </a>
-    <a href="salons.html?city=Bangalore" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Bangalore</span>
-      <span class="city-count">50+ salons</span>
-    </a>
-    <a href="salons.html?city=Alnavar" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Alnavar</span>
-      <span class="city-count">3 salons</span>
-    </a>
-    <a href="salons.html?city=Karwar" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Karwar</span>
-      <span class="city-count">4 salons</span>
-    </a>
-    <a href="salons.html?city=Goa" class="city-card">
-      <i class="fas fa-umbrella-beach"></i>
-      <span>Goa</span>
-      <span class="city-count">20+ salons</span>
-    </a>
-    <a href="salons.html?city=Udupi" class="city-card">
-      <i class="fas fa-city"></i>
-      <span>Udupi</span>
-      <span class="city-count">6 salons</span>
-    </a>
-    <a href="salons.html?city=Hampi" class="city-card">
-      <i class="fas fa-landmark"></i>
-      <span>Hampi</span>
-      <span class="city-count">2 salons</span>
-    </a>
-    <a href="salons.html?city=Gokarna" class="city-card">
-      <i class="fas fa-water"></i>
-      <span>Gokarna</span>
-      <span class="city-count">4 salons</span>
-    </a>
-  </div>
-  
-  <p id="no-results">No cities found matching your search</p>
-</section>
-
-<!-- ============ STATS SECTION ============ -->
-<section class="stats-section">
-  <div class="container">
-    <div class="section-header" data-aos="fade-up">
-      <span class="label">Metrics</span>
-      <h2>Trusted by Thousands</h2>
-      <p>Our growing community of beauty enthusiasts and premium salons</p>
-    </div>
-    <div class="row g-4">
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-        <div class="stat-card-premium">
-          <span class="stat-icon-premium"><i class="fas fa-users"></i></span>
-          <div class="stat-number-premium" id="totalUsers">--</div>
-          <div class="stat-label-premium">Active Users</div>
-          <div class="stat-description">Happy customers booking daily</div>
+  <div class="destination-grid">
+    <a href="#" class="destination-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="card-image" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3);">
+          <i class="fas fa-spa"></i>
+        </div>
+        <span class="badge-tag">Premium</span>
+        <div class="rating-badge"><i class="fas fa-star"></i> 4.9</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">The Glam Studio</div>
+        <div class="card-location"><i class="fas fa-map-marker-alt"></i> Bangalore, Karnataka</div>
+        <div class="card-price">
+          <span class="price">₹499 <small>starting</small></span>
+          <span class="book-now">Book Now</span>
         </div>
       </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-        <div class="stat-card-premium">
-          <span class="stat-icon-premium"><i class="fas fa-spa"></i></span>
-          <div class="stat-number-premium" id="totalSalons">--</div>
-          <div class="stat-label-premium">Partner Salons</div>
-          <div class="stat-description">Premium salons across India</div>
+    </a>
+    
+    <a href="#" class="destination-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="card-image" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3);">
+          <i class="fas fa-cut"></i>
+        </div>
+        <span class="badge-tag">Trending</span>
+        <div class="rating-badge"><i class="fas fa-star"></i> 4.8</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Hair & Beyond</div>
+        <div class="card-location"><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra</div>
+        <div class="card-price">
+          <span class="price">₹699 <small>starting</small></span>
+          <span class="book-now">Book Now</span>
         </div>
       </div>
-      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-        <div class="stat-card-premium">
-          <span class="stat-icon-premium"><i class="fas fa-calendar-check"></i></span>
-          <div class="stat-number-premium" id="totalBookings">--</div>
-          <div class="stat-label-premium">Bookings Completed</div>
-          <div class="stat-description">Successful appointments delivered</div>
+    </a>
+    
+    <a href="#" class="destination-card" data-aos="fade-up" data-aos-delay="300">
+      <div class="card-image" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3);">
+          <i class="fas fa-hand-sparkles"></i>
+        </div>
+        <span class="badge-tag">Luxury</span>
+        <div class="rating-badge"><i class="fas fa-star"></i> 4.9</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Serenity Spa & Wellness</div>
+        <div class="card-location"><i class="fas fa-map-marker-alt"></i> Goa</div>
+        <div class="card-price">
+          <span class="price">₹1,299 <small>starting</small></span>
+          <span class="book-now">Book Now</span>
         </div>
       </div>
-    </div>
+    </a>
+    
+    <a href="#" class="destination-card" data-aos="fade-up" data-aos-delay="400">
+      <div class="card-image" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);">
+        <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(0,0,0,0.1);">
+          <i class="fas fa-paint-brush"></i>
+        </div>
+        <span class="badge-tag" style="background: var(--accent-orange-gradient);">Offer</span>
+        <div class="rating-badge"><i class="fas fa-star"></i> 4.7</div>
+      </div>
+      <div class="card-body">
+        <div class="card-title">Makeup & Glam</div>
+        <div class="card-location"><i class="fas fa-map-marker-alt"></i> Delhi</div>
+        <div class="card-price">
+          <span class="price">₹399 <small>starting</small></span>
+          <span class="book-now">Book Now</span>
+        </div>
+      </div>
+    </a>
   </div>
 </section>
 
-<!-- ============ CTA BANNER ============ -->
-<div class="cta-banner" data-aos="fade-up">
-  <h2>Ready to Experience Luxury?</h2>
-  <p>Join thousands of happy clients and book your glow today.</p>
-  <a href="#city-section" class="btn-white">Find Salons Now <i class="fas fa-arrow-right"></i></a>
-</div>
+<!-- ============ TOP CITIES ============ -->
+<section class="container" style="padding: 20px 0 40px;" data-aos="fade-up">
+  <div class="section-header">
+    <h2>Explore Top Cities</h2>
+    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  
+  <div class="top-cities-grid" id="cityGrid">
+    <a href="salons.html?city=Bangalore" class="city-card-simple" data-aos="fade-up" data-aos-delay="100">
+      <span class="city-icon"><i class="fas fa-city"></i></span>
+      <div class="city-name">Bangalore</div>
+      <div class="city-count">50+ salons</div>
+    </a>
+    <a href="salons.html?city=Mumbai" class="city-card-simple" data-aos="fade-up" data-aos-delay="150">
+      <span class="city-icon"><i class="fas fa-city"></i></span>
+      <div class="city-name">Mumbai</div>
+      <div class="city-count">45+ salons</div>
+    </a>
+    <a href="salons.html?city=Delhi" class="city-card-simple" data-aos="fade-up" data-aos-delay="200">
+      <span class="city-icon"><i class="fas fa-city"></i></span>
+      <div class="city-name">Delhi</div>
+      <div class="city-count">38+ salons</div>
+    </a>
+    <a href="salons.html?city=Goa" class="city-card-simple" data-aos="fade-up" data-aos-delay="250">
+      <span class="city-icon"><i class="fas fa-umbrella-beach"></i></span>
+      <div class="city-name">Goa</div>
+      <div class="city-count">20+ salons</div>
+    </a>
+    <a href="salons.html?city=Hyderabad" class="city-card-simple" data-aos="fade-up" data-aos-delay="300">
+      <span class="city-icon"><i class="fas fa-city"></i></span>
+      <div class="city-name">Hyderabad</div>
+      <div class="city-count">30+ salons</div>
+    </a>
+    <a href="salons.html?city=Chennai" class="city-card-simple" data-aos="fade-up" data-aos-delay="350">
+      <span class="city-icon"><i class="fas fa-city"></i></span>
+      <div class="city-name">Chennai</div>
+      <div class="city-count">25+ salons</div>
+    </a>
+  </div>
+</section>
+
+<!-- ============ WHY GLOWBOOK ============ -->
+<section class="container" style="padding: 20px 0 40px;" data-aos="fade-up">
+  <div class="section-header" style="justify-content: center; text-align: center; flex-direction: column;">
+    <h2>Why GlowBook?</h2>
+    <p style="color: var(--gray-500); font-size: 0.95rem; margin-top: 4px;">Book with confidence - we make beauty booking simple</p>
+  </div>
+  
+  <div class="features-grid">
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+      <span class="feature-icon"><i class="fas fa-shield-alt"></i></span>
+      <h4>Verified Salons</h4>
+      <p>All salons are handpicked and verified</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="150">
+      <span class="feature-icon"><i class="fas fa-bolt"></i></span>
+      <h4>Instant Booking</h4>
+      <p>Book appointments in seconds</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+      <span class="feature-icon"><i class="fas fa-lock"></i></span>
+      <h4>Secure Payments</h4>
+      <p>100% safe & secure transactions</p>
+    </div>
+    <div class="feature-card" data-aos="fade-up" data-aos-delay="250">
+      <span class="feature-icon"><i class="fas fa-headset"></i></span>
+      <h4>24/7 Support</h4>
+      <p>We're here to help anytime</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="container" style="padding: 20px 0 40px;" data-aos="fade-up">
+  <div class="section-header" style="justify-content: center; text-align: center; flex-direction: column;">
+    <h2>What Our Clients Say</h2>
+    <p style="color: var(--gray-500); font-size: 0.95rem; margin-top: 4px;">Real reviews from real people</p>
+  </div>
+  
+  <div class="testimonial-grid">
+    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p class="testimonial-text">"Amazing experience! The salon was beautiful and the service was top-notch. Booking was so easy."</p>
+      <div class="testimonial-author">
+        <div class="avatar">P</div>
+        <div>
+          <div class="name">Priya Sharma</div>
+          <div class="role">Bangalore</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="150">
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p class="testimonial-text">"I found the perfect salon for my wedding makeup. GlowBook made it so simple to compare and book."</p>
+      <div class="testimonial-author">
+        <div class="avatar">A</div>
+        <div>
+          <div class="name">Ananya Reddy</div>
+          <div class="role">Hyderabad</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+      <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+      <p class="testimonial-text">"The best beauty booking platform! Great offers and amazing salon options. Highly recommend."</p>
+      <div class="testimonial-author">
+        <div class="avatar">R</div>
+        <div>
+          <div class="name">Rahul Kumar</div>
+          <div class="role">Mumbai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section class="container" style="padding: 10px 0 30px;" data-aos="fade-up">
+  <div class="row g-4">
+    <div class="col-md-3 col-6 text-center">
+      <div style="font-size: 2rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif;">500+</div>
+      <div style="color: var(--gray-500); font-size: 0.85rem;">Premium Salons</div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div style="font-size: 2rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif;">50K+</div>
+      <div style="color: var(--gray-500); font-size: 0.85rem;">Happy Clients</div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div style="font-size: 2rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif;">4.9★</div>
+      <div style="color: var(--gray-500); font-size: 0.85rem;">Average Rating</div>
+    </div>
+    <div class="col-md-3 col-6 text-center">
+      <div style="font-size: 2rem; font-weight: 700; color: var(--accent); font-family: 'Playfair Display', serif;" id="totalUsers">--</div>
+      <div style="color: var(--gray-500); font-size: 0.85rem;">Active Users</div>
+    </div>
+  </div>
+</section>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer-premium">
@@ -1142,7 +1037,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-  AOS.init({ duration: 700, once: true, offset: 40, easing: 'ease-out-cubic' });
+  AOS.init({ duration: 600, once: true, offset: 30 });
 
   // Mobile Menu
   const toggler = document.getElementById('mobileMenuToggler');
@@ -1151,6 +1046,25 @@
     toggler.addEventListener('click', () => {
       navbarCollapse.classList.toggle('show');
     });
+  }
+
+  // Search tabs
+  document.querySelectorAll('.search-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // Handle search
+  function handleSearch(e) {
+    e.preventDefault();
+    const city = document.getElementById('citySearchInput').value;
+    if(city) {
+      window.location.href = 'salons.html?city=' + encodeURIComponent(city);
+    } else {
+      window.location.href = '#cityGrid';
+    }
   }
 
   // Auth State
@@ -1184,50 +1098,17 @@
     window.location.href = 'index.html';
   };
 
-  // City Search
-  const searchInput = document.getElementById('city-search');
-  if(searchInput) {
-    searchInput.addEventListener('input', (e) => {
-      const val = e.target.value.toLowerCase();
-      const cards = document.querySelectorAll('.city-card');
-      let visible = 0;
-      cards.forEach(card => {
-        const city = card.querySelector('span')?.innerText.toLowerCase() || '';
-        if(city.includes(val)) { card.style.display = 'block'; visible++; } 
-        else { card.style.display = 'none'; }
-      });
-      const noRes = document.getElementById('no-results');
-      if(noRes) noRes.style.display = val && visible === 0 ? 'block' : 'none';
-    });
-  }
-
-  // Admin Link Handler
-  const adminLink = document.getElementById('adminLink');
-  if(adminLink) {
-    adminLink.addEventListener('click', async (e) => {
-      e.preventDefault();
-      try {
-        const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/admin/check', { credentials: 'include' });
-        const data = await res.json();
-        if(data.loggedIn) window.location.href = 'admin-panel.html';
-        else { alert('Please login first'); window.location.href = 'admin-login.html'; }
-      } catch(err) { alert('Try again later'); }
-    });
-  }
-
   // Fetch Stats
   async function fetchStats() {
     try {
       const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/stats');
       const data = await res.json();
       document.getElementById('totalUsers').innerText = data.totalUsers;
-      document.getElementById('totalSalons').innerText = data.totalSalons;
-      document.getElementById('totalBookings').innerText = data.totalBookings;
     } catch(e) { console.error(e); }
   }
   fetchStats();
 
-  // Navbar Scroll Effect
+  // Navbar Scroll
   window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 30);

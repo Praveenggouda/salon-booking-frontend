@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>GlowBook - Book Your Beauty Experience</title>
+  <title>GlowBook - Enterprise Beauty Platform</title>
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <!-- Google Fonts -->
@@ -15,17 +15,18 @@
   <style>
     /* ============ ROOT VARIABLES ============ */
     :root {
-      --primary: #1A1A2E;
-      --primary-light: #2D2D44;
-      --primary-dark: #0F0F1A;
+      --primary: #0A0A0F;
+      --primary-light: #1A1A2E;
+      --primary-dark: #050508;
       --accent: #6C3CE1;
       --accent-light: #8B5CF6;
+      --accent-dark: #5B21B6;
       --accent-gradient: linear-gradient(135deg, #6C3CE1, #8B5CF6);
       --accent-orange: #FF6B35;
       --accent-orange-light: #FF8A5C;
       --accent-orange-gradient: linear-gradient(135deg, #FF6B35, #FF8A5C);
       --white: #FFFFFF;
-      --bg: #F0F2F5;
+      --bg: #F5F6FA;
       --surface: #FFFFFF;
       --gray-50: #F8F9FA;
       --gray-100: #F1F3F5;
@@ -67,15 +68,195 @@
       scroll-behavior: smooth;
     }
 
+    /* ============ LOCATION PERMISSION OVERLAY ============ */
+    .location-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .location-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .location-overlay .location-modal {
+      background: white;
+      max-width: 480px;
+      width: 100%;
+      border-radius: var(--radius-xl);
+      padding: 40px 36px;
+      text-align: center;
+      box-shadow: var(--shadow-2xl);
+      transform: scale(0.9) translateY(20px);
+      transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .location-overlay.show .location-modal {
+      transform: scale(1) translateY(0);
+    }
+    .location-modal .location-icon {
+      font-size: 4rem;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+    .location-modal .location-icon .pulse-ring {
+      position: relative;
+      display: inline-block;
+    }
+    .location-modal .location-icon .pulse-ring::before {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      border: 2px solid var(--accent);
+      animation: pulseRing 2s ease-out infinite;
+    }
+    @keyframes pulseRing {
+      0% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.5); opacity: 0; }
+    }
+    .location-modal h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .location-modal p {
+      color: var(--gray-500);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .location-modal .btn-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .location-modal .btn-allow {
+      background: var(--accent-gradient);
+      color: white;
+      border: none;
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition-spring);
+      box-shadow: 0 4px 20px rgba(108, 60, 225, 0.3);
+      flex: 1;
+      min-width: 140px;
+    }
+    .location-modal .btn-allow:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(108, 60, 225, 0.4);
+    }
+    .location-modal .btn-allow i { margin-right: 8px; }
+    .location-modal .btn-skip {
+      background: transparent;
+      color: var(--gray-600);
+      border: 1.5px solid var(--gray-200);
+      padding: 12px 32px;
+      border-radius: 50px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+      flex: 1;
+      min-width: 140px;
+    }
+    .location-modal .btn-skip:hover {
+      border-color: var(--gray-400);
+      background: var(--gray-50);
+    }
+    .location-modal .location-status {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--gray-400);
+    }
+    .location-modal .location-status .spinner {
+      display: inline-block;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ============ NEARBY SALONS SECTION ============ */
+    .nearby-section {
+      display: none;
+      padding: 20px 0 10px;
+    }
+    .nearby-section.show {
+      display: block;
+    }
+    .nearby-banner {
+      background: var(--accent-gradient);
+      border-radius: var(--radius-lg);
+      padding: 16px 24px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .nearby-banner .nearby-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nearby-banner .nearby-info i {
+      font-size: 1.4rem;
+    }
+    .nearby-banner .nearby-info .city-name {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+    .nearby-banner .nearby-info .distance-text {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+    .nearby-banner .btn-refresh {
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .nearby-banner .btn-refresh:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
     /* ============ NAVBAR ============ */
     .navbar {
-      background: var(--white);
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       padding: 0.6rem 2rem;
       box-shadow: var(--shadow-sm);
-      border-bottom: 1px solid var(--gray-200);
+      border-bottom: 1px solid rgba(0,0,0,0.04);
       transition: var(--transition);
     }
     .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.98);
       box-shadow: var(--shadow-md);
     }
 
@@ -93,10 +274,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-icon::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
     }
     .logo-icon i {
       font-size: 18px;
       color: white;
+      position: relative;
+      z-index: 1;
     }
     .logo-text .glow {
       font-size: 1.3rem;
@@ -128,9 +319,21 @@
       background: rgba(108, 60, 225, 0.08);
     }
 
-    /* ============ HERO - MAKEMYTRIP STYLE ============ */
+    /* Admin badge in nav */
+    .nav-link.admin-link {
+      color: var(--accent) !important;
+      font-weight: 600;
+      border: 1px solid var(--accent);
+      background: rgba(108, 60, 225, 0.05);
+    }
+    .nav-link.admin-link:hover {
+      background: var(--accent);
+      color: white !important;
+    }
+
+    /* ============ HERO ============ */
     .hero-booking {
-      background: linear-gradient(135deg, #1A1A2E 0%, #2D2D44 50%, #1A1A2E 100%);
+      background: linear-gradient(135deg, #0A0A0F 0%, #1A1A2E 50%, #0A0A0F 100%);
       padding: 40px 0 60px;
       position: relative;
       overflow: hidden;
@@ -161,12 +364,12 @@
       margin-bottom: 30px;
     }
 
-    /* ============ SEARCH BAR - MAKEMYTRIP STYLE ============ */
+    /* ============ SEARCH BAR ============ */
     .booking-search {
       background: white;
       border-radius: var(--radius-xl);
       padding: 20px 24px;
-      box-shadow: var(--shadow-xl);
+      box-shadow: var(--shadow-2xl);
       max-width: 1100px;
       margin: 0 auto;
     }
@@ -176,6 +379,7 @@
       margin-bottom: 16px;
       border-bottom: 1px solid var(--gray-200);
       padding-bottom: 12px;
+      flex-wrap: wrap;
     }
     .booking-search .search-tab {
       padding: 6px 20px;
@@ -242,6 +446,23 @@
       right: 12px;
       bottom: 12px;
       color: var(--gray-400);
+    }
+    .search-fields .field-group .location-btn {
+      position: absolute;
+      right: 4px;
+      bottom: 4px;
+      background: var(--gray-100);
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 4px 10px;
+      font-size: 0.7rem;
+      color: var(--gray-600);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .search-fields .field-group .location-btn:hover {
+      background: var(--accent);
+      color: white;
     }
 
     .search-fields .btn-search {
@@ -365,6 +586,9 @@
       font-size: 0.7rem;
       font-weight: 600;
     }
+    .destination-card .card-image .badge-tag.distance {
+      background: var(--accent-orange-gradient);
+    }
     .destination-card .card-image .rating-badge {
       position: absolute;
       bottom: 12px;
@@ -380,6 +604,21 @@
       gap: 4px;
     }
     .destination-card .card-image .rating-badge i { color: #FFD700; }
+    .destination-card .card-image .distance-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 12px;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(8px);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .destination-card .card-image .distance-badge i { font-size: 0.6rem; }
 
     .destination-card .card-body {
       padding: 16px 18px;
@@ -559,6 +798,214 @@
       color: var(--gray-400);
     }
 
+    /* ============ AI CHATBOT ============ */
+    .chatbot-toggle {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent-gradient);
+      color: white;
+      border: none;
+      box-shadow: 0 4px 30px rgba(108, 60, 225, 0.4);
+      cursor: pointer;
+      z-index: 1000;
+      transition: var(--transition-spring);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .chatbot-toggle:hover {
+      transform: scale(1.1) rotate(-5deg);
+      box-shadow: 0 8px 40px rgba(108, 60, 225, 0.5);
+    }
+    .chatbot-toggle .notification-dot {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 12px;
+      height: 12px;
+      background: #FF6B35;
+      border-radius: 50%;
+      border: 2px solid white;
+      animation: pulseDot 2s ease-in-out infinite;
+    }
+    @keyframes pulseDot {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.3); }
+    }
+
+    .chatbot-window {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 380px;
+      max-width: calc(100vw - 56px);
+      height: 500px;
+      max-height: calc(100vh - 140px);
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-2xl);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .chatbot-window.open {
+      display: flex;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .chatbot-header {
+      background: var(--primary);
+      color: white;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .chatbot-header .chatbot-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 600;
+    }
+    .chatbot-header .chatbot-title i {
+      font-size: 1.2rem;
+      color: var(--accent-light);
+    }
+    .chatbot-header .chatbot-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    .chatbot-header .chatbot-close:hover {
+      color: white;
+      transform: rotate(90deg);
+    }
+
+    .chatbot-messages {
+      flex: 1;
+      padding: 16px 20px;
+      overflow-y: auto;
+      background: var(--gray-50);
+    }
+    .chatbot-messages::-webkit-scrollbar {
+      width: 4px;
+    }
+    .chatbot-messages::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 2px;
+    }
+
+    .message {
+      margin-bottom: 12px;
+      display: flex;
+      animation: messageIn 0.3s ease-out;
+    }
+    @keyframes messageIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .message.bot {
+      justify-content: flex-start;
+    }
+    .message.user {
+      justify-content: flex-end;
+    }
+    .message .bubble {
+      max-width: 80%;
+      padding: 10px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    .message.bot .bubble {
+      background: white;
+      color: var(--gray-900);
+      border: 1px solid var(--gray-200);
+      border-bottom-left-radius: 4px;
+    }
+    .message.user .bubble {
+      background: var(--accent-gradient);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+    .message .bubble .typing-dots {
+      display: flex;
+      gap: 4px;
+      padding: 4px 0;
+    }
+    .message .bubble .typing-dots span {
+      width: 6px;
+      height: 6px;
+      background: var(--gray-400);
+      border-radius: 50%;
+      animation: typingBounce 1.4s ease-in-out infinite;
+    }
+    .message .bubble .typing-dots span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+    .message .bubble .typing-dots span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); }
+      30% { transform: translateY(-6px); }
+    }
+
+    .chatbot-input {
+      display: flex;
+      padding: 12px 16px;
+      border-top: 1px solid var(--gray-200);
+      background: white;
+      gap: 8px;
+    }
+    .chatbot-input input {
+      flex: 1;
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-md);
+      padding: 8px 14px;
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      transition: var(--transition);
+    }
+    .chatbot-input input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(108, 60, 225, 0.06);
+    }
+    .chatbot-input .send-btn {
+      background: var(--accent-gradient);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: var(--transition);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .chatbot-input .send-btn:hover {
+      transform: scale(1.05);
+    }
+    .chatbot-input .send-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     /* ============ FOOTER ============ */
     .footer-premium {
       background: var(--primary);
@@ -619,6 +1066,8 @@
       .booking-search { padding: 16px; }
       .search-fields { grid-template-columns: 1fr 1fr; }
       .search-fields .btn-search { grid-column: span 2; }
+      .location-modal { padding: 30px 24px; }
+      .chatbot-window { width: 340px; right: 16px; bottom: 80px; }
     }
 
     @media (max-width: 768px) {
@@ -631,6 +1080,10 @@
       .section-header h2 { font-size: 1.3rem; }
       .quick-filters { gap: 10px; }
       .quick-filter { font-size: 0.75rem; padding: 4px 12px; }
+      .nearby-banner { flex-direction: column; text-align: center; }
+      .nearby-banner .nearby-info { flex-direction: column; }
+      .chatbot-window { width: calc(100vw - 32px); right: 16px; bottom: 80px; height: 450px; }
+      .chatbot-toggle { width: 50px; height: 50px; font-size: 1.2rem; bottom: 20px; right: 20px; }
     }
 
     @media (max-width: 480px) {
@@ -651,10 +1104,69 @@
       .logo-text .glow { font-size: 1.1rem; }
       .logo-icon { width: 32px; height: 32px; }
       .logo-icon i { font-size: 14px; }
+      .location-modal { padding: 24px 16px; }
+      .location-modal h2 { font-size: 1.3rem; }
+      .location-modal .btn-group { flex-direction: column; }
+      .location-modal .btn-allow, .location-modal .btn-skip { width: 100%; }
+      .chatbot-window { height: 400px; }
     }
   </style>
 </head>
 <body>
+
+<!-- ============ LOCATION PERMISSION OVERLAY ============ -->
+<div class="location-overlay" id="locationOverlay">
+  <div class="location-modal">
+    <span class="location-icon">
+      <span class="pulse-ring">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+    </span>
+    <h2>Find Salons Near You</h2>
+    <p>Allow GlowBook to access your location to discover the best salons and services in your area. Your privacy matters to us.</p>
+    <div class="btn-group">
+      <button class="btn-allow" id="allowLocationBtn">
+        <i class="fas fa-location-dot"></i> Allow Location
+      </button>
+      <button class="btn-skip" id="skipLocationBtn">Skip for now</button>
+    </div>
+    <div class="location-status" id="locationStatus"></div>
+  </div>
+</div>
+
+<!-- ============ AI CHATBOT ============ -->
+<button class="chatbot-toggle" id="chatbotToggle">
+  <i class="fas fa-robot"></i>
+  <span class="notification-dot"></span>
+</button>
+
+<div class="chatbot-window" id="chatbotWindow">
+  <div class="chatbot-header">
+    <div class="chatbot-title">
+      <i class="fas fa-robot"></i>
+      <span>GlowBook AI Assistant</span>
+    </div>
+    <button class="chatbot-close" id="chatbotClose">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages">
+    <div class="message bot">
+      <div class="bubble">
+        👋 Hi there! I'm your GlowBook AI assistant. I can help you:
+        <br>• Find salons near you
+        <br>• Book appointments
+        <br>• Check salon availability
+        <br>• Answer your questions
+        <br><br>How can I help you today?
+      </div>
+    </div>
+  </div>
+  <div class="chatbot-input">
+    <input type="text" id="chatbotInput" placeholder="Type your message..." />
+    <button class="send-btn" id="chatbotSend">Send</button>
+  </div>
+</div>
 
 <!-- ============ NAVBAR ============ -->
 <nav class="navbar navbar-expand-lg fixed-top">
@@ -665,7 +1177,7 @@
       </div>
       <div class="logo-text">
         <span class="glow">GlowBook</span>
-        <span class="book">Book Your Glow</span>
+        <span class="book">Enterprise</span>
       </div>
     </a>
     
@@ -678,6 +1190,7 @@
         <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
         <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link admin-link" href="#" id="adminLink"><i class="fas fa-crown"></i> Admin</a></li>
       </ul>
       
       <div class="d-flex flex-column flex-lg-row gap-2">
@@ -709,7 +1222,7 @@
   </div>
 </nav>
 
-<!-- ============ HERO WITH SEARCH - MAKEMYTRIP STYLE ============ -->
+<!-- ============ HERO WITH SEARCH ============ -->
 <section class="hero-booking">
   <div class="container">
     <h1 data-aos="fade-up">Find Your Perfect <span style="color: var(--accent-orange);">Glow</span></h1>
@@ -727,7 +1240,9 @@
         <div class="field-group">
           <label><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> City / Location</label>
           <input type="text" class="field-input" id="citySearchInput" placeholder="Search for a city..." />
-          <i class="fas fa-chevron-down field-icon"></i>
+          <button type="button" class="location-btn" id="useLocationBtn" title="Use my location">
+            <i class="fas fa-crosshairs"></i>
+          </button>
         </div>
         <div class="field-group">
           <label><i class="fas fa-calendar-alt" style="color: var(--accent);"></i> Date</label>
@@ -757,10 +1272,35 @@
   </div>
 </section>
 
-<!-- ============ TOP DESTINATIONS / SALONS ============ -->
-<section class="container" style="padding: 40px 0;" data-aos="fade-up">
+<!-- ============ NEARBY SALONS SECTION ============ -->
+<section class="container nearby-section" id="nearbySection">
+  <div class="nearby-banner">
+    <div class="nearby-info">
+      <i class="fas fa-location-dot"></i>
+      <div>
+        <div class="city-name" id="nearbyCity">Finding your location...</div>
+        <div class="distance-text" id="nearbyDistance">Showing salons near you</div>
+      </div>
+    </div>
+    <button class="btn-refresh" onclick="getLocation()">
+      <i class="fas fa-rotate"></i> Refresh
+    </button>
+  </div>
+  
   <div class="section-header">
-    <h2>Popular Salons Near You</h2>
+    <h2>Nearby Salons</h2>
+    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  
+  <div class="destination-grid" id="nearbySalonsGrid">
+    <!-- Nearby salons will be injected here -->
+  </div>
+</section>
+
+<!-- ============ TOP DESTINATIONS ============ -->
+<section class="container" style="padding: 20px 0 40px;" data-aos="fade-up">
+  <div class="section-header">
+    <h2>Popular Salons</h2>
     <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
   </div>
   
@@ -1007,6 +1547,7 @@
           <li><a href="about.html">About Us</a></li>
           <li><a href="contact.html">Contact</a></li>
           <li><a href="mybookings.html">My Bookings</a></li>
+          <li><a href="#" id="adminLinkFooter">Admin Panel</a></li>
         </ul>
       </div>
       <div class="col-lg-3 col-md-4 footer-links">
@@ -1039,36 +1580,319 @@
 <script>
   AOS.init({ duration: 600, once: true, offset: 30 });
 
-  // Mobile Menu
-  const toggler = document.getElementById('mobileMenuToggler');
-  const navbarCollapse = document.getElementById('navbarNav');
-  if(toggler) {
-    toggler.addEventListener('click', () => {
-      navbarCollapse.classList.toggle('show');
-    });
+  // ============ LOCATION PERMISSION ============
+  let userLocation = null;
+  let userCity = '';
+
+  function checkLocationPermission() {
+    const locationAllowed = localStorage.getItem('locationAllowed');
+    const locationData = localStorage.getItem('userLocation');
+    
+    if (locationAllowed === 'true' && locationData) {
+      try {
+        userLocation = JSON.parse(locationData);
+        showNearbySalons(userLocation);
+        return true;
+      } catch(e) {
+        localStorage.removeItem('userLocation');
+        return false;
+      }
+    }
+    return false;
   }
 
-  // Search tabs
-  document.querySelectorAll('.search-tab').forEach(tab => {
-    tab.addEventListener('click', function() {
-      document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-    });
-  });
+  function showLocationOverlay() {
+    document.getElementById('locationOverlay').classList.add('show');
+  }
 
-  // Handle search
-  function handleSearch(e) {
-    e.preventDefault();
-    const city = document.getElementById('citySearchInput').value;
-    if(city) {
-      window.location.href = 'salons.html?city=' + encodeURIComponent(city);
+  function hideLocationOverlay() {
+    document.getElementById('locationOverlay').classList.remove('show');
+  }
+
+  function getLocation() {
+    const statusEl = document.getElementById('locationStatus');
+    statusEl.innerHTML = '<span class="spinner"><i class="fas fa-circle-notch"></i></span> Getting your location...';
+    statusEl.style.color = 'var(--gray-500)';
+    
+    if (!navigator.geolocation) {
+      statusEl.innerHTML = '⚠️ Geolocation is not supported by your browser';
+      statusEl.style.color = '#DC3545';
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        userLocation = { lat: latitude, lng: longitude };
+        
+        localStorage.setItem('locationAllowed', 'true');
+        localStorage.setItem('userLocation', JSON.stringify(userLocation));
+        
+        hideLocationOverlay();
+        showNearbySalons(userLocation);
+        getCityFromCoords(latitude, longitude);
+      },
+      (error) => {
+        let message = 'Unable to get your location. ';
+        switch(error.code) {
+          case error.PERMISSION_DENIED:
+            message += 'Please enable location access in your browser settings.';
+            break;
+          case error.POSITION_UNAVAILABLE:
+            message += 'Location information is unavailable.';
+            break;
+          case error.TIMEOUT:
+            message += 'The request to get your location timed out.';
+            break;
+          default:
+            message += 'Please try again.';
+        }
+        statusEl.innerHTML = '⚠️ ' + message;
+        statusEl.style.color = '#DC3545';
+        
+        setTimeout(() => {
+          statusEl.innerHTML = 'You can still <a href="#" onclick="showCitySelection()" style="color: var(--accent);">select a city manually</a>';
+        }, 3000);
+      },
+      {
+        enableHighAccuracy: true,
+        timeout: 10000,
+        maximumAge: 60000
+      }
+    );
+  }
+
+  function getCityFromCoords(lat, lng) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=10`;
+    
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.address) {
+          const city = data.address.city || data.address.town || data.address.village || data.address.state || 'Your City';
+          userCity = city;
+          document.getElementById('nearbyCity').textContent = city;
+          document.getElementById('citySearchInput').value = city;
+        }
+      })
+      .catch(() => {
+        document.getElementById('nearbyCity').textContent = 'Your Location';
+      });
+  }
+
+  function showNearbySalons(location) {
+    const nearbySection = document.getElementById('nearbySection');
+    nearbySection.classList.add('show');
+    
+    const salonsGrid = document.getElementById('nearbySalonsGrid');
+    
+    const nearbySalons = [
+      {
+        name: 'Glow & Glam Studio',
+        city: 'Bangalore',
+        distance: '0.8 km',
+        rating: 4.9,
+        price: '₹499',
+        tag: 'Premium',
+        color: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        icon: 'fa-spa'
+      },
+      {
+        name: 'The Hair Lounge',
+        city: 'Bangalore',
+        distance: '1.2 km',
+        rating: 4.8,
+        price: '₹699',
+        tag: 'Trending',
+        color: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+        icon: 'fa-cut'
+      },
+      {
+        name: 'Serenity Spa',
+        city: 'Bangalore',
+        distance: '2.1 km',
+        rating: 4.9,
+        price: '₹1,299',
+        tag: 'Luxury',
+        color: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+        icon: 'fa-hand-sparkles'
+      },
+      {
+        name: 'Makeup & More',
+        city: 'Bangalore',
+        distance: '3.5 km',
+        rating: 4.7,
+        price: '₹399',
+        tag: 'Offer',
+        color: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)',
+        icon: 'fa-paint-brush'
+      }
+    ];
+
+    salonsGrid.innerHTML = nearbySalons.map(salon => `
+      <a href="#" class="destination-card">
+        <div class="card-image" style="background: ${salon.color};">
+          <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: rgba(255,255,255,0.3);">
+            <i class="fas ${salon.icon}"></i>
+          </div>
+          <span class="badge-tag ${salon.tag === 'Offer' ? 'distance' : ''}">${salon.tag}</span>
+          <div class="rating-badge"><i class="fas fa-star"></i> ${salon.rating}</div>
+          <div class="distance-badge"><i class="fas fa-walking"></i> ${salon.distance}</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${salon.name}</div>
+          <div class="card-location"><i class="fas fa-map-marker-alt"></i> ${salon.city}</div>
+          <div class="card-price">
+            <span class="price">${salon.price} <small>starting</small></span>
+            <span class="book-now">Book Now</span>
+          </div>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  function skipLocation() {
+    localStorage.setItem('locationAllowed', 'false');
+    hideLocationOverlay();
+    document.getElementById('citySearchInput').focus();
+    document.getElementById('citySearchInput').placeholder = 'Enter your city...';
+  }
+
+  function showCitySelection() {
+    hideLocationOverlay();
+    document.getElementById('citySearchInput').focus();
+    document.getElementById('citySearchInput').placeholder = 'Enter your city...';
+  }
+
+  // ============ AI CHATBOT ============
+  const chatbotToggle = document.getElementById('chatbotToggle');
+  const chatbotWindow = document.getElementById('chatbotWindow');
+  const chatbotClose = document.getElementById('chatbotClose');
+  const chatbotInput = document.getElementById('chatbotInput');
+  const chatbotSend = document.getElementById('chatbotSend');
+  const chatbotMessages = document.getElementById('chatbotMessages');
+
+  // Chatbot responses
+  const botResponses = {
+    'hello': 'Hello! 👋 How can I help you with your beauty booking today?',
+    'hi': 'Hi there! 👋 Ready to find your perfect glow?',
+    'help': 'I can help you with:\n• Finding salons near you\n• Booking appointments\n• Checking availability\n• Answering questions about services\n\nWhat would you like to know?',
+    'salon': 'To find salons near you, you can:\n1. Allow location access\n2. Search for your city in the search bar\n3. Browse our featured salons\n\nWould you like me to help you find a salon?',
+    'book': 'Booking is easy! Just:\n1. Find your preferred salon\n2. Select your service\n3. Choose a date and time\n4. Confirm your booking\n\nNeed help with anything specific?',
+    'price': 'Our salons offer services starting from ₹399. Premium services range from ₹999-₹2,499. Would you like me to find salons in your budget?',
+    'offer': '🎉 We have special offers on:\n• First-time bookings: 20% off\n• Weekend spa packages\n• Wedding makeup deals\n\nCheck the "Offers" tab for more!',
+    'default': 'That\'s a great question! Let me help you with that. Could you please tell me more about what you\'re looking for?'
+  };
+
+  function getBotResponse(message) {
+    const msg = message.toLowerCase();
+    if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+      return botResponses.hello;
+    } else if (msg.includes('help')) {
+      return botResponses.help;
+    } else if (msg.includes('salon') || msg.includes('find') || msg.includes('near')) {
+      return botResponses.salon;
+    } else if (msg.includes('book') || msg.includes('appointment')) {
+      return botResponses.book;
+    } else if (msg.includes('price') || msg.includes('cost') || msg.includes('budget') || msg.includes('₹')) {
+      return botResponses.price;
+    } else if (msg.includes('offer') || msg.includes('deal') || msg.includes('discount')) {
+      return botResponses.offer;
     } else {
-      window.location.href = '#cityGrid';
+      return botResponses.default;
     }
   }
 
-  // Auth State
+  function addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    messageDiv.appendChild(bubble);
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  function addTypingIndicator() {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = 'message bot';
+    messageDiv.id = 'typingIndicator';
+    const bubble = document.createElement('div');
+    bubble.className = 'bubble';
+    bubble.innerHTML = `
+      <div class="typing-dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    `;
+    messageDiv.appendChild(bubble);
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  function removeTypingIndicator() {
+    const indicator = document.getElementById('typingIndicator');
+    if (indicator) indicator.remove();
+  }
+
+  function handleSendMessage() {
+    const message = chatbotInput.value.trim();
+    if (!message) return;
+
+    addMessage(message, 'user');
+    chatbotInput.value = '';
+    chatbotSend.disabled = true;
+
+    addTypingIndicator();
+
+    setTimeout(() => {
+      removeTypingIndicator();
+      const response = getBotResponse(message);
+      addMessage(response, 'bot');
+      chatbotSend.disabled = false;
+    }, 1000 + Math.random() * 1000);
+  }
+
+  chatbotToggle.addEventListener('click', () => {
+    chatbotWindow.classList.toggle('open');
+  });
+
+  chatbotClose.addEventListener('click', () => {
+    chatbotWindow.classList.remove('open');
+  });
+
+  chatbotSend.addEventListener('click', handleSendMessage);
+
+  chatbotInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage();
+    }
+  });
+
+  // ============ ADMIN PANEL LINK ============
+  function handleAdminClick(e) {
+    e.preventDefault();
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      window.location.href = 'admin-panel.html';
+    } else {
+      alert('Please login to access the admin panel');
+      window.location.href = 'admin-login.html';
+    }
+  }
+
+  document.querySelectorAll('#adminLink, #adminLinkFooter').forEach(link => {
+    link.addEventListener('click', handleAdminClick);
+  });
+
+  // ============ EVENT LISTENERS ============
   document.addEventListener('DOMContentLoaded', () => {
+    if (!checkLocationPermission()) {
+      setTimeout(showLocationOverlay, 800);
+    }
+    
     const user = JSON.parse(localStorage.getItem('user'));
     const loginLink = document.getElementById('loginLink');
     const registerLink = document.getElementById('registerLink');
@@ -1093,12 +1917,62 @@
     }
   });
 
+  document.getElementById('useLocationBtn').addEventListener('click', () => {
+    if (userLocation) {
+      showNearbySalons(userLocation);
+    } else {
+      getLocation();
+    }
+  });
+
+  document.getElementById('allowLocationBtn').addEventListener('click', getLocation);
+  document.getElementById('skipLocationBtn').addEventListener('click', skipLocation);
+
+  // ============ SEARCH ============
+  function handleSearch(e) {
+    e.preventDefault();
+    const city = document.getElementById('citySearchInput').value;
+    if(city) {
+      window.location.href = 'salons.html?city=' + encodeURIComponent(city);
+    } else {
+      if (userLocation) {
+        showNearbySalons(userLocation);
+      } else {
+        document.getElementById('citySearchInput').focus();
+        document.getElementById('citySearchInput').placeholder = 'Please enter a city...';
+        document.getElementById('citySearchInput').style.borderColor = '#DC3545';
+        setTimeout(() => {
+          document.getElementById('citySearchInput').style.borderColor = '';
+          document.getElementById('citySearchInput').placeholder = 'Search for a city...';
+        }, 3000);
+      }
+    }
+  }
+
+  // ============ SEARCH TABS ============
+  document.querySelectorAll('.search-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+      document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+
+  // ============ MOBILE MENU ============
+  const toggler = document.getElementById('mobileMenuToggler');
+  const navbarCollapse = document.getElementById('navbarNav');
+  if(toggler) {
+    toggler.addEventListener('click', () => {
+      navbarCollapse.classList.toggle('show');
+    });
+  }
+
+  // ============ LOGOUT ============
   window.logout = function() {
     localStorage.removeItem('user');
     window.location.href = 'index.html';
   };
 
-  // Fetch Stats
+  // ============ FETCH STATS ============
   async function fetchStats() {
     try {
       const res = await fetch('https://salon-booking-backend-vsaz.onrender.com/api/stats');
@@ -1108,7 +1982,7 @@
   }
   fetchStats();
 
-  // Navbar Scroll
+  // ============ NAVBAR SCROLL ============
   window.addEventListener('scroll', () => {
     const navbar = document.querySelector('.navbar');
     if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 30);

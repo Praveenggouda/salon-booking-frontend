@@ -1114,7 +1114,25 @@
 </head>
 <body>
 
-
+<!-- ============ LOCATION PERMISSION OVERLAY ============ -->
+<div class="location-overlay" id="locationOverlay">
+  <div class="location-modal">
+    <span class="location-icon">
+      <span class="pulse-ring">
+        <i class="fas fa-map-marker-alt"></i>
+      </span>
+    </span>
+    <h2>Find Salons Near You</h2>
+    <p>Allow GlowBook to access your location to discover the best salons and services in your area. Your privacy matters to us.</p>
+    <div class="btn-group">
+      <button class="btn-allow" id="allowLocationBtn">
+        <i class="fas fa-location-dot"></i> Allow Location
+      </button>
+      <button class="btn-skip" id="skipLocationBtn">Skip for now</button>
+    </div>
+    <div class="location-status" id="locationStatus"></div>
+  </div>
+</div>
 
 <!-- ============ AI CHATBOT ============ -->
 <button class="chatbot-toggle" id="chatbotToggle">
@@ -1204,14 +1222,80 @@
   </div>
 </nav>
 
-
-      
-      
- 
+<!-- ============ HERO WITH SEARCH ============ -->
+<section class="hero-booking">
+  <div class="container">
+    <h1 data-aos="fade-up">Find Your Perfect <span style="color: var(--accent-orange);">Glow</span></h1>
+    <p class="subtitle" data-aos="fade-up" data-aos-delay="100">Book premium beauty services at the best salons near you</p>
     
+    <!-- Search Bar -->
+    <div class="booking-search" data-aos="fade-up" data-aos-delay="200">
+      <div class="search-tabs">
+        <button class="search-tab active"><i class="fas fa-spa"></i> Salons</button>
+        <button class="search-tab"><i class="fas fa-user"></i> Stylists</button>
+        <button class="search-tab"><i class="fas fa-gift"></i> Offers</button>
+      </div>
+      
+      <form class="search-fields" id="searchForm">
+        <div class="field-group">
+          <label><i class="fas fa-map-marker-alt" style="color: var(--accent);"></i> City / Location</label>
+          <input type="text" class="field-input" id="citySearchInput" placeholder="Search for a city..." />
+          <button type="button" class="location-btn" id="useLocationBtn" title="Use my location">
+            <i class="fas fa-crosshairs"></i>
+          </button>
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-calendar-alt" style="color: var(--accent);"></i> Date</label>
+          <input type="text" class="field-input" placeholder="Select date" value="Today, 12 Jul" />
+          <i class="fas fa-calendar-alt field-icon"></i>
+        </div>
+        <div class="field-group">
+          <label><i class="fas fa-users" style="color: var(--accent);"></i> Guests</label>
+          <input type="text" class="field-input" placeholder="1 person" />
+          <i class="fas fa-chevron-down field-icon"></i>
+        </div>
+        <button type="submit" class="btn-search" onclick="handleSearch(event)">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </form>
+    </div>
+    
+    <!-- Quick Filters -->
+    <div class="quick-filters" data-aos="fade-up" data-aos-delay="300">
+      <a href="#" class="quick-filter"><i class="fas fa-cut"></i> Hair</a>
+      <a href="#" class="quick-filter"><i class="fas fa-paint-brush"></i> Makeup</a>
+      <a href="#" class="quick-filter"><i class="fas fa-hand-sparkles"></i> Spa</a>
+      <a href="#" class="quick-filter"><i class="fas fa-smile"></i> Facial</a>
+      <a href="#" class="quick-filter"><i class="fas fa-hand"></i> Nails</a>
+      <a href="#" class="quick-filter"><i class="fas fa-gem"></i> Premium</a>
+    </div>
+  </div>
+</section>
 
-
-
+<!-- ============ NEARBY SALONS SECTION ============ -->
+<section class="container nearby-section" id="nearbySection">
+  <div class="nearby-banner">
+    <div class="nearby-info">
+      <i class="fas fa-location-dot"></i>
+      <div>
+        <div class="city-name" id="nearbyCity">Finding your location...</div>
+        <div class="distance-text" id="nearbyDistance">Showing salons near you</div>
+      </div>
+    </div>
+    <button class="btn-refresh" onclick="getLocation()">
+      <i class="fas fa-rotate"></i> Refresh
+    </button>
+  </div>
+  
+  <div class="section-header">
+    <h2>Nearby Salons</h2>
+    <a href="#" class="view-all">View All <i class="fas fa-arrow-right"></i></a>
+  </div>
+  
+  <div class="destination-grid" id="nearbySalonsGrid">
+    <!-- Nearby salons will be injected here -->
+  </div>
+</section>
 
 
 
